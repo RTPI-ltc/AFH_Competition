@@ -8,3 +8,4 @@ data/knowledge.json
 data/projects.json
 .workbuddy/
 *.bat
+.codebuddy/

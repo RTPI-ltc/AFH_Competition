@@ -1,0 +1,12 @@
+{
+  "default": {
+    "id": "default",
+    "name": "默认项目",
+    "created_at": "2026-05-23T14:54:27.777088"
+  },
+  "proj_debdfc97": {
+    "id": "proj_debdfc97",
+    "name": "testproj",
+    "created_at": "2026-05-23T15:00:25.743189"
+  }
+}

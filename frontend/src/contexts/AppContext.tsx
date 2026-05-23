@@ -101,6 +101,7 @@ interface AppContextType {
   selectTask: (taskId: string) => Promise<void>;
   deleteTaskHistory: (taskId: string) => Promise<void>;
   uploadNewKnowledge: (name: string, content: string) => Promise<void>;
+  deleteKnowledgeItem: (id: string) => Promise<void>;
   renameTask: (taskId: string, name: string) => Promise<void>;
   renameProject: (projectId: string, name: string) => Promise<void>;
 }
@@ -309,6 +310,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [loadKnowledge],
   );
 
+  const deleteKnowledgeItem = useCallback(
+    async (id: string) => {
+      await api.deleteKnowledge(id);
+      await loadKnowledge();
+    },
+    [loadKnowledge],
+  );
+
   const renameTask = useCallback(
     async (taskId: string, name: string) => {
       await api.renameTask(taskId, name);
@@ -340,6 +349,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         selectTask,
         deleteTaskHistory,
         uploadNewKnowledge,
+        deleteKnowledgeItem,
         renameTask,
         renameProject,
       }}

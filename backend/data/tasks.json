@@ -1,0 +1,230 @@
+{
+  "task_cfd0a7ac13fb": {
+    "task_id": "task_cfd0a7ac13fb",
+    "title": "新任务",
+    "created_at": "2026-05-23T13:24:23.520323",
+    "messages": []
+  },
+  "task_7e489a6b5843": {
+    "task_id": "task_7e489a6b5843",
+    "title": "天猫618大促选品规则\n1.参与商品必须满足：近30天销量≥...",
+    "created_at": "2026-05-23T13:39:40.319747",
+    "messages": [
+      {
+        "role": "user",
+        "content": "天猫618大促选品规则\n1.参与商品必须满足：近30天销量≥100件；好评率≥95%；库存≥500件。\n2.价格要求：活动价不得高于近30天最低价；折扣力度≥7折。\n3.品类限制：黄金类自单店最多5个SKU；钻石类自单店最多10个SKU。\n4.互斥规则：已参加“品牌日”活动的商品不可重复报名。",
+        "timestamp": "2026-05-23T13:44:38.203828"
+      },
+      {
+        "role": "user",
+        "content": "天猫618大促选品规则\n1.参与商品必须满足：近30天销量≥100件；好评率≥95%；库存≥500件。\n2.价格要求：活动价不得高于近30天最低价；折扣力度≥7折。\n3.品类限制：黄金类自单店最多5个SKU；钻石类自单店最多10个SKU。\n4.互斥规则：已参加“品牌日”活动的商品不可重复报名。",
+        "timestamp": "2026-05-23T14:02:23.605103"
+      },
+      {
+        "role": "user",
+        "content": "有没有推荐商品",
+        "timestamp": "2026-05-23T14:02:55.115605"
+      }
+    ]
+  },
+  "task_89fa5b7aba64": {
+    "task_id": "task_89fa5b7aba64",
+    "title": "新任务",
+    "created_at": "2026-05-23T13:48:53.575411",
+    "messages": []
+  },
+  "task_68c532c7876a": {
+    "task_id": "task_68c532c7876a",
+    "title": "天猫618大促选品规则：参与商品近30天销量≥100件，好评...",
+    "created_at": "2026-05-23T14:32:15.165065",
+    "messages": [
+      {
+        "role": "user",
+        "content": "天猫618大促选品规则：参与商品近30天销量≥100件，好评率≥95%，库存≥500件",
+        "timestamp": "2026-05-23T14:32:15.505774"
+      },
+      {
+        "role": "user",
+        "content": "是，是，前者",
+        "timestamp": "2026-05-23T14:32:37.269222"
+      },
+      {
+        "role": "user",
+        "content": "天猫618大促选品规则\n1.参与商品必须满足：近30天销量≥100件；好评率≥95%；库存≥500件。\n2.价格要求：活动价不得高于近30天最低价；折扣力度≥7折。\n3.品类限制：黄金类自单店最多5个SKU；钻石类自单店最多10个SKU。\n4.互斥规则：已参加“品牌日”活动的商品不可重复报名。\n\n给出推荐商品",
+        "timestamp": "2026-05-23T14:33:05.204245"
+      },
+      {
+        "role": "user",
+        "content": "天猫618大促选品规则\n1.参与商品必须满足：近30天销量≥100件；好评率≥95%；库存≥500件。\n2.价格要求：活动价不得高于近30天最低价；折扣力度≥7折。\n3.品类限制：黄金类自单店最多5个SKU；钻石类自单店最多10个SKU。\n4.互斥规则：已参加“品牌日”活动的商品不可重复报名。",
+        "timestamp": "2026-05-23T14:36:51.854176"
+      }
+    ]
+  },
+  "task_fdd08c972658": {
+    "task_id": "task_fdd08c972658",
+    "title": "新任务",
+    "created_at": "2026-05-23T14:38:38.437761",
+    "messages": []
+  },
+  "task_4eddadb584f0": {
+    "task_id": "task_4eddadb584f0",
+    "title": "天猫618大促选品规则：参与商品近30天销量≥100件，好评...",
+    "created_at": "2026-05-23T14:40:17.759509",
+    "messages": [
+      {
+        "role": "user",
+        "content": "天猫618大促选品规则：参与商品近30天销量≥100件，好评率≥95%，库存≥500件",
+        "timestamp": "2026-05-23T14:46:49.089481"
+      },
+      {
+        "role": "agent",
+        "content": "{\n  \"summary\": \"天猫618大促选品需满足销量、好评率和库存三项基本条件。\",\n  \"checklist\": [\n    {\n      \"condition\": \"近30天销量≥100件\",\n      \"priority\": \"high\",\n      \"detail\": \"商品近30天累计销量须≥100件\"\n    },\n    {\n      \"condition\": \"好评率≥95%\",\n      \"priority\": \"high\",\n      \"detail\": \"商品好评率须≥95%\"\n    },\n    {\n      \"condition\": \"库存≥500件\",\n      \"priority\": \"high\",\n      \"detail\": \"商品当前库存须≥500件\"\n    }\n  ],\n  \"risks\": [\n    {\n      \"description\": \"销量或库存数据可能因时间窗口波动，需在活动前确认实时数据达标\",\n      \"severity\": \"high\"\n    },\n    {\n      \"description\": \"好评率计算口径（如仅含确认收货订单）不明确，可能导致数据差异\",\n      \"severity\": \"medium\"\n    }\n  ],\n  \"needs_clarification\": [\n    \"近30天销量的统计截止时间点？\",\n    \"好评率计算是否排除默认好评或已删除评价？\",\n    \"库存是否指活动期间可售库存，是否包含预售或占用库存？\"\n  ]\n}",
+        "timestamp": "2026-05-23T14:46:52.740075",
+        "metadata": {
+          "checklist": [
+            {
+              "condition": "近30天销量≥100件",
+              "priority": "high",
+              "detail": "商品近30天累计销量须≥100件"
+            },
+            {
+              "condition": "好评率≥95%",
+              "priority": "high",
+              "detail": "商品好评率须≥95%"
+            },
+            {
+              "condition": "库存≥500件",
+              "priority": "high",
+              "detail": "商品当前库存须≥500件"
+            }
+          ],
+          "risks": [
+            {
+              "description": "销量或库存数据可能因时间窗口波动，需在活动前确认实时数据达标",
+              "severity": "high"
+            },
+            {
+              "description": "好评率计算口径（如仅含确认收货订单）不明确，可能导致数据差异",
+              "severity": "medium"
+            }
+          ],
+          "needs_clarification": [
+            "近30天销量的统计截止时间点？",
+            "好评率计算是否排除默认好评或已删除评价？",
+            "库存是否指活动期间可售库存，是否包含预售或占用库存？"
+          ]
+        }
+      }
+    ]
+  },
+  "task_83414af19555": {
+    "task_id": "task_83414af19555",
+    "title": "test user msg",
+    "created_at": "2026-05-23T14:45:25.518357",
+    "messages": [
+      {
+        "role": "user",
+        "content": "test user msg",
+        "timestamp": "2026-05-23T14:45:25.944758"
+      },
+      {
+        "role": "agent",
+        "content": "test reply",
+        "timestamp": "2026-05-23T14:45:33.802641",
+        "metadata": {
+          "checklist": [
+            {
+              "condition": "sales100",
+              "priority": "high"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "task_b4976619214f": {
+    "task_id": "task_b4976619214f",
+    "title": "1",
+    "created_at": "2026-05-23T14:54:27.778004",
+    "messages": [],
+    "project_id": "default"
+  },
+  "task_5903b1eead63": {
+    "task_id": "task_5903b1eead63",
+    "title": "推荐商品",
+    "created_at": "2026-05-23T15:02:09.677953",
+    "messages": [
+      {
+        "role": "user",
+        "content": "推荐商品",
+        "timestamp": "2026-05-23T15:02:18.391818"
+      },
+      {
+        "role": "agent",
+        "content": "{\n  \"summary\": \"从符合天猫618大促基础条件的商品中，筛选出满足销量、评价、库存、价格及品类限制，且未参与品牌日活动的推荐商品。\",\n  \"checklist\": [\n    {\n      \"condition\": \"商品近30天销量≥100件\",\n      \"priority\": \"high\",\n      \"detail\": \"销量≥100\"\n    },\n    {\n      \"condition\": \"商品好评率≥95%\",\n      \"priority\": \"high\",\n      \"detail\": \"好评率≥95%\"\n    },\n    {\n      \"condition\": \"商品库存≥500件\",\n      \"priority\": \"high\",\n      \"detail\": \"库存≥500\"\n    },\n    {\n      \"condition\": \"活动价不得高于近30天最低价\",\n      \"priority\": \"high\",\n      \"detail\": \"活动价 ≤ 近30天最低价\"\n    },\n    {\n      \"condition\": \"折扣力度≥7折\",\n      \"priority\": \"high\",\n      \"detail\": \"折扣力度≥7折（即活动价/标价 ≤ 0.7）\"\n    },\n    {\n      \"condition\": \"黄金类商品单店最多5个SKU\",\n      \"priority\": \"high\",\n      \"detail\": \"黄金类SKU数量≤5\"\n    },\n    {\n      \"condition\": \"钻石类商品单店最多10个SKU\",\n      \"priority\": \"high\",\n      \"detail\": \"钻石类SKU数量≤10\"\n    },\n    {\n      \"condition\": \"已参加'品牌日'活动的商品不可重复报名\",\n      \"priority\": \"high\",\n      \"detail\": \"该商品未报名品牌日活动\"\n    }\n  ],\n  \"risks\": [\n    {\n      \"description\": \"若推荐商品包含黄金或钻石品类，SKU数量可能超出限制（黄金≤5、钻石≤10），导致部分商品无法参与活动。\",\n      \"severity\": \"high\"\n    },\n    {\n      \"description\": \"商品可能已参加品牌日活动但未被标注，导致重复报名失败。\",\n      \"severity\": \"medium\"\n    }\n  ],\n  \"needs_clarification\": [\n    \"请提供候选商品的详细列表，包括近30天销量、好评率、库存数量、价格信息以及品类（是否黄金/钻石）。\",\n    \"请确认候选商品是否已经报名品牌日活动。\",\n    \"若候选商品包含黄金或钻石品类，请说明当前各店已有该类商品报名的SKU数量。\",\n    \"请提供商品近30天最低价，以便核算活动价是否符合要求。\"\n  ]\n}",
+        "timestamp": "2026-05-23T15:02:23.537809",
+        "metadata": {
+          "checklist": [
+            {
+              "condition": "商品近30天销量≥100件",
+              "priority": "high",
+              "detail": "销量≥100"
+            },
+            {
+              "condition": "商品好评率≥95%",
+              "priority": "high",
+              "detail": "好评率≥95%"
+            },
+            {
+              "condition": "商品库存≥500件",
+              "priority": "high",
+              "detail": "库存≥500"
+            },
+            {
+              "condition": "活动价不得高于近30天最低价",
+              "priority": "high",
+              "detail": "活动价 ≤ 近30天最低价"
+            },
+            {
+              "condition": "折扣力度≥7折",
+              "priority": "high",
+              "detail": "折扣力度≥7折（即活动价/标价 ≤ 0.7）"
+            },
+            {
+              "condition": "黄金类商品单店最多5个SKU",
+              "priority": "high",
+              "detail": "黄金类SKU数量≤5"
+            },
+            {
+              "condition": "钻石类商品单店最多10个SKU",
+              "priority": "high",
+              "detail": "钻石类SKU数量≤10"
+            },
+            {
+              "condition": "已参加'品牌日'活动的商品不可重复报名",
+              "priority": "high",
+              "detail": "该商品未报名品牌日活动"
+            }
+          ],
+          "risks": [
+            {
+              "description": "若推荐商品包含黄金或钻石品类，SKU数量可能超出限制（黄金≤5、钻石≤10），导致部分商品无法参与活动。",
+              "severity": "high"
+            },
+            {
+              "description": "商品可能已参加品牌日活动但未被标注，导致重复报名失败。",
+              "severity": "medium"
+            }
+          ],
+          "needs_clarification": [
+            "请提供候选商品的详细列表，包括近30天销量、好评率、库存数量、价格信息以及品类（是否黄金/钻石）。",
+            "请确认候选商品是否已经报名品牌日活动。",
+            "若候选商品包含黄金或钻石品类，请说明当前各店已有该类商品报名的SKU数量。",
+            "请提供商品近30天最低价，以便核算活动价是否符合要求。"
+          ]
+        }
+      }
+    ],
+    "project_id": "proj_debdfc97"
+  }
+}

@@ -201,3 +201,60 @@ async def summarize_task_messages(messages: list[dict]) -> dict:
         data = resp.json()
         text = data["choices"][0]["message"]["content"]
         return _parse_agent_response(text)
+
+
+PROJECT_SUMMARIZE_PROMPT = """你是一个项目汇总助手。根据以下项目中所有子对话记录，生成项目级别的综合汇总。
+
+请提取：
+1. 项目讨论的所有活动规则要点
+2. AI推荐的所有商品/品类（去重）
+3. 关键检查项及其总体状态
+4. 所有风险点（去重）
+
+输出JSON格式：
+{
+  "title": "项目汇总标题",
+  "rule_points": ["规则1", "规则2"],
+  "recommendations": [{"item": "商品/品类名", "reason": "推荐理由"}],
+  "checks": [{"name": "检查项", "status": "通过/需关注"}],
+  "risks": ["风险1", "风险2"]
+}
+只输出JSON。"""
+
+
+async def summarize_project_tasks(messages: list[dict], task_count: int) -> dict:
+    """Summarize all tasks in a project."""
+    conversation = f"该项目包含 {task_count} 个对话任务。\n"
+    for i, msg in enumerate(messages):
+        role = "用户" if msg["role"] == "user" else "Agent"
+        content = msg.get("content", "")
+        meta = msg.get("metadata", {})
+        if meta.get("checklist"):
+            items = [c.get("condition", "") for c in meta["checklist"]]
+            content += "\n[检查清单: " + "; ".join(items) + "]"
+        if meta.get("risks"):
+            items = [r.get("description", "") for r in meta["risks"]]
+            content += "\n[风险: " + "; ".join(items) + "]"
+        conversation += f"{role}: {content}\n"
+        if len(conversation) > 12000:
+            conversation += "...(内容截断)"
+            break
+
+    payload = {
+        "model": LLM_MODEL,
+        "messages": [
+            {"role": "system", "content": PROJECT_SUMMARIZE_PROMPT},
+            {"role": "user", "content": conversation},
+        ],
+        "temperature": 0.3,
+    }
+    headers = {
+        "Authorization": f"Bearer {LLM_API_KEY}",
+        "Content-Type": "application/json",
+    }
+    async with httpx.AsyncClient(timeout=120.0) as client:
+        resp = await client.post(f"{LLM_BASE_URL}/chat/completions", json=payload, headers=headers)
+        resp.raise_for_status()
+        data = resp.json()
+        text = data["choices"][0]["message"]["content"]
+        return _parse_agent_response(text)
