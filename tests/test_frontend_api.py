@@ -65,6 +65,9 @@ def test_frontend_task_history_and_stream_chat(tmp_path, monkeypatch):
     project = client.post("/api/projects?name=前端联调项目").json()
     task = client.post(f"/api/task/new?project_id={project['id']}").json()
     assert task["project_id"] == project["id"]
+    immediate_history = client.get(f"/api/history?project_id={project['id']}").json()
+    assert immediate_history[0]["task_id"] == task["task_id"]
+    assert immediate_history[0]["title"] == "新任务"
 
     stream = client.post(
         "/api/chat/stream",
@@ -80,6 +83,7 @@ def test_frontend_task_history_and_stream_chat(tmp_path, monkeypatch):
 
     history = client.get(f"/api/history?project_id={project['id']}").json()
     assert history[0]["task_id"] == task["task_id"]
+    assert history[0]["title"] == "把足金测试吊坠加入上架清单"
 
     os.environ.pop("AFH_DB_PATH", None)
     os.environ.pop("AFH_DISABLE_LLM", None)
@@ -168,6 +172,14 @@ def test_frontend_recommendation_flow_waits_for_confirmation(tmp_path, monkeypat
     assert listing_after["items"]
     assert {item["status"] for item in listing_after["items"]} == {"拟上架"}
 
+    summary = client.post(f"/api/projects/{project['id']}/summarize").json()
+    assert summary["final_selection"]
+    assert summary["final_selection"][0]["product_name"] == "5G黄金小蛮腰耳钉1.2g"
+    assert summary["selection_reasons"]
+    assert summary["attention_items"]
+    assert summary["confirmed_listing"]
+    assert summary["confirmed_listing"][0]["status"] == "拟上架"
+
     os.environ.pop("AFH_DB_PATH", None)
     os.environ.pop("AFH_DISABLE_LLM", None)
 
@@ -230,6 +242,47 @@ def test_frontend_knowledge_upload_accepts_multimodal_files(tmp_path, monkeypatc
     item = next(item for item in personal if item["id"] == knowledge_id)
     assert item["file_type"] == "multimodal"
     assert "多模态素材" in item["description"]
+
+    os.environ.pop("AFH_DB_PATH", None)
+    os.environ.pop("AFH_DISABLE_LLM", None)
+
+
+def test_frontend_knowledge_upload_extracts_pdf_text(tmp_path, monkeypatch):
+    client = _client(tmp_path, monkeypatch)
+    pdf = b"""%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /Resources << /Font << /F1 4 0 R >> >> /MediaBox [0 0 612 792] /Contents 5 0 R >> endobj
+4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+5 0 obj << /Length 44 >> stream
+BT /F1 24 Tf 100 700 Td (PDF upload text) Tj ET
+endstream endobj
+xref
+0 6
+0000000000 65535 f
+0000000009 00000 n
+0000000058 00000 n
+0000000115 00000 n
+0000000241 00000 n
+0000000311 00000 n
+trailer << /Root 1 0 R /Size 6 >>
+startxref
+405
+%%EOF
+"""
+
+    response = client.post(
+        "/api/knowledge/upload",
+        data={"name": "PDF规则", "content": ""},
+        files={"files": ("rules.pdf", pdf, "application/pdf")},
+    )
+    assert response.status_code == 200
+    knowledge_id = response.json()["id"]
+
+    assert knowledge_id
+    item = next(item for item in client.get("/api/knowledge/personal").json() if item["id"] == knowledge_id)
+    assert item["file_type"] == "multimodal"
+    assert "已抽取文本" in item["description"]
 
     os.environ.pop("AFH_DB_PATH", None)
     os.environ.pop("AFH_DISABLE_LLM", None)

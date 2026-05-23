@@ -42,3 +42,17 @@ def test_llm_timeout_and_max_tokens_are_configurable(monkeypatch, tmp_path):
 
     assert llm.get_timeout_seconds() == 60
     assert llm.get_max_tokens() == 1024
+
+
+def test_parse_llm_json_extracts_object_from_wrapped_response():
+    parsed = llm.parse_llm_json(
+        """
+        下面是结果：
+        {
+          "reply": "已启用赠品组件。",
+          "actions": []
+        }
+        """
+    )
+
+    assert parsed["reply"] == "已启用赠品组件。"

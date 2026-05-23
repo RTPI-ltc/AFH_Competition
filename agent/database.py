@@ -278,6 +278,21 @@ def create_conversation(project_id: str, title: str | None = None) -> str:
     return conversation_id
 
 
+def update_conversation_title(conversation_id: str, title: str) -> None:
+    clean_title = title.strip()[:120] or "未命名任务"
+    with connect() as conn:
+        row = conn.execute(
+            "SELECT project_id FROM conversations WHERE id = ?",
+            (conversation_id,),
+        ).fetchone()
+        conn.execute(
+            "UPDATE conversations SET title = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
+            (clean_title, conversation_id),
+        )
+    if row:
+        touch_project(row["project_id"])
+
+
 def list_conversations(project_id: str) -> list[dict[str, Any]]:
     init_db()
     with connect() as conn:

@@ -96,6 +96,32 @@ def test_project_conversation_listing_and_chat_uses_model_actions(tmp_path, monk
     os.environ.pop("AFH_DB_PATH", None)
 
 
+def test_chat_extracts_reply_when_model_returns_broken_json(tmp_path, monkeypatch):
+    db_path = tmp_path / "broken_model_json.db"
+    os.environ["AFH_DB_PATH"] = str(db_path)
+    os.environ["AFH_DISABLE_LLM"] = "1"
+
+    database.init_db()
+    project_id = database.create_project("赠品项目")
+    conversation_id = database.create_conversation(project_id, "赠品讨论")
+
+    monkeypatch.setattr(chat, "llm_available", lambda: True)
+    monkeypatch.setattr(
+        chat,
+        "call_llm",
+        lambda system, user: '{"reply": "已启用925银转运珠手链作为赠品组件。", "recommendations": [',
+    )
+
+    result = chat.handle_chat(project_id, conversation_id, "启用，作为赠品组件")
+
+    assert result["reply"] == "已启用925银转运珠手链作为赠品组件。"
+    assert "recommendations" not in result["reply"]
+    assert "{" not in result["reply"]
+
+    os.environ.pop("AFH_DB_PATH", None)
+    os.environ.pop("AFH_DISABLE_LLM", None)
+
+
 def test_catalog_product_crud_auto_code(tmp_path):
     db_path = tmp_path / "catalog.db"
     os.environ["AFH_DB_PATH"] = str(db_path)

@@ -18,7 +18,8 @@ type Action =
   | { type: 'RESET_CHAT' }
   | { type: 'SET_ERROR'; error: string | null }
   | { type: 'SET_PROJECTS'; projects: ProjectItem[] }
-  | { type: 'SET_CURRENT_PROJECT'; projectId: string };
+  | { type: 'SET_CURRENT_PROJECT'; projectId: string }
+  | { type: 'UPSERT_HISTORY_ITEM'; item: HistoryItem };
 
 const initialState: AppState = {
   currentTaskId: null,
@@ -81,6 +82,10 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, projects: action.projects };
     case 'SET_CURRENT_PROJECT':
       return { ...state, currentProjectId: action.projectId };
+    case 'UPSERT_HISTORY_ITEM': {
+      const rest = state.history.filter((item) => item.task_id !== action.item.task_id);
+      return { ...state, history: [action.item, ...rest] };
+    }
     case 'RESET_CHAT':
       return { ...state, messages: [], streamingText: '', isLoading: false, currentTaskId: null };
     default:
@@ -123,6 +128,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
         dispatch({ type: 'SET_CURRENT_PROJECT', projectId: result.project_id });
       }
       dispatch({ type: 'SET_CURRENT_TASK', taskId: result.task_id });
+      dispatch({
+        type: 'UPSERT_HISTORY_ITEM',
+        item: {
+          task_id: result.task_id,
+          title: '新任务',
+          created_at: result.created_at || new Date().toISOString(),
+          message_count: 0,
+          project_id: result.project_id || state.currentProjectId,
+        },
+      });
       const history = await api.getHistory(result.project_id || state.currentProjectId);
       dispatch({ type: 'SET_HISTORY', history });
     } catch (err) {
@@ -202,6 +217,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
             dispatch({ type: 'SET_CURRENT_PROJECT', projectId: result.project_id });
           }
           dispatch({ type: 'SET_CURRENT_TASK', taskId: result.task_id });
+          dispatch({
+            type: 'UPSERT_HISTORY_ITEM',
+            item: {
+              task_id: result.task_id,
+              title: message.trim().slice(0, 30) || '新任务',
+              created_at: result.created_at || new Date().toISOString(),
+              message_count: 1,
+              project_id: result.project_id || state.currentProjectId,
+            },
+          });
+        } else {
+          const current = state.history.find((item) => item.task_id === state.currentTaskId);
+          if (current && ["新任务", "新对话", "默认对话", "未命名任务"].includes(current.title)) {
+            dispatch({
+              type: 'UPSERT_HISTORY_ITEM',
+              item: {
+                ...current,
+                title: message.trim().slice(0, 30) || current.title,
+                message_count: Math.max(current.message_count, 1),
+              },
+            });
+          }
         }
 
         const taskId = state.currentTaskId || taskIdRef.current!;
@@ -307,7 +344,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         dispatch({ type: 'SET_LOADING', loading: false });
       }
     },
-    [state.currentProjectId, state.currentTaskId, state.selectedKnowledge, loadHistory],
+    [state.currentProjectId, state.currentTaskId, state.history, state.selectedKnowledge, loadHistory],
   );
 
   const selectTask = useCallback(async (taskId: string) => {

@@ -114,8 +114,23 @@ def call_llm(system: str, user: str) -> str:
 
 def parse_llm_json(raw_response: str) -> dict[str, Any]:
     text = raw_response.strip()
+    if text.startswith("json\n"):
+        text = text[5:].strip()
     if text.startswith("```"):
         text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
         if text.startswith("json"):
             text = text[4:].strip()
-    return json.loads(text)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        decoder = json.JSONDecoder()
+        for index, char in enumerate(text):
+            if char != "{":
+                continue
+            try:
+                parsed, _ = decoder.raw_decode(text[index:])
+            except json.JSONDecodeError:
+                continue
+            if isinstance(parsed, dict):
+                return parsed
+        raise

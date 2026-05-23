@@ -43,8 +43,13 @@ export async function saveMessage(taskId: string, role: string, content: string,
 
 export async function summarizeTask(taskId: string): Promise<{
   title: string;
+  overview?: string;
   rule_points: string[];
   recommendations: { item: string; reason: string }[];
+  final_selection?: SummarySelection[];
+  selection_reasons?: string[];
+  attention_items?: string[];
+  confirmed_listing?: SummaryListingItem[];
   checks: { name: string; status: string }[];
   risks: string[];
 }> {
@@ -53,12 +58,38 @@ export async function summarizeTask(taskId: string): Promise<{
 
 export async function summarizeProject(projectId: string): Promise<{
   title: string;
+  overview?: string;
   rule_points: string[];
   recommendations: { item: string; reason: string }[];
+  final_selection?: SummarySelection[];
+  selection_reasons?: string[];
+  attention_items?: string[];
+  confirmed_listing?: SummaryListingItem[];
   checks: { name: string; status: string }[];
   risks: string[];
 }> {
   return request(`/projects/${projectId}/summarize`, { method: 'POST' });
+}
+
+export interface SummarySelection {
+  sku_id: string;
+  product_name: string;
+  status: string;
+  category: string;
+  reason: string;
+  key_metrics?: {
+    stock?: number | null;
+    last_90d_sales?: number | null;
+    review_rate?: number | null;
+    return_rate?: number | null;
+  };
+}
+
+export interface SummaryListingItem {
+  sku_id: string;
+  product_name: string;
+  status: string;
+  notes: string;
 }
 
 /* Projects */
