@@ -11,7 +11,19 @@ export interface Message {
     recommendations?: RecommendationItem[];
     priority_analysis?: string[];
     confirmation?: ConfirmationRequest;
+    rag_chunks?: RagChunk[];
+    knowledge_ids?: string[];
   };
+}
+
+export interface RagChunk {
+  kb_id: string;
+  source_file: string;
+  score: number | null;
+  dense_score?: number | null;
+  bm25_score?: number | null;
+  rrf_score?: number | null;
+  snippet: string;
 }
 
 export interface CheckListItem {
@@ -68,9 +80,9 @@ export interface KnowledgeItem {
 }
 
 export interface StreamEvent {
-  type: 'text' | 'checklist' | 'risks' | 'clarification' | 'recommendations' | 'priority_analysis' | 'confirmation' | 'done';
+  type: 'text' | 'checklist' | 'risks' | 'clarification' | 'recommendations' | 'priority_analysis' | 'confirmation' | 'rag_chunks' | 'done';
   content?: string;
-  items?: CheckListItem[] | RiskItem[] | RecommendationItem[] | string[];
+  items?: CheckListItem[] | RiskItem[] | RecommendationItem[] | RagChunk[] | string[];
   item?: ConfirmationRequest;
 }
 

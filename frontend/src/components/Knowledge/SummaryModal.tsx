@@ -8,28 +8,40 @@ interface SummaryModalProps {
   onClose: () => void;
 }
 
+type SummaryData = {
+  title: string;
+  rule_points: string[];
+  recommendations: { item: string; reason: string }[];
+  checks: { name: string; status: string }[];
+  risks: string[];
+};
+
 export function SummaryModal({ isOpen, taskId, onClose }: SummaryModalProps) {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<{
-    title: string;
-    rule_points: string[];
-    recommendations: { item: string; reason: string }[];
-    checks: { name: string; status: string }[];
-    risks: string[];
-  } | null>(null);
-  const [error, setError] = useState('');
+  const requestToken = isOpen && taskId ? taskId : null;
+  const [response, setResponse] = useState<{
+    token: string | null;
+    data: SummaryData | null;
+    error: string;
+  }>({ token: null, data: null, error: '' });
 
   useEffect(() => {
-    if (isOpen && taskId) {
-      setLoading(true);
-      setError('');
-      setData(null);
-      summarizeTask(taskId)
-        .then(setData)
-        .catch((e) => setError(e.message || '汇总失败'))
-        .finally(() => setLoading(false));
-    }
-  }, [isOpen, taskId]);
+    if (!requestToken) return;
+    let cancelled = false;
+    summarizeTask(requestToken)
+      .then((data) => {
+        if (!cancelled) setResponse({ token: requestToken, data, error: '' });
+      })
+      .catch((e) => {
+        if (!cancelled) setResponse({ token: requestToken, data: null, error: e.message || '汇总失败' });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [requestToken]);
+
+  const loading = requestToken !== null && response.token !== requestToken;
+  const data = response.token === requestToken ? response.data : null;
+  const error = response.token === requestToken ? response.error : '';
 
   if (!isOpen) return null;
 

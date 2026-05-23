@@ -8,6 +8,7 @@ Usage examples:
     python scripts/build_rag_index.py --input D:/docs/618.pdf --kb-id kb_xxx --replace
     python scripts/build_rag_index.py --list
     python scripts/build_rag_index.py --kb-id kb_xxx --delete
+    python scripts/build_rag_index.py --rebuild-all   # rebuild every KB from raw/
 """
 
 import argparse
@@ -21,6 +22,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from agent import database  # noqa: E402
 from agent.rag import build_or_update_index, kb_store  # noqa: E402
+from agent.rag.indexer import index_uploaded_bytes  # noqa: E402
 
 
 def _print_kbs() -> int:
@@ -51,6 +53,61 @@ def _delete_kb(kb_id: str) -> int:
     return 0
 
 
+def _rebuild_all() -> int:
+    items = database.list_knowledge_bases()
+    if not items:
+        print("(没有知识库可重建)")
+        return 0
+    total_ok = 0
+    total_failed = 0
+    for item in items:
+        kb_id = item["id"]
+        store = kb_store(kb_id)
+        raw_dir = store.raw_dir
+        if not raw_dir.exists():
+            print(f"[skip] {kb_id} {item['name']}: 无原始文件目录")
+            continue
+        files: list[tuple[str, bytes]] = []
+        for path in sorted(raw_dir.iterdir()):
+            if path.is_file():
+                try:
+                    files.append((path.name, path.read_bytes()))
+                except Exception as exc:
+                    print(f"[warn] {kb_id} 读取 {path.name} 失败: {exc}")
+        if not files:
+            print(f"[skip] {kb_id} {item['name']}: raw/ 为空")
+            continue
+        # Wipe chunks + manifest so we re-chunk with the new config and rebuild
+        # both FAISS and BM25 from scratch.
+        store.save_chunks([])
+        store.save_manifest([])
+        store.clear_bm25()
+        if store.faiss_path.exists():
+            store.faiss_path.unlink()
+        json_idx = store.faiss_path.with_suffix(".json")
+        if json_idx.exists():
+            json_idx.unlink()
+        result = index_uploaded_bytes(kb_id, files, replace_same_name=True)
+        database.update_knowledge_base_stats(
+            kb_id,
+            file_count=result.files_indexed,
+            chunk_count=result.chunks_total,
+            embedding_backend=result.embedding_backend,
+        )
+        print(
+            f"[ok] {kb_id} {item['name']}: files={result.files_indexed} "
+            f"chunks={result.chunks_total} backend={result.embedding_backend}"
+        )
+        if result.errors:
+            for err in result.errors:
+                print(f"     warn: {err}")
+            total_failed += 1
+        else:
+            total_ok += 1
+    print(f"\n重建完成：成功 {total_ok}，有警告 {total_failed}")
+    return 0
+
+
 def _resolve_paths(inputs: list[str]) -> list[Path]:
     resolved: list[Path] = []
     for raw in inputs:
@@ -72,10 +129,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--replace", action="store_true", help="同名文件覆盖重建")
     parser.add_argument("--list", action="store_true", help="列出所有知识库")
     parser.add_argument("--delete", action="store_true", help="删除指定知识库")
+    parser.add_argument("--rebuild-all", action="store_true", help="重建所有知识库索引（从 raw/ 重新切片+嵌入+BM25）")
     args = parser.parse_args(argv)
 
     if args.list:
         return _print_kbs()
+
+    if args.rebuild_all:
+        return _rebuild_all()
 
     if args.delete:
         if not args.kb_id:

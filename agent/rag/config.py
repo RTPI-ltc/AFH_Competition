@@ -4,13 +4,18 @@ import os
 from pathlib import Path
 
 
-DEFAULT_CHUNK_SIZE = 500
-DEFAULT_CHUNK_OVERLAP = 80
+DEFAULT_CHUNK_SIZE = 350
+DEFAULT_CHUNK_OVERLAP = 60
 DEFAULT_CHUNK_STRIDE = DEFAULT_CHUNK_SIZE - DEFAULT_CHUNK_OVERLAP
-DEFAULT_MERGE_TARGET = int(DEFAULT_CHUNK_SIZE * 0.7)
+DEFAULT_MERGE_TARGET = int(DEFAULT_CHUNK_SIZE * 0.8)
+# When sliding inside a long paragraph, prefer to end the window at a sentence
+# boundary even if that means producing a slightly shorter chunk.
+SENTENCE_BOUNDARY_LOOKBACK = 80
 
 DEFAULT_EMBEDDING_MODEL = "BAAI/bge-small-zh-v1.5"
 DEFAULT_EMBEDDING_DIM = 512
+# Query instruction for bge-zh retrieval (recommended by BGE authors).
+BGE_QUERY_PREFIX = "为这个句子生成表示以用于检索相关文章："
 
 SUPPORTED_EXTENSIONS: tuple[str, ...] = (
     ".txt",

@@ -318,6 +318,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
                 content: streamedText,
                 metadata: { confirmation: event.item },
               });
+            } else if (event.type === 'rag_chunks' && event.items) {
+              agentMetadata = {
+                ...agentMetadata,
+                rag_chunks: event.items,
+                knowledge_ids: state.selectedKnowledge,
+              };
+              dispatch({
+                type: 'UPDATE_LAST_AGENT_MESSAGE',
+                content: streamedText,
+                metadata: { rag_chunks: event.items, knowledge_ids: state.selectedKnowledge },
+              });
             }
           },
           async () => {
@@ -429,6 +440,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useApp() {
   const context = useContext(AppContext);
   if (!context) {

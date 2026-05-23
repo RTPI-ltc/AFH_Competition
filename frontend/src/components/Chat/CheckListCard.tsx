@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { CheckListItem } from '../../types';
 
 interface CheckListCardProps {
@@ -24,17 +24,23 @@ const priorityBadges = {
   low: '建议',
 };
 
-export function CheckListCard({ items, onCheckChange }: CheckListCardProps) {
-  const [checkedSet, setCheckedSet] = useState<Set<number>>(new Set());
+function initialCheckedSet(items: CheckListItem[]): Set<number> {
+  const initial = new Set<number>();
+  items.forEach((item, idx) => {
+    if (item.checked) initial.add(idx);
+  });
+  return initial;
+}
 
-  // Sync with props if items change (new message)
-  useEffect(() => {
-    const initial = new Set<number>();
-    items.forEach((item, idx) => {
-      if (item.checked) initial.add(idx);
-    });
-    setCheckedSet(initial);
-  }, [items]);
+export function CheckListCard({ items, onCheckChange }: CheckListCardProps) {
+  const [checkedSet, setCheckedSet] = useState<Set<number>>(() => initialCheckedSet(items));
+  const [prevItems, setPrevItems] = useState(items);
+
+  // Sync with props when items reference changes (new message)
+  if (items !== prevItems) {
+    setPrevItems(items);
+    setCheckedSet(initialCheckedSet(items));
+  }
 
   const toggle = (idx: number) => {
     setCheckedSet((prev) => {

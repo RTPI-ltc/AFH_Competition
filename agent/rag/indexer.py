@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
+from agent.rag.bm25 import build_bm25
 from agent.rag.chunker import Chunk, chunk_text
 from agent.rag.embedder import embed_texts
 from agent.rag.loaders import iter_files, load_bytes, load_file, supported_extension
@@ -65,12 +66,18 @@ def _rebuild_index(store: KBStore, chunks: list[dict]) -> tuple[str, int]:
     texts = [item["text"] for item in chunks]
     if not texts:
         store.write_index([], dim=None)
+        store.clear_bm25()
         return "empty", 0
     vectors, backend = embed_texts(texts)
     if not vectors:
+        # Even when dense fails, build BM25 so sparse retrieval still works.
+        bm25_state = build_bm25(chunks)
+        store.save_bm25(bm25_state.to_dict())
         return backend or "empty", 0
     dim = len(vectors[0])
     store.write_index(vectors, dim=dim)
+    bm25_state = build_bm25(chunks)
+    store.save_bm25(bm25_state.to_dict())
     return backend, dim
 
 
@@ -139,11 +146,14 @@ def index_uploaded_bytes(
         store.save_chunks(chunks)
         store.save_manifest(list(manifest_by_name.values()))
         backend, _dim = _rebuild_index(store, chunks)
+        bm25_payload = store.load_bm25() or {}
         store.save_meta({
             "knowledge_id": knowledge_id,
             "chunk_count": len(chunks),
             "file_count": len(manifest_by_name),
             "embedding_backend": backend,
+            "bm25_tokenizer": bm25_payload.get("tokenizer", ""),
+            "retrieval_mode": "hybrid",
             "updated_at": store.now_iso(),
         })
 

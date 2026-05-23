@@ -1,0 +1,226 @@
+[
+  {
+    "filename": "README.md",
+    "file_hash": "e8efedda55e69ce334f23c519d795ad28558c41cae1491cf51818c754ff7a7e5",
+    "chunk_count": 27,
+    "uploaded_at": "2026-05-23T14:08:35Z",
+    "byte_size": 9973,
+    "file_kind": "md"
+  },
+  {
+    "filename": "ambiguity_patterns.md",
+    "file_hash": "8a8bf37ab64f4c18db5a495c6672badac9fb800225e32eb2bc979dce120442c6",
+    "chunk_count": 28,
+    "uploaded_at": "2026-05-23T14:08:35Z",
+    "byte_size": 8899,
+    "file_kind": "md"
+  },
+  {
+    "filename": "audit_rejection_cases.md",
+    "file_hash": "34951889f0984008148c9b78f301eceeb422bca0e4e0075577ba1afb85119e5f",
+    "chunk_count": 29,
+    "uploaded_at": "2026-05-23T14:08:35Z",
+    "byte_size": 7024,
+    "file_kind": "md"
+  },
+  {
+    "filename": "checklist_templates.md",
+    "file_hash": "8b0b0d4914a1e4c7f975cdbf2b9e534565a452066a9a8deb07abde3e721d9f29",
+    "chunk_count": 34,
+    "uploaded_at": "2026-05-23T14:08:35Z",
+    "byte_size": 7776,
+    "file_kind": "md"
+  },
+  {
+    "filename": "mutual_exclusion_matrix.md",
+    "file_hash": "2cdd98f4a24e1da7dce5f92f8dd12b4364e67e8eb356e8bcdee006f77c17eb26",
+    "chunk_count": 24,
+    "uploaded_at": "2026-05-23T14:08:35Z",
+    "byte_size": 6082,
+    "file_kind": "md"
+  },
+  {
+    "filename": "risk_severity_rubric.md",
+    "file_hash": "74d8233eec8a248d174b0d38a8a8a08b19de1371387488c5d681b97f253ca98d",
+    "chunk_count": 20,
+    "uploaded_at": "2026-05-23T14:08:35Z",
+    "byte_size": 5110,
+    "file_kind": "md"
+  },
+  {
+    "filename": "category_day.md",
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "chunk_count": 18,
+    "uploaded_at": "2026-05-23T14:08:35Z",
+    "byte_size": 4828,
+    "file_kind": "md"
+  },
+  {
+    "filename": "consumer_benefits.md",
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "chunk_count": 13,
+    "uploaded_at": "2026-05-23T14:08:35Z",
+    "byte_size": 3869,
+    "file_kind": "md"
+  },
+  {
+    "filename": "double_eleven.md",
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "chunk_count": 12,
+    "uploaded_at": "2026-05-23T14:08:35Z",
+    "byte_size": 3923,
+    "file_kind": "md"
+  },
+  {
+    "filename": "internal_marketing.md",
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "chunk_count": 18,
+    "uploaded_at": "2026-05-23T14:08:35Z",
+    "byte_size": 5548,
+    "file_kind": "md"
+  },
+  {
+    "filename": "jd_super_brand_day.md",
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "chunk_count": 11,
+    "uploaded_at": "2026-05-23T14:08:35Z",
+    "byte_size": 4547,
+    "file_kind": "md"
+  },
+  {
+    "filename": "livestream_campaign.md",
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "chunk_count": 17,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 4601,
+    "file_kind": "md"
+  },
+  {
+    "filename": "merchant_process_summary.md",
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "chunk_count": 33,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 8968,
+    "file_kind": "md"
+  },
+  {
+    "filename": "price_terminology.md",
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "chunk_count": 22,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 7084,
+    "file_kind": "md"
+  },
+  {
+    "filename": "taobao_juhuasuan_baiyibutie.md",
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "chunk_count": 12,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 3869,
+    "file_kind": "md"
+  },
+  {
+    "filename": "tmall_618.md",
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "chunk_count": 30,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 8633,
+    "file_kind": "md"
+  },
+  {
+    "filename": "tmall_super_brand_day.md",
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "chunk_count": 17,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 5940,
+    "file_kind": "md"
+  },
+  {
+    "filename": "compliance_essentials.md",
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "chunk_count": 24,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 6838,
+    "file_kind": "md"
+  },
+  {
+    "filename": "diamond_basics.md",
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "chunk_count": 31,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 7169,
+    "file_kind": "md"
+  },
+  {
+    "filename": "gold_basics.md",
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "chunk_count": 33,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 8861,
+    "file_kind": "md"
+  },
+  {
+    "filename": "industry_terminology.md",
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "chunk_count": 23,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 5567,
+    "file_kind": "md"
+  },
+  {
+    "filename": "jadeite_pearl_jade.md",
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "chunk_count": 20,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 5202,
+    "file_kind": "md"
+  },
+  {
+    "filename": "platinum_silver.md",
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "chunk_count": 19,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 4239,
+    "file_kind": "md"
+  },
+  {
+    "filename": "company_qualifications.md",
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "chunk_count": 19,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 4623,
+    "file_kind": "md"
+  },
+  {
+    "filename": "human_review_routing.md",
+    "file_hash": "956bf6cd7b1ecf38b8a201b225248c33f3309edc5f1e294dc5db93b48ca79c0f",
+    "chunk_count": 7,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 2424,
+    "file_kind": "md"
+  },
+  {
+    "filename": "product_certifications.md",
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "chunk_count": 25,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 6537,
+    "file_kind": "md"
+  },
+  {
+    "filename": "sku_catalog.md",
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "chunk_count": 68,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 15864,
+    "file_kind": "md"
+  },
+  {
+    "filename": "supply_chain.md",
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "chunk_count": 11,
+    "uploaded_at": "2026-05-23T14:08:36Z",
+    "byte_size": 3218,
+    "file_kind": "md"
+  }
+]

@@ -1,3 +1,13 @@
+"""Chunking with paragraph + sentence-boundary awareness.
+
+Strategy:
+- Split on blank lines into paragraphs (each carries absolute char_start/end).
+- Markdown ATX headings (# / ## / ...) act as hard boundaries: they always
+  start a fresh chunk so a heading's body never bleeds into the prior section.
+- Paragraphs shorter than chunk_size are merged until merge_target is reached;
+  paragraphs longer than chunk_size are slid in windows that prefer to end on
+  a Chinese / ASCII sentence terminator instead of breaking mid-sentence.
+"""
 from __future__ import annotations
 
 import re
@@ -8,11 +18,14 @@ from agent.rag.config import (
     DEFAULT_CHUNK_OVERLAP,
     DEFAULT_CHUNK_SIZE,
     DEFAULT_MERGE_TARGET,
+    SENTENCE_BOUNDARY_LOOKBACK,
 )
 
 
 _PARAGRAPH_SPLIT = re.compile(r"\n\s*\n+")
 _WHITESPACE = re.compile(r"[ \t　]+")
+_MD_HEADING = re.compile(r"^#{1,6}\s+\S")
+_SENTENCE_ENDERS = "。！？!?；;.\n"
 
 
 @dataclass(frozen=True)
@@ -27,7 +40,12 @@ def _normalize_paragraph(text: str) -> str:
     return "\n".join(line for line in lines if line)
 
 
-def _iter_paragraphs(text: str) -> Iterable[tuple[str, int, int]]:
+def _iter_paragraphs(text: str) -> Iterable[tuple[str, int, int, bool]]:
+    """Yield (paragraph_text, char_start, char_end, is_heading).
+
+    `is_heading` is True for markdown ATX headings so the caller can treat them
+    as hard boundaries.
+    """
     if not text:
         return
     cursor = 0
@@ -41,8 +59,24 @@ def _iter_paragraphs(text: str) -> Iterable[tuple[str, int, int]]:
         end = start + len(raw)
         cursor = end
         normalized = _normalize_paragraph(raw)
-        if normalized:
-            yield normalized, start, end
+        if not normalized:
+            continue
+        first_line = normalized.split("\n", 1)[0]
+        is_heading = bool(_MD_HEADING.match(first_line))
+        yield normalized, start, end, is_heading
+
+
+def _find_sentence_boundary(text: str, target: int, lookback: int) -> int:
+    """Return an index <= target that ends right after a sentence terminator,
+    looking back at most `lookback` characters. Falls back to `target` if no
+    boundary is found in the lookback window."""
+    if target >= len(text):
+        return len(text)
+    lower = max(0, target - lookback)
+    for idx in range(target, lower, -1):
+        if text[idx - 1] in _SENTENCE_ENDERS:
+            return idx
+    return target
 
 
 def _sliding_window(
@@ -53,11 +87,17 @@ def _sliding_window(
 ) -> Iterable[Chunk]:
     if chunk_size <= 0:
         chunk_size = DEFAULT_CHUNK_SIZE
-    stride = max(1, chunk_size - max(0, overlap))
     length = len(text)
     start = 0
     while start < length:
-        end = min(length, start + chunk_size)
+        target_end = min(length, start + chunk_size)
+        end = (
+            target_end
+            if target_end >= length
+            else _find_sentence_boundary(text, target_end, SENTENCE_BOUNDARY_LOOKBACK)
+        )
+        if end <= start:  # safety: never make zero-width windows
+            end = target_end
         piece = text[start:end].strip()
         if piece:
             yield Chunk(
@@ -67,7 +107,13 @@ def _sliding_window(
             )
         if end >= length:
             break
-        start += stride
+        # Advance by (chunk_size - overlap), but make sure we still make progress
+        # when sentence-boundary trimming kept the window very short.
+        stride = max(1, chunk_size - max(0, overlap))
+        next_start = max(start + 1, end - max(0, overlap))
+        if next_start - start < stride // 2:
+            next_start = start + stride
+        start = next_start
 
 
 def chunk_text(
@@ -100,7 +146,17 @@ def chunk_text(
         buffer_end = 0
         buffer_len = 0
 
-    for paragraph, start, end in paragraphs:
+    for paragraph, start, end, is_heading in paragraphs:
+        # Markdown heading is always its own boundary: flush whatever was
+        # buffered and let the heading + following paragraphs start fresh.
+        if is_heading:
+            flush_buffer()
+            buffer_start = start
+            buffer_text.append(paragraph)
+            buffer_end = end
+            buffer_len = len(paragraph)
+            continue
+
         if len(paragraph) > chunk_size:
             flush_buffer()
             chunks.extend(_sliding_window(paragraph, start, chunk_size, overlap))

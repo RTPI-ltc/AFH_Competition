@@ -52,6 +52,7 @@ class KBStore:
         self.manifest_path: Path = self.directory / "manifest.json"
         self.faiss_path: Path = self.directory / "index.faiss"
         self.meta_path: Path = self.directory / "meta.json"
+        self.bm25_path: Path = self.directory / "bm25.json"
 
     # ---------------- manifest ----------------
     def load_manifest(self) -> list[dict[str, Any]]:
@@ -99,6 +100,26 @@ class KBStore:
             json.dumps(meta, ensure_ascii=False, indent=2),
             encoding="utf-8",
         )
+
+    # ---------------- BM25 ----------------
+    def load_bm25(self) -> dict[str, Any] | None:
+        if not self.bm25_path.exists():
+            return None
+        try:
+            payload = json.loads(self.bm25_path.read_text(encoding="utf-8"))
+        except Exception:
+            return None
+        return payload if isinstance(payload, dict) else None
+
+    def save_bm25(self, payload: dict[str, Any]) -> None:
+        self.bm25_path.write_text(
+            json.dumps(payload, ensure_ascii=False),
+            encoding="utf-8",
+        )
+
+    def clear_bm25(self) -> None:
+        if self.bm25_path.exists():
+            self.bm25_path.unlink()
 
     # ---------------- raw files ----------------
     def store_raw(self, filename: str, data: bytes) -> Path:

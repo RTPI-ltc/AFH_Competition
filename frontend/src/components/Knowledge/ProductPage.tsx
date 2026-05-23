@@ -23,31 +23,43 @@ const initialForm = {
 
 const brandOptions = ['云璟珠宝', '星禾金作', '禾光珠宝', '珑曜金业', '璟澜珠宝', '星诺婚饰', '曜石切工', '翠岚坊', '月汐珍珠', '铂映工坊', '银澈饰品'];
 
+type ProductResponse = {
+  key: string;
+  products: SkuProduct[];
+  categories: string[];
+  total: number;
+};
+
 export function ProductPage({ onBack }: ProductPageProps) {
-  const [products, setProducts] = useState<SkuProduct[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [total, setTotal] = useState(0);
   const [activeCategory, setActiveCategory] = useState('');
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [submittedSearch, setSubmittedSearch] = useState('');
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [response, setResponse] = useState<ProductResponse | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [form, setForm] = useState(initialForm);
   const [adding, setAdding] = useState(false);
 
-  useEffect(() => { loadProducts(); }, [activeCategory]);
+  const fetchKey = `${activeCategory}|${submittedSearch}|${refreshKey}`;
 
-  const loadProducts = async () => {
-    setLoading(true);
-    try {
-      const data = await getProducts(activeCategory || undefined, search || undefined);
-      setProducts(data.products);
-      setCategories(data.categories);
-      setTotal(data.total);
-    } catch (e) { console.error(e); }
-    finally { setLoading(false); }
-  };
+  useEffect(() => {
+    let cancelled = false;
+    getProducts(activeCategory || undefined, submittedSearch || undefined)
+      .then((data) => {
+        if (!cancelled) setResponse({ key: fetchKey, ...data });
+      })
+      .catch((e) => console.error(e));
+    return () => {
+      cancelled = true;
+    };
+  }, [fetchKey, activeCategory, submittedSearch]);
 
-  const handleSearch = () => { loadProducts(); };
+  const loading = response?.key !== fetchKey;
+  const products = response?.products ?? [];
+  const categories = response?.categories ?? [];
+  const total = response?.total ?? 0;
+
+  const handleSearch = () => { setSubmittedSearch(search); };
 
   const handleAdd = async () => {
     if (!form.product_name.trim()) return;
@@ -69,14 +81,14 @@ export function ProductPage({ onBack }: ProductPageProps) {
       });
       setForm(initialForm);
       setShowAdd(false);
-      await loadProducts();
+      setRefreshKey((n) => n + 1);
     } catch (e) { console.error(e); }
     finally { setAdding(false); }
   };
 
   const handleDelete = async (skuId: string) => {
     await deleteProduct(skuId);
-    await loadProducts();
+    setRefreshKey((n) => n + 1);
   };
 
   const formatPrice = (v: number | null) => v ? `¥${v.toLocaleString()}` : '—';

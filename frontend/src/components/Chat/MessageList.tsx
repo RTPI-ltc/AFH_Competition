@@ -1,7 +1,8 @@
 import { User, Bot, Loader2, CheckCircle2, SlidersHorizontal, Sparkles } from 'lucide-react';
-import type { ConfirmationRequest, Message, RecommendationItem } from '../../types';
+import type { ConfirmationRequest, Message, RagChunk, RecommendationItem } from '../../types';
 import { CheckListCard } from './CheckListCard';
 import { RiskAlert } from './RiskAlert';
+import { RagSourcesCard } from './RagSourcesCard';
 import { useApp } from '../../contexts/AppContext';
 
 interface AgentMessageProps {
@@ -37,6 +38,8 @@ export function AgentMessage({ message, isStreaming }: AgentMessageProps) {
   const recommendations = message.metadata?.recommendations as RecommendationItem[] | undefined;
   const priorityAnalysis = message.metadata?.priority_analysis;
   const confirmation = message.metadata?.confirmation as ConfirmationRequest | undefined;
+  const ragChunks = message.metadata?.rag_chunks as RagChunk[] | undefined;
+  const knowledgeIds = message.metadata?.knowledge_ids as string[] | undefined;
 
   const priorityLabel = {
     high: '高优先级',
@@ -109,11 +112,7 @@ export function AgentMessage({ message, isStreaming }: AgentMessageProps) {
           )}
 
           {checklist && checklist.length > 0 && (
-            <CheckListCard items={checklist} onCheckChange={(updated) => {
-              if (message.metadata) {
-                message.metadata.checklist = updated;
-              }
-            }} />
+            <CheckListCard items={checklist} onCheckChange={() => {}} />
           )}
 
           {risks && risks.length > 0 && (
@@ -172,6 +171,10 @@ export function AgentMessage({ message, isStreaming }: AgentMessageProps) {
               <CheckCircle2 size={15} className="text-green-600" />
               方案已确认，推荐商品已写入上架清单。
             </div>
+          )}
+
+          {ragChunks && ragChunks.length > 0 && (
+            <RagSourcesCard chunks={ragChunks} knowledgeIds={knowledgeIds} />
           )}
 
           {isStreaming && message.content && (

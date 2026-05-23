@@ -12,18 +12,18 @@ from agent.rag import append_context_to_system, retrieve_safe
 
 CHAT_SYSTEM = """你是珠宝电商运营执行助手，所有 chatbox 回复都必须由模型生成。
 
-你会收到当前项目、当前上架清单、商品数据库摘要、最近对话和用户消息。请基于这些真实数据回答，不要要求用户重新提供商品库里已经有的信息。
+你会收到当前项目、当前上架清单、商品数据库摘要（catalog_products）、最近对话和用户消息。请基于这些真实数据回答，不要要求用户重新提供商品库里已经有的信息。
 
 输出尽量使用严格 JSON：
 {
   "reply": "给用户看的中文回答",
   "recommendations": [
     {
-      "sku_id": "商品编号",
+      "sku_id": "必须来自 catalog_products 列表的 sku_id",
       "product_name": "商品名称",
       "priority": "high|medium|low",
       "score": 0-100,
-      "reason": "推荐原因"
+      "reason": "推荐原因（结合销量/库存/价格/活动冲突）"
     }
   ],
   "priority_analysis": ["优先级分析要点"],
@@ -43,7 +43,7 @@ CHAT_SYSTEM = """你是珠宝电商运营执行助手，所有 chatbox 回复都
   "actions": [
     {
       "type": "add_listing_item|remove_listing_item|none",
-      "product_name": "商品名称",
+      "product_name": "商品名称（必须与 catalog_products 中的 product_name 完全一致）",
       "status": "待确认|拟上架|已上架|需补充信息|不建议上架",
       "notes": "原因或备注",
       "details": {}
@@ -51,12 +51,15 @@ CHAT_SYSTEM = """你是珠宝电商运营执行助手，所有 chatbox 回复都
   ]
 }
 
-要求：
-1. 用户问推荐、选品、上架方案时，必须主动基于商品数据库推荐，不要说"请提供商品"。
-2. 在回答基础上补充优先级分析、检查清单、风险点、需要人工确认的信息。
-3. 信息不足时标注人工确认项，不要编造已经确认。
-4. 只有用户明确要求加入、移除、确认方案时，才返回 add_listing_item 或 remove_listing_item actions。
-5. 如果用户只是聊天或询问，不需要动作，actions 返回空数组。
+严格要求：
+1. recommendations 与 actions 的 sku_id / product_name 必须严格来自 catalog_products，不得编造、缩写或重命名。
+2. 计重商品 (pricing_model="weight") 的成交价按 weight_g × 当前金价计算，list_price_rmb 可能为 0，请用 tag_price_rmb 作为参考价。
+3. 价格保护：若 list_price_rmb 高于 last_30d_min_price 或 last_90d_min_price，需在 risks 提示。
+4. 活动互斥：active_campaigns 非空说明该 SKU 已参加其他活动，新报名前要在 needs_clarification 中确认是否冲突。
+5. 如果用户询问的商品/品类不在 catalog_products 列表，必须在 needs_clarification 写明"未在当前商品库摘要中找到 XX，请扩大检索范围或上传补充数据"，不得伪造 SKU。
+6. 用户问推荐/选品/上架方案时，最多推荐 3 个 SKU，reply 控制在 300 字以内。
+7. 只有用户明确要求加入、移除、确认方案时，才返回 add_listing_item 或 remove_listing_item actions。
+8. 信息不足时标注 needs_clarification，不要编造已经确认。
 """
 
 
@@ -64,26 +67,26 @@ CATALOG_CONTEXT_LIMIT = 12
 HISTORY_CONTEXT_LIMIT = 6
 TEXT_FIELD_LIMIT = 500
 BUSINESS_KEYWORDS = (
-    "推荐",
-    "选品",
-    "上架",
-    "商品",
-    "sku",
-    "SKU",
-    "清单",
-    "方案",
-    "风险",
-    "检查",
-    "确认",
-    "移除",
-    "加入",
-    "添加",
-    "报名",
-    "活动",
-    "价格",
-    "库存",
-    "销量",
-    "品类",
+    "推荐", "选品", "上架", "商品", "sku", "SKU",
+    "清单", "方案", "风险", "检查", "确认", "移除",
+    "加入", "添加", "报名", "活动",
+    "价格", "定价", "折扣", "毛利", "成本",
+    "库存", "销量", "好评", "退货",
+    "品类", "黄金", "钻石", "铂金", "银饰", "珍珠", "玉石", "翡翠", "镶嵌",
+    "克", "克重", "成色", "纯度", "证书",
+    "品牌", "工厂",
+)
+
+
+SKU_PATTERN = re.compile(r"SKU\d{4,8}", re.IGNORECASE)
+CATEGORY_KEYWORDS = (
+    "黄金", "钻石", "铂金", "银饰", "925银", "珍珠", "玉石", "翡翠", "镶嵌",
+    "古法金", "足金", "千足金", "万足金", "硬足金", "5G黄金", "K金",
+    "求婚钻戒", "钻戒", "耳钉", "项链", "手镯", "吊坠", "手链",
+)
+BRAND_KEYWORDS = (
+    "云璟珠宝", "星禾金作", "禾光珠宝", "珑曜金业", "璟澜珠宝",
+    "星诺婚饰", "曜石切工", "翠岚坊", "月汐珍珠", "铂映工坊", "银澈饰品",
 )
 
 
@@ -133,21 +136,37 @@ def _compact_history_item(item: dict[str, Any]) -> dict[str, Any]:
 
 
 def _compact_catalog_product(item: dict[str, Any]) -> dict[str, Any]:
-    return {
+    gem: dict[str, Any] = {}
+    for src, dst in (("gem_carat", "carat"), ("gem_color", "color"), ("gem_clarity", "clarity"), ("gem_cut", "cut")):
+        value = item.get(src)
+        if value not in (None, "", 0):
+            gem[dst] = value
+    payload: dict[str, Any] = {
         "sku_id": item.get("sku_id"),
         "product_name": item.get("product_name"),
         "brand": item.get("brand"),
         "category": " / ".join(part for part in [item.get("category_l1"), item.get("category_l2")] if part),
         "pricing_model": item.get("pricing_model"),
+        "weight_g": item.get("weight_g"),
+        "purity": item.get("purity") or None,
+        "tag_price_rmb": item.get("tag_price_rmb"),
         "list_price_rmb": item.get("list_price_rmb"),
+        "last_30d_min_price": item.get("last_30d_min_price"),
         "last_90d_min_price": item.get("last_90d_min_price"),
+        "last_365d_min_price": item.get("last_365d_min_price"),
         "stock": item.get("stock"),
         "last_90d_sales": item.get("last_90d_sales"),
         "review_rate": item.get("review_rate"),
         "return_rate": item.get("return_rate"),
         "new_product": bool(item.get("new_product")),
         "active_campaigns": item.get("active_campaigns") or [],
+        "certificate_ids": item.get("certificate_ids") or [],
+        "lead_time_days": item.get("lead_time_days"),
+        "factory_id": item.get("factory_id") or None,
     }
+    if gem:
+        payload["gem"] = gem
+    return payload
 
 
 def _product_context_score(item: dict[str, Any]) -> float:
@@ -158,15 +177,67 @@ def _product_context_score(item: dict[str, Any]) -> float:
         + float(item.get("stock") or 0) * 0.03
         + review_rate * 2
         - return_rate * 3
-        + (30 if item.get("new_product") else 0)
-        - (20 if item.get("active_campaigns") else 0)
+        + (15 if item.get("new_product") else 0)
     )
 
 
-def _catalog_candidates(limit: int) -> list[dict[str, Any]]:
-    products = database.list_catalog_products("", limit=max(limit * 4, 40))
-    ranked = sorted(products, key=_product_context_score, reverse=True)
-    return [_compact_catalog_product(item) for item in ranked[:limit]]
+def _extract_query_entities(message: str) -> dict[str, list[str]]:
+    """Pick out SKU codes, categories, brands from the user message so we can
+    bias catalog candidates toward what the user is actually asking about."""
+    entities: dict[str, list[str]] = {"skus": [], "categories": [], "brands": []}
+    if not message:
+        return entities
+    for raw in SKU_PATTERN.findall(message):
+        normalized = raw.upper()
+        if normalized not in entities["skus"]:
+            entities["skus"].append(normalized)
+    lower = message
+    for keyword in CATEGORY_KEYWORDS:
+        if keyword in lower and keyword not in entities["categories"]:
+            entities["categories"].append(keyword)
+    for brand in BRAND_KEYWORDS:
+        if brand in lower and brand not in entities["brands"]:
+            entities["brands"].append(brand)
+    return entities
+
+
+def _catalog_candidates(message: str, limit: int) -> list[dict[str, Any]]:
+    """Return up to `limit` compact products. Prioritises matches against
+    entities extracted from `message`; fills remaining slots with popularity."""
+    keyed: dict[str, dict[str, Any]] = {}
+
+    def absorb(items: list[dict[str, Any]]) -> None:
+        for item in items:
+            sku = str(item.get("sku_id") or "").upper()
+            if not sku or sku in keyed:
+                continue
+            keyed[sku] = item
+
+    entities = _extract_query_entities(message)
+    # Targeted queries first — SKU lookups, brand/category contains.
+    for query in entities["skus"]:
+        absorb(database.list_catalog_products(query, limit=4))
+        if len(keyed) >= limit:
+            break
+    if len(keyed) < limit:
+        for query in entities["brands"]:
+            absorb(database.list_catalog_products(query, limit=6))
+            if len(keyed) >= limit:
+                break
+    if len(keyed) < limit:
+        for query in entities["categories"]:
+            absorb(database.list_catalog_products(query, limit=6))
+            if len(keyed) >= limit:
+                break
+    # Always reserve some slots for popularity-ranked products so the model
+    # sees a healthy backbone even when the targeted queries miss.
+    backbone_slots = max(limit - len(keyed), max(limit // 2, 4))
+    backbone = database.list_catalog_products("", limit=max(backbone_slots * 4, 40))
+    ranked = sorted(backbone, key=_product_context_score, reverse=True)
+    absorb(ranked[: backbone_slots * 2])
+
+    selected = list(keyed.values())[:limit]
+    return [_compact_catalog_product(item) for item in selected]
 
 
 def _needs_business_context(message: str) -> bool:
@@ -187,10 +258,12 @@ def _build_user_prompt(
         _compact_history_item(item)
         for item in history[-history_limit:]
     ]
-    catalog = []
+    catalog: list[dict[str, Any]] = []
+    entities: dict[str, list[str]] = {"skus": [], "categories": [], "brands": []}
     if needs_business_context:
-        catalog = _catalog_candidates(catalog_limit)
-    listing_context = []
+        catalog = _catalog_candidates(message, catalog_limit)
+        entities = _extract_query_entities(message)
+    listing_context: list[dict[str, Any]] = []
     if needs_business_context:
         listing_context = [_compact_listing_item(item) for item in listing_items]
     return json.dumps(
@@ -200,8 +273,14 @@ def _build_user_prompt(
             "catalog_products": catalog,
             "catalog_context": {
                 "limit": catalog_limit,
+                "returned": len(catalog),
                 "included": needs_business_context,
-                "note": "商品库为压缩摘要；推荐时优先基于这些 SKU 的销量、库存、价格、评价和活动冲突判断。",
+                "matched_entities": entities,
+                "note": (
+                    "catalog_products 是真实商品库的压缩摘要。"
+                    "matched_entities 是从用户消息中提取的 SKU / 品类 / 品牌，已优先用它们筛选 catalog。"
+                    "若用户的目标 SKU 不在列表里，说明商品库可能没有这条记录或被检索遗漏，请在 needs_clarification 中说明，不要伪造数据。"
+                ),
             },
             "recent_messages": compact_history,
             "user_message": message,
@@ -289,6 +368,131 @@ def _sanitize_non_business_response(parsed: dict[str, Any]) -> dict[str, Any]:
     return cleaned
 
 
+def _catalog_lookup_indices() -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+    """Return (by_sku, by_name) lookup tables over the full catalog."""
+    by_sku: dict[str, dict[str, Any]] = {}
+    by_name: dict[str, dict[str, Any]] = {}
+    for product in database.list_catalog_products(limit=2000):
+        sku = str(product.get("sku_id") or "").upper()
+        name = str(product.get("product_name") or "").strip()
+        if sku:
+            by_sku[sku] = product
+        if name:
+            by_name[name] = product
+    return by_sku, by_name
+
+
+def _match_catalog(
+    item: dict[str, Any],
+    by_sku: dict[str, dict[str, Any]],
+    by_name: dict[str, dict[str, Any]],
+) -> dict[str, Any] | None:
+    sku_raw = str(item.get("sku_id") or "").upper().strip()
+    if sku_raw and sku_raw in by_sku:
+        return by_sku[sku_raw]
+    name = str(item.get("product_name") or "").strip()
+    if not name:
+        return None
+    if name in by_name:
+        return by_name[name]
+    # Lenient fallback: the model may have lightly paraphrased the name.
+    candidates = [p for p in by_name.values() if name and (name in p["product_name"] or p["product_name"] in name)]
+    if len(candidates) == 1:
+        return candidates[0]
+    return None
+
+
+def _enrich_recommendation(rec: dict[str, Any], product: dict[str, Any]) -> dict[str, Any]:
+    """Replace whatever the model said with authoritative DB values for the
+    parts the user is most likely to act on (sku, price, stock, sales)."""
+    enriched = dict(rec)
+    enriched["sku_id"] = product.get("sku_id") or rec.get("sku_id")
+    enriched["product_name"] = product.get("product_name") or rec.get("product_name")
+    enriched["brand"] = product.get("brand")
+    enriched["category"] = " / ".join(
+        part for part in [product.get("category_l1"), product.get("category_l2")] if part
+    )
+    enriched["pricing_model"] = product.get("pricing_model")
+    enriched["tag_price_rmb"] = product.get("tag_price_rmb")
+    enriched["list_price_rmb"] = product.get("list_price_rmb")
+    enriched["last_30d_min_price"] = product.get("last_30d_min_price")
+    enriched["last_90d_min_price"] = product.get("last_90d_min_price")
+    enriched["stock"] = product.get("stock")
+    enriched["last_90d_sales"] = product.get("last_90d_sales")
+    enriched["review_rate"] = product.get("review_rate")
+    enriched["return_rate"] = product.get("return_rate")
+    enriched["active_campaigns"] = product.get("active_campaigns") or []
+    enriched["validated"] = True
+    return enriched
+
+
+def _validate_and_enrich(parsed: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Drop hallucinated SKUs and enrich valid ones with real DB data.
+
+    Returns (parsed_with_validated_lists, dropped_records). Dropped recs are
+    surfaced to the user via needs_clarification so they know something went
+    sideways rather than silently disappearing.
+    """
+    by_sku, by_name = _catalog_lookup_indices()
+
+    raw_recommendations = parsed.get("recommendations") if isinstance(parsed.get("recommendations"), list) else []
+    valid_recs: list[dict[str, Any]] = []
+    dropped: list[dict[str, Any]] = []
+    for rec in raw_recommendations:
+        if not isinstance(rec, dict):
+            continue
+        product = _match_catalog(rec, by_sku, by_name)
+        if product is None:
+            dropped.append({"kind": "recommendation", "item": rec})
+            continue
+        valid_recs.append(_enrich_recommendation(rec, product))
+
+    raw_actions = parsed.get("actions") if isinstance(parsed.get("actions"), list) else []
+    valid_actions: list[dict[str, Any]] = []
+    for action in raw_actions:
+        if not isinstance(action, dict):
+            continue
+        action_type = action.get("type")
+        # remove and no-op actions don't require an existing catalog row.
+        if action_type not in ("add_listing_item",):
+            valid_actions.append(action)
+            continue
+        product = _match_catalog(action, by_sku, by_name)
+        if product is None:
+            dropped.append({"kind": "action", "item": action})
+            continue
+        normalized = dict(action)
+        normalized["product_name"] = product["product_name"]
+        details = action.get("details") if isinstance(action.get("details"), dict) else {}
+        details = dict(details)
+        details.setdefault("sku_id", product.get("sku_id"))
+        details.setdefault("brand", product.get("brand"))
+        details.setdefault("category", " / ".join(
+            part for part in [product.get("category_l1"), product.get("category_l2")] if part
+        ))
+        normalized["details"] = details
+        valid_actions.append(normalized)
+
+    if dropped:
+        existing = parsed.get("needs_clarification")
+        clarifications = list(existing) if isinstance(existing, list) else []
+        names = [
+            str(d["item"].get("product_name") or d["item"].get("sku_id") or "未知")
+            for d in dropped
+        ]
+        message = (
+            f"模型提到了 {len(dropped)} 条不在商品库中的项："
+            + "、".join(dict.fromkeys(names))
+            + "。已自动从结果中剔除，请确认是否要扩大商品库或上传补充资料。"
+        )
+        clarifications.insert(0, message)
+        parsed["needs_clarification"] = clarifications
+
+    parsed["recommendations"] = valid_recs
+    parsed["actions"] = valid_actions
+    return parsed, dropped
+
+
 def _apply_actions(project_id: str, conversation_id: str, actions: list[dict[str, Any]]) -> list[dict[str, Any]]:
     applied: list[dict[str, Any]] = []
     current_items = database.list_listing_items(project_id)
@@ -331,6 +535,9 @@ def _rag_summary(chunks: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "kb_id": chunk.get("kb_id") or "",
             "source_file": chunk.get("source_file") or "",
             "score": chunk.get("score"),
+            "dense_score": chunk.get("dense_score"),
+            "bm25_score": chunk.get("bm25_score"),
+            "rrf_score": chunk.get("rrf_score"),
             "snippet": snippet,
         })
     return summary
@@ -370,7 +577,9 @@ def handle_chat(
         try:
             raw = call_llm(system_prompt, _build_user_prompt(message, project, listing_items, history))
             parsed = _parse_model_response(raw)
-            if not _needs_business_context(message):
+            if _needs_business_context(message):
+                parsed, _dropped = _validate_and_enrich(parsed)
+            else:
                 parsed = _sanitize_non_business_response(parsed)
         except Exception as exc:
             parsed = {
