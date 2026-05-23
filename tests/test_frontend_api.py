@@ -125,6 +125,24 @@ def test_frontend_recommendation_flow_waits_for_confirmation(tmp_path, monkeypat
     os.environ.pop("AFH_DISABLE_LLM", None)
 
 
+def test_frontend_lightweight_chat_does_not_call_llm(tmp_path, monkeypatch):
+    client = _client(tmp_path, monkeypatch)
+
+    task = client.post("/api/task/new?project_id=default").json()
+    stream = client.post(
+        "/api/chat/stream",
+        json={"task_id": task["task_id"], "message": "你好", "knowledge_ids": []},
+    )
+
+    assert stream.status_code == 200
+    assert "你好，我在" in stream.text
+    assert '"type": "done"' in stream.text
+    assert "模型调用失败" not in stream.text
+
+    os.environ.pop("AFH_DB_PATH", None)
+    os.environ.pop("AFH_DISABLE_LLM", None)
+
+
 def test_frontend_knowledge_upload_accepts_multimodal_files(tmp_path, monkeypatch):
     client = _client(tmp_path, monkeypatch)
 

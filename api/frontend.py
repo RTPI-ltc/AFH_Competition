@@ -325,7 +325,19 @@ def frontend_chat_stream(request: FrontChatRequest) -> StreamingResponse:
         raise HTTPException(status_code=400, detail="消息不能为空")
 
     def event_stream():
-        result = chat.handle_chat(row["project_id"], request.task_id, request.message)
+        try:
+            result = chat.handle_chat(row["project_id"], request.task_id, request.message)
+        except Exception as exc:
+            yield _sse({
+                "type": "text",
+                "content": f"接口处理失败：{exc}。我没有改动当前项目数据，请稍后重试或换一种问法。",
+            })
+            yield _sse({
+                "type": "risks",
+                "items": [{"description": "本轮请求没有完成，需人工确认是否重试。", "severity": "medium"}],
+            })
+            yield _sse({"type": "done"})
+            return
         reply = result.get("reply", "")
         if reply:
             yield _sse({"type": "text", "content": reply})

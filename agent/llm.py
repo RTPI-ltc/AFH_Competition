@@ -62,6 +62,14 @@ def get_model() -> str:
     return os.getenv("LLM_MODEL") or PROVIDER_DEFAULTS[provider]["model"]
 
 
+def get_timeout_seconds() -> float:
+    _load_dotenv_if_available()
+    try:
+        return max(3.0, float(os.getenv("LLM_TIMEOUT_SECONDS", "12")))
+    except ValueError:
+        return 12.0
+
+
 def model_status() -> dict[str, str | bool]:
     available = llm_available()
     return {
@@ -91,7 +99,7 @@ def call_llm(system: str, user: str) -> str:
         ],
         max_tokens=4096,
         temperature=0.1,
-        timeout=30.0,
+        timeout=get_timeout_seconds(),
     )
     return response.choices[0].message.content or ""
 

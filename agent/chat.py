@@ -58,6 +58,11 @@ CHAT_SYSTEM = """你是珠宝电商运营执行助手。
 
 RECOMMEND_INTENT = re.compile(r"推荐|选品|上架什么|报什么|报名什么|优先上架|上架方案|给.*方案|怎么上架|帮我.*上架")
 CONFIRM_INTENT = re.compile(r"^(确认|同意|执行|可以|就这样|按这个|采纳)$|(?:确认|同意|执行|按这个|采纳).*(?:方案|上架|清单|推荐)")
+REVISE_INTENT = re.compile(r"继续调整|重新调整|我想调整|先不确认|不要确认|暂不确认")
+LIGHTWEIGHT_INTENT = re.compile(r"^(你好|您好|hello|hi|嗨|在吗|你是谁|能做什么|帮助|help)[。！!？?\\s]*$", re.IGNORECASE)
+LLM_OPERATIONAL_INTENT = re.compile(
+    r"规则|活动|商品|上架|清单|风险|检查|价格|库存|报名|知识库|方案|优先|分析|SKU|sku|品类|销量|好评|退货|证书|互斥|折扣|最低价|确认"
+)
 ADD_WORDS = "加入|添加|放入|新增|加到|加入到"
 REMOVE_WORDS = "移除|删除|去掉|移出|从清单删除|从上架清单删除"
 
@@ -401,6 +406,36 @@ def _fallback_reply(message: str, listing_items: list[dict[str, Any]]) -> dict[s
     }
 
 
+def _quick_non_llm_reply(message: str, listing_items: list[dict[str, Any]]) -> dict[str, Any] | None:
+    clean = message.strip()
+    if LIGHTWEIGHT_INTENT.search(clean):
+        names = "、".join(item["product_name"] for item in listing_items[:3]) or "暂无商品"
+        return {
+            "reply": (
+                "你好，我在。你可以直接让我推荐上架商品、检查活动规则、分析风险点，"
+                f"或调整当前上架清单。当前清单：{names}。"
+            ),
+            "actions": [],
+            "checklist": [],
+            "risks": [],
+            "needs_clarification": [],
+            "confirmation": {"required": False},
+        }
+    if REVISE_INTENT.search(clean):
+        return {
+            "reply": "可以，我们先不确认上一个方案。你可以告诉我调整方向，比如更看重低风险、高销量、某个品类、价格带，或排除已参加其他活动的商品。",
+            "actions": [],
+            "checklist": [
+                {"condition": "说明调整目标", "priority": "high", "detail": "例如优先黄金、控制价格带、排除互斥活动、提高库存门槛。"},
+                {"condition": "重新生成推荐方案", "priority": "medium", "detail": "我会按新的口径重新排序并再次给出确认按钮。"},
+            ],
+            "risks": [],
+            "needs_clarification": ["本轮希望优先优化的目标：销量、毛利、库存、风险，或指定品类。"],
+            "confirmation": {"required": False},
+        }
+    return None
+
+
 def _apply_actions(project_id: str, conversation_id: str, actions: list[dict[str, Any]]) -> list[dict[str, Any]]:
     applied: list[dict[str, Any]] = []
     current_items = database.list_listing_items(project_id)
@@ -460,21 +495,25 @@ def handle_chat(project_id: str, conversation_id: str, message: str) -> dict[str
             parsed = quick
         elif RECOMMEND_INTENT.search(message):
             parsed = _recommend_from_catalog()
-        elif llm_available():
-            try:
-                raw = call_llm(CHAT_SYSTEM, _build_user_prompt(message, project, listing_items, history))
-                parsed = parse_llm_json(raw)
-            except Exception as exc:
-                parsed = {
-                    "reply": f"模型调用失败，我没有改动上架清单。错误：{exc}",
-                    "actions": [],
-                    "checklist": [],
-                    "risks": [{"description": "模型调用失败，本轮建议未经过 LLM 生成。", "severity": "medium"}],
-                    "needs_clarification": [],
-                    "confirmation": {"required": False},
-                }
         else:
-            parsed = _fallback_reply(message, listing_items)
+            quick_non_llm = _quick_non_llm_reply(message, listing_items)
+            if quick_non_llm is not None:
+                parsed = quick_non_llm
+            elif llm_available() and LLM_OPERATIONAL_INTENT.search(message):
+                try:
+                    raw = call_llm(CHAT_SYSTEM, _build_user_prompt(message, project, listing_items, history))
+                    parsed = parse_llm_json(raw)
+                except Exception as exc:
+                    parsed = {
+                        "reply": f"模型调用失败，我没有改动上架清单。错误：{exc}",
+                        "actions": [],
+                        "checklist": [],
+                        "risks": [{"description": "模型调用失败，本轮建议未经过 LLM 生成。", "severity": "medium"}],
+                        "needs_clarification": [],
+                        "confirmation": {"required": False},
+                    }
+            else:
+                parsed = _fallback_reply(message, listing_items)
 
     actions = parsed.get("actions", [])
     if not isinstance(actions, list):
