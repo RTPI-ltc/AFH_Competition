@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from agent import chat
@@ -10,9 +11,18 @@ from agent import database
 from agent.graph import build_graph
 from agent.llm import model_status
 from agent.state import initial_state
+from api.frontend import router as frontend_router
 
 
 app = FastAPI(title="Execution Assistant Agent API", version="0.2.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+app.include_router(frontend_router)
 graph = build_graph()
 database.init_db()
 database.seed_sample_catalog()
