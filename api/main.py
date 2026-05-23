@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from agent import chat
 from agent import database
@@ -15,6 +15,7 @@ from agent.state import initial_state
 app = FastAPI(title="Execution Assistant Agent API", version="0.2.0")
 graph = build_graph()
 database.init_db()
+database.seed_sample_catalog()
 
 
 class ParseRequest(BaseModel):
@@ -42,18 +43,35 @@ class ListingItemRequest(BaseModel):
     product_name: str
     status: str = "待确认"
     notes: str = ""
-    details: dict[str, Any] = {}
+    details: dict[str, Any] = Field(default_factory=dict)
 
 
 class CatalogProductRequest(BaseModel):
-    name: str
-    category: str = ""
+    product_name: str
     brand: str = ""
-    sku: str = ""
-    price: float = 0
+    category_l1: str = ""
+    category_l2: str = ""
+    pricing_model: str = "fixed"
+    weight_g: float | None = None
+    purity: str = ""
+    gem_carat: float | None = None
+    gem_color: str | None = None
+    gem_clarity: str | None = None
+    gem_cut: str | None = None
+    tag_price_rmb: float = 0
+    list_price_rmb: float = 0
+    last_30d_min_price: float = 0
+    last_90d_min_price: float = 0
+    last_365d_min_price: float = 0
     stock: int = 0
-    sales_30d: int = 0
-    rating: float = 0
+    last_90d_sales: int = 0
+    review_rate: float = 0
+    return_rate: float = 0
+    new_product: bool = False
+    certificate_ids: list[str] = Field(default_factory=list)
+    factory_id: str = ""
+    lead_time_days: int = 0
+    active_campaigns: list[str] = Field(default_factory=list)
     status: str = "在售"
     notes: str = ""
 

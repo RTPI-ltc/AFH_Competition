@@ -10,6 +10,7 @@ from agent.llm import model_status
 
 st.set_page_config(page_title="执行辅助 Agent", layout="wide")
 database.init_db()
+database.seed_sample_catalog()
 
 
 @st.cache_data(ttl=3, show_spinner=False)
@@ -86,7 +87,7 @@ with st.sidebar:
     st.subheader("导航")
     nav_choice = st.radio(
         "页面",
-        ["项目工作台", "商品管理"],
+        ["项目工作台", "SKU 品类库"],
         index=0 if st.session_state.page == "workspace" else 1,
         label_visibility="collapsed",
     )
@@ -96,8 +97,8 @@ with st.sidebar:
         st.rerun()
 
 if st.session_state.page == "products":
-    st.header("商品管理")
-    st.caption("统一维护所有商品信息。商品编号自动生成，无需手动填写。")
+    st.header("SKU 品类库")
+    st.caption("统一维护 SKU 主数据。SKU 编号自动生成，字段结构参考 ERP 输出。")
 
     query = st.text_input("搜索商品", placeholder="输入商品编号、名称、品类、品牌或 SKU")
     products = database.list_catalog_products(query)
@@ -110,21 +111,23 @@ if st.session_state.page == "products":
         else:
             table_rows = [
                 {
-                    "商品编号": item["product_code"],
-                    "商品名称": item["name"],
-                    "品类": item["category"],
+                    "SKU编号": item["sku_id"],
+                    "商品名称": item["product_name"],
+                    "一级类目": item["category_l1"],
+                    "二级类目": item["category_l2"],
                     "品牌": item["brand"],
-                    "SKU": item["sku"],
-                    "价格": item["price"],
+                    "定价": item["pricing_model"],
+                    "活动价": item["list_price_rmb"],
                     "库存": item["stock"],
+                    "90天销量": item["last_90d_sales"],
                     "状态": item["status"],
                 }
                 for item in products
             ]
             st.dataframe(table_rows, use_container_width=True, hide_index=True)
 
-            product_options = {f"{item['product_code']} - {item['name']}": item["id"] for item in products}
-            selected_product = st.selectbox("选择要编辑的商品", [""] + list(product_options.keys()))
+            product_options = {f"{item['sku_id']} - {item['product_name']}": item["id"] for item in products}
+            selected_product = st.selectbox("选择要编辑的 SKU", [""] + list(product_options.keys()))
             if selected_product:
                 st.session_state.editing_product_id = product_options[selected_product]
 
@@ -137,60 +140,113 @@ if st.session_state.page == "products":
     with right:
         st.subheader("商品信息")
         if editing_product:
-            st.caption(f"正在编辑：{editing_product['product_code']}")
+            st.caption(f"正在编辑：{editing_product['sku_id']}")
         else:
-            st.caption("新增商品时自动生成商品编号")
+            st.caption("新增商品时自动生成 SKU 编号")
 
         with st.form("product_form", clear_on_submit=False):
-            name = st.text_input("商品名称", value=(editing_product or {}).get("name", ""))
-            category = st.text_input("品类", value=(editing_product or {}).get("category", ""))
+            product_name = st.text_input("商品名称", value=(editing_product or {}).get("product_name", ""))
             brand = st.text_input("品牌", value=(editing_product or {}).get("brand", ""))
-            sku = st.text_input("SKU", value=(editing_product or {}).get("sku", ""))
+            col_cat_1, col_cat_2 = st.columns(2)
+            with col_cat_1:
+                category_l1 = st.selectbox(
+                    "一级类目",
+                    ["黄金", "镶嵌", "铂金", "银饰", "玉石", "珍珠", "其他"],
+                    index=["黄金", "镶嵌", "铂金", "银饰", "玉石", "珍珠", "其他"].index((editing_product or {}).get("category_l1", "黄金")) if (editing_product or {}).get("category_l1", "黄金") in ["黄金", "镶嵌", "铂金", "银饰", "玉石", "珍珠", "其他"] else 0,
+                )
+            with col_cat_2:
+                category_l2 = st.text_input("二级类目", value=(editing_product or {}).get("category_l2", ""))
+            pricing_model = st.selectbox(
+                "定价模式",
+                ["fixed", "weight"],
+                index=0 if (editing_product or {}).get("pricing_model", "fixed") == "fixed" else 1,
+            )
             col_a, col_b = st.columns(2)
             with col_a:
-                price = st.number_input("价格", min_value=0.0, value=float((editing_product or {}).get("price", 0) or 0), step=1.0)
+                weight_g = st.number_input("克重(g)", min_value=0.0, value=float((editing_product or {}).get("weight_g", 0) or 0), step=0.1)
+                purity = st.text_input("成色", value=(editing_product or {}).get("purity", ""))
+                tag_price_rmb = st.number_input("吊牌价", min_value=0.0, value=float((editing_product or {}).get("tag_price_rmb", 0) or 0), step=1.0)
+                list_price_rmb = st.number_input("划线/活动价", min_value=0.0, value=float((editing_product or {}).get("list_price_rmb", 0) or 0), step=1.0)
                 stock = st.number_input("库存", min_value=0, value=int((editing_product or {}).get("stock", 0) or 0), step=1)
             with col_b:
-                sales_30d = st.number_input("近30天销量", min_value=0, value=int((editing_product or {}).get("sales_30d", 0) or 0), step=1)
-                rating = st.number_input("好评率(%)", min_value=0.0, max_value=100.0, value=float((editing_product or {}).get("rating", 0) or 0), step=0.1)
+                last_30d_min_price = st.number_input("近30天最低价", min_value=0.0, value=float((editing_product or {}).get("last_30d_min_price", 0) or 0), step=1.0)
+                last_90d_min_price = st.number_input("近90天最低价", min_value=0.0, value=float((editing_product or {}).get("last_90d_min_price", 0) or 0), step=1.0)
+                last_365d_min_price = st.number_input("近365天最低价", min_value=0.0, value=float((editing_product or {}).get("last_365d_min_price", 0) or 0), step=1.0)
+                last_90d_sales = st.number_input("近90天销量", min_value=0, value=int((editing_product or {}).get("last_90d_sales", 0) or 0), step=1)
+                review_rate = st.number_input("好评率(%)", min_value=0.0, max_value=100.0, value=float((editing_product or {}).get("review_rate", 0) or 0), step=0.1)
+
+            with st.expander("镶嵌/供应链字段"):
+                g1, g2, g3, g4 = st.columns(4)
+                with g1:
+                    gem_carat = st.number_input("主石ct", min_value=0.0, value=float((editing_product or {}).get("gem_carat", 0) or 0), step=0.01)
+                with g2:
+                    gem_color = st.text_input("颜色", value=(editing_product or {}).get("gem_color") or "")
+                with g3:
+                    gem_clarity = st.text_input("净度", value=(editing_product or {}).get("gem_clarity") or "")
+                with g4:
+                    gem_cut = st.text_input("切工", value=(editing_product or {}).get("gem_cut") or "")
+                return_rate = st.number_input("退货率(%)", min_value=0.0, max_value=100.0, value=float((editing_product or {}).get("return_rate", 0) or 0), step=0.1)
+                new_product = st.checkbox("近90天上新", value=bool((editing_product or {}).get("new_product", False)))
+                certificate_ids_text = st.text_input("证书编号（逗号分隔）", value=", ".join((editing_product or {}).get("certificate_ids", [])))
+                factory_id = st.text_input("工厂代码", value=(editing_product or {}).get("factory_id", ""))
+                lead_time_days = st.number_input("补货周期(天)", min_value=0, value=int((editing_product or {}).get("lead_time_days", 0) or 0), step=1)
+                active_campaigns_text = st.text_input("在售活动（逗号分隔）", value=", ".join((editing_product or {}).get("active_campaigns", [])))
+
             status_value = (editing_product or {}).get("status", "在售")
             statuses = ["在售", "待上架", "已下架", "缺货", "待确认"]
             status_index = statuses.index(status_value) if status_value in statuses else 0
             status = st.selectbox("状态", statuses, index=status_index)
             notes = st.text_area("备注", value=(editing_product or {}).get("notes", ""), height=100)
-            submitted = st.form_submit_button("保存商品", type="primary", use_container_width=True)
+            submitted = st.form_submit_button("保存 SKU", type="primary", use_container_width=True)
 
         payload = {
-            "name": name,
-            "category": category,
+            "product_name": product_name,
             "brand": brand,
-            "sku": sku,
-            "price": price,
+            "category_l1": category_l1,
+            "category_l2": category_l2,
+            "pricing_model": pricing_model,
+            "weight_g": weight_g if weight_g > 0 else None,
+            "purity": purity,
+            "gem_carat": gem_carat if gem_carat > 0 else None,
+            "gem_color": gem_color or None,
+            "gem_clarity": gem_clarity or None,
+            "gem_cut": gem_cut or None,
+            "tag_price_rmb": tag_price_rmb,
+            "list_price_rmb": list_price_rmb,
+            "last_30d_min_price": last_30d_min_price,
+            "last_90d_min_price": last_90d_min_price,
+            "last_365d_min_price": last_365d_min_price,
             "stock": stock,
-            "sales_30d": sales_30d,
-            "rating": rating,
+            "last_90d_sales": last_90d_sales,
+            "review_rate": review_rate,
+            "return_rate": return_rate,
+            "new_product": new_product,
+            "certificate_ids": [item.strip() for item in certificate_ids_text.split(",") if item.strip()],
+            "factory_id": factory_id,
+            "lead_time_days": lead_time_days,
+            "active_campaigns": [item.strip() for item in active_campaigns_text.split(",") if item.strip()],
             "status": status,
             "notes": notes,
         }
         if submitted:
-            if not name.strip():
+            if not product_name.strip():
                 st.warning("商品名称不能为空。")
             elif editing_product:
                 database.update_catalog_product(editing_product["id"], payload)
-                st.success("商品已更新。")
+                st.success("SKU 已更新。")
                 st.rerun()
             else:
                 product_id = database.create_catalog_product(payload)
                 st.session_state.editing_product_id = product_id
-                st.success("商品已创建。")
+                st.success("SKU 已创建。")
                 st.rerun()
 
         if editing_product:
             c1, c2 = st.columns(2)
-            if c1.button("新建空白商品", use_container_width=True):
+            if c1.button("新建空白 SKU", use_container_width=True):
                 st.session_state.editing_product_id = None
                 st.rerun()
-            if c2.button("删除商品", use_container_width=True):
+            if c2.button("删除 SKU", use_container_width=True):
                 database.delete_catalog_product(editing_product["id"])
                 st.session_state.editing_product_id = None
                 st.rerun()
