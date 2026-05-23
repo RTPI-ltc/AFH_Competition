@@ -43,15 +43,32 @@ CREATE TABLE IF NOT EXISTS listing_items (
 
 CREATE TABLE IF NOT EXISTS product_catalog (
     id TEXT PRIMARY KEY,
-    product_code TEXT NOT NULL UNIQUE,
-    name TEXT NOT NULL,
-    category TEXT NOT NULL DEFAULT '',
+    sku_id TEXT NOT NULL UNIQUE,
+    product_name TEXT NOT NULL,
     brand TEXT NOT NULL DEFAULT '',
-    sku TEXT NOT NULL DEFAULT '',
-    price REAL NOT NULL DEFAULT 0,
+    category_l1 TEXT NOT NULL DEFAULT '',
+    category_l2 TEXT NOT NULL DEFAULT '',
+    pricing_model TEXT NOT NULL DEFAULT 'fixed',
+    weight_g REAL,
+    purity TEXT NOT NULL DEFAULT '',
+    gem_carat REAL,
+    gem_color TEXT,
+    gem_clarity TEXT,
+    gem_cut TEXT,
+    tag_price_rmb REAL NOT NULL DEFAULT 0,
+    list_price_rmb REAL NOT NULL DEFAULT 0,
+    last_30d_min_price REAL NOT NULL DEFAULT 0,
+    last_90d_min_price REAL NOT NULL DEFAULT 0,
+    last_365d_min_price REAL NOT NULL DEFAULT 0,
     stock INTEGER NOT NULL DEFAULT 0,
-    sales_30d INTEGER NOT NULL DEFAULT 0,
-    rating REAL NOT NULL DEFAULT 0,
+    last_90d_sales INTEGER NOT NULL DEFAULT 0,
+    review_rate REAL NOT NULL DEFAULT 0,
+    return_rate REAL NOT NULL DEFAULT 0,
+    new_product INTEGER NOT NULL DEFAULT 0,
+    certificate_ids_json TEXT NOT NULL DEFAULT '[]',
+    factory_id TEXT NOT NULL DEFAULT '',
+    lead_time_days INTEGER NOT NULL DEFAULT 0,
+    active_campaigns_json TEXT NOT NULL DEFAULT '[]',
     status TEXT NOT NULL DEFAULT '在售',
     notes TEXT NOT NULL DEFAULT '',
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -121,5 +138,6 @@ CREATE INDEX IF NOT EXISTS idx_verification_runs_session_id ON verification_runs
 CREATE INDEX IF NOT EXISTS idx_conversations_project_id ON conversations(project_id);
 CREATE INDEX IF NOT EXISTS idx_conversation_messages_conversation_id ON conversation_messages(conversation_id);
 CREATE INDEX IF NOT EXISTS idx_listing_items_project_id ON listing_items(project_id);
-CREATE INDEX IF NOT EXISTS idx_product_catalog_code ON product_catalog(product_code);
-CREATE INDEX IF NOT EXISTS idx_product_catalog_name ON product_catalog(name);
+CREATE INDEX IF NOT EXISTS idx_product_catalog_sku_id ON product_catalog(sku_id);
+CREATE INDEX IF NOT EXISTS idx_product_catalog_name ON product_catalog(product_name);
+CREATE INDEX IF NOT EXISTS idx_product_catalog_category ON product_catalog(category_l1, category_l2);

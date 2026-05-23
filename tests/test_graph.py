@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import os
 
+import pytest
+
 os.environ["AFH_DISABLE_LLM"] = "1"
 
 from agent.graph import build_graph
@@ -17,6 +19,11 @@ SAMPLE_RULES = """天猫618大促选品规则
 2.价格要求：活动价不得高于近30天最低价；折扣力度≥7折。
 3.品类限制：黄金类自单店最多5个SKU；钻石类自单店最多10个SKU。
 4.互斥规则：已参加“品牌日”活动的商品不可重复报名。"""
+
+
+@pytest.fixture(autouse=True)
+def disable_llm_for_graph_tests(monkeypatch):
+    monkeypatch.setenv("AFH_DISABLE_LLM", "1")
 
 
 def test_rule_parser_extracts_sample_rules():
