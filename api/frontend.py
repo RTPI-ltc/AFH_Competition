@@ -14,6 +14,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 from agent import chat, database
+from agent.llm import call_llm, model_status
 
 
 router = APIRouter(prefix="/api", tags=["frontend"])
@@ -223,6 +224,18 @@ def _sse(payload: dict[str, Any]) -> str:
 @router.get("/health")
 def frontend_health() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@router.get("/llm/health")
+def frontend_llm_health() -> dict[str, Any]:
+    status = model_status()
+    if not status.get("llm_available"):
+        return {**status, "status": "fallback"}
+    try:
+        reply = call_llm("你只返回 ok", "请返回 ok")
+    except Exception as exc:
+        return {**status, "status": "error", "error": str(exc)}
+    return {**status, "status": "ok", "reply": reply.strip()[:20]}
 
 
 @router.get("/projects")

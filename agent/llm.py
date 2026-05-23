@@ -65,9 +65,17 @@ def get_model() -> str:
 def get_timeout_seconds() -> float:
     _load_dotenv_if_available()
     try:
-        return max(3.0, float(os.getenv("LLM_TIMEOUT_SECONDS", "12")))
+        return max(10.0, float(os.getenv("LLM_TIMEOUT_SECONDS", "45")))
     except ValueError:
-        return 12.0
+        return 45.0
+
+
+def get_max_tokens() -> int:
+    _load_dotenv_if_available()
+    try:
+        return max(512, min(4096, int(os.getenv("LLM_MAX_TOKENS", "2048"))))
+    except ValueError:
+        return 2048
 
 
 def model_status() -> dict[str, str | bool]:
@@ -97,7 +105,7 @@ def call_llm(system: str, user: str) -> str:
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ],
-        max_tokens=4096,
+        max_tokens=get_max_tokens(),
         temperature=0.1,
         timeout=get_timeout_seconds(),
     )

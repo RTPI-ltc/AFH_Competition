@@ -32,3 +32,13 @@ def test_generic_llm_env_overrides_provider_defaults(monkeypatch, tmp_path):
     assert llm.get_api_key() == "generic-key"
     assert llm.get_base_url() == "https://example.test/v1"
     assert llm.get_model() == "custom-model"
+
+
+def test_llm_timeout_and_max_tokens_are_configurable(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("AFH_SKIP_DOTENV", "1")
+    monkeypatch.setenv("LLM_TIMEOUT_SECONDS", "60")
+    monkeypatch.setenv("LLM_MAX_TOKENS", "1024")
+
+    assert llm.get_timeout_seconds() == 60
+    assert llm.get_max_tokens() == 1024
