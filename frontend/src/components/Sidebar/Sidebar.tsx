@@ -12,6 +12,7 @@ interface SidebarProps {
   onSummarizeProject: (projectId: string) => void;
   onNavigateToKnowledge: () => void;
   onNavigateToProducts: () => void;
+  onNavigateToChat: () => void;
   isKnowledgePage: boolean;
   isProductPage: boolean;
 }
@@ -22,6 +23,7 @@ export function Sidebar({
   onSummarizeProject,
   onNavigateToKnowledge,
   onNavigateToProducts,
+  onNavigateToChat,
   isKnowledgePage,
   isProductPage,
 }: SidebarProps) {
@@ -50,7 +52,7 @@ export function Sidebar({
               </div>
               <h1 className="text-lg font-semibold text-gray-900">执行辅助Agent</h1>
             </div>
-            <NewTaskButton />
+            <NewTaskButton onTaskStarted={onNavigateToChat} />
           </div>
 
           {/* Scrollable content */}

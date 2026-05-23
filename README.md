@@ -1,117 +1,195 @@
-# 执行辅助 Agent
+# AFH Competition Execution Assistant
 
-基于 LangGraph、FastAPI、Streamlit、DeepSeek API 和 SQLite 的电商活动规则执行辅助系统。项目面向珠宝集团运营场景，用项目、对话和上架清单承载运营工作流。
+面向电商活动运营场景的执行辅助 Agent。项目当前主推 `next` 分支版本：React 前端 + FastAPI 后端 + SQLite 持久化 + DeepSeek/OpenAI-compatible LLM 调用适配。
 
-## 功能
+系统用于把活动规则、商品 SKU、知识库和项目对话串成一个可执行工作台，帮助运营人员完成规则理解、上架清单维护、商品主数据管理和活动执行检查。
 
-- 解析活动规则文本，输出结构化规则列表
-- 自动标注歧义、风险点和置信度
-- 生成运营可执行检查清单、业务决策流程和边界反例
-- 支持人工澄清后继续执行
-- 支持项目增删，每个项目有独立上架清单
-- 支持项目下多个对话，对话可增删
-- 支持自然语言和 AI 交互，不再使用商品信息表单
-- 支持 AI 根据对话增减上架清单商品
-- 持久化项目、对话、消息、上架清单、规则解析和核查记录
-- 未配置 DeepSeek API key 时，内置确定性 demo parser 仍可运行赛题示例
+## 当前能力
 
-## 快速开始
+- 项目工作台：支持项目、任务/对话、历史记录的创建、切换、重命名和删除。
+- AI 对话：围绕当前项目进行自然语言沟通，可自动维护上架清单。
+- SKU 品类库：使用 SQLite 存储商品主数据，SKU 编号自动生成，内置 20 条虚构品牌样例数据。
+- 商品管理：支持按品类和关键词查询，支持新增/删除 SKU。
+- 知识库：支持官方知识库和用户知识库。
+- 多模态导入：知识库导入支持文本、PDF、Office、图片、音频、视频等附件；可抽取文本的文件会合并为知识库内容，多模态素材会保存元数据。
+- 规则链路：保留 LangGraph 规则解析、清单生成、人工澄清、商品核查等后端能力。
+- 降级可用：未配置 `DEEPSEEK_API_KEY` 时，系统仍可使用确定性 fallback 演示核心流程。
 
-1. 安装依赖：
+## 技术栈
 
-```bash
+- Frontend: React 19, TypeScript, Vite, Tailwind CSS, lucide-react
+- Backend: FastAPI, Pydantic, LangGraph
+- LLM: DeepSeek chat API, 兼容 OpenAI SDK 调用方式
+- Database: SQLite
+- Legacy demo UI: Streamlit 仍保留在 `ui/app.py`，但当前推荐使用 React 前端
+
+## 目录结构
+
+```text
+D:\AFH_Competition
+├── agent/                 # Agent 业务逻辑、LLM 适配、数据库访问、LangGraph 节点
+├── api/                   # FastAPI 后端
+│   ├── main.py            # 后端入口
+│   └── frontend.py        # React 前端兼容 API
+├── frontend/              # React + Vite 前端
+├── sql/schema.sql         # SQLite 表结构
+├── tests/                 # 后端测试
+├── data/                  # 本地 SQLite 数据库，已被 .gitignore 忽略
+├── requirements.txt       # Python 依赖
+└── README.md
+```
+
+## 快速启动
+
+### 1. 安装 Python 依赖
+
+```powershell
 pip install -r requirements.txt
 ```
 
-2. 配置环境变量：
+如果使用 Codex 桌面内置 Python，也可以显式执行：
 
-```bash
+```powershell
+& "C:\Users\sunri\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe" -m pip install -r requirements.txt
+```
+
+### 2. 配置 API Key
+
+```powershell
 copy .env.example .env
 ```
 
-编辑 `.env`，填入 `DEEPSEEK_API_KEY`。如果暂时不配置，系统会使用内置确定性逻辑演示核心流程。
-
-3. 启动后端：
-
-```bash
-uvicorn api.main:app --reload --port 8000
-```
-
-4. 启动前端：
-
-```bash
-streamlit run ui/app.py
-```
-
-5. 访问：
-
-- 前端 UI: http://localhost:8501
-- API 文档: http://localhost:8000/docs
-- 健康检查: http://localhost:8000/health
-
-## 架构
+编辑 `.env`，填入：
 
 ```text
-Streamlit UI -> FastAPI -> Agent Graph -> DeepSeek API or deterministic fallback
-                              |
-                              +-> project workspace
-                              +-> conversation chat
-                              +-> listing checklist
-                              +-> rule_parser
-                              +-> checklist_builder
-                              +-> human_review_gate
-                              +-> product_verifier
-                              +-> SQLite persistence
+DEEPSEEK_API_KEY=your-api-key-here
 ```
+
+不配置时，系统会使用 fallback 逻辑，适合本地演示和测试。
+
+### 3. 启动后端
+
+```powershell
+uvicorn api.main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+后端地址：
+
+- Health: http://127.0.0.1:8000/api/health
+- API Docs: http://127.0.0.1:8000/docs
+
+### 4. 安装并启动前端
+
+```powershell
+cd frontend
+npm ci
+npm run dev -- --host 127.0.0.1 --port 5173
+```
+
+前端地址：
+
+- React UI: http://127.0.0.1:5173
+
+Vite 已将 `/api` 代理到 `http://localhost:8000`。
 
 ## 数据库
 
-默认使用 SQLite，不需要额外安装数据库服务。数据库文件会生成在 D 盘项目目录：
+默认使用 SQLite，数据库文件位于：
 
 ```text
 D:\AFH_Competition\data\afh_agent.db
 ```
 
-如果后续要把数据库或大文件放到其他 D 盘目录，可以设置：
+可以通过环境变量覆盖：
 
-```bash
+```powershell
 set AFH_DB_PATH=D:\AFH_Competition\data\afh_agent.db
 ```
 
-表结构在 `sql/schema.sql`，包含：
+主要表：
 
-- `sessions`: 会话
-- `chat_messages`: 聊天/操作历史
-- `rule_runs`: 规则解析、清单和决策流程快照
-- `products`: 商品信息
-- `verification_runs`: 商品核查记录
 - `projects`: 项目
-- `conversations`: 项目下的对话
-- `conversation_messages`: 新工作台聊天记录
-- `listing_items`: 项目上架清单商品
+- `conversations`: 项目下的任务/对话
+- `conversation_messages`: 对话消息
+- `listing_items`: 项目上架清单
+- `product_catalog`: SKU 商品主数据
+- `sessions`, `chat_messages`, `rule_runs`, `products`, `verification_runs`: 规则解析和商品核查历史
 
-## API
+`product_catalog` 当前字段覆盖 SKU 编号、商品名称、品牌、一级/二级类目、定价模式、克重、成色、钻石参数、吊牌价、活动价、历史最低价、库存、90 天销量、好评率、退货率、证书、工厂和活动信息。
 
-- `GET /projects`: 查看项目
-- `POST /projects`: 创建项目
-- `DELETE /projects/{project_id}`: 删除项目
-- `GET /projects/{project_id}/conversations`: 查看项目对话
-- `POST /conversations`: 创建对话
-- `DELETE /conversations/{conversation_id}`: 删除对话
-- `POST /chat`: 自然语言对话，AI 可增减上架清单
-- `GET /projects/{project_id}/listing-items`: 查看项目上架清单
-- `POST /projects/{project_id}/listing-items`: 手动创建上架清单项
-- `DELETE /listing-items/{item_id}`: 移除上架清单项
-- `POST /parse`: 解析规则文本并生成清单
-- `POST /clarify`: 提交人工澄清答案并继续流程
-- `POST /verify`: 核查商品是否满足活动规则
-- `GET /sessions`: 查看最近会话
-- `GET /sessions/{session_id}`: 查看单个会话历史
+本地启动时会自动初始化数据库，并在商品表为空时写入 20 条虚构品牌样例 SKU。样例品牌不使用真实品牌。
 
-## 测试
+## 前端 API
 
-```bash
-pytest tests/ -v
+React 前端使用 `/api` 前缀：
+
+- `GET /api/projects`: 项目列表
+- `POST /api/projects?name=...`: 创建项目
+- `PUT /api/projects/{project_id}/rename?name=...`: 重命名项目
+- `POST /api/task/new?project_id=...`: 开启新任务
+- `GET /api/history?project_id=...`: 当前项目任务历史
+- `GET /api/history/{task_id}`: 任务详情
+- `DELETE /api/history/{task_id}`: 删除任务
+- `POST /api/chat/stream`: SSE 对话流
+- `GET /api/products`: SKU 商品列表
+- `POST /api/products`: 新增 SKU 商品
+- `DELETE /api/products/{sku_id}`: 删除 SKU 商品
+- `GET /api/knowledge/official`: 官方知识库
+- `GET /api/knowledge/personal`: 用户知识库
+- `POST /api/knowledge/upload`: 导入知识库，支持多模态附件
+- `DELETE /api/knowledge/{knowledge_id}`: 删除用户知识库
+
+旧版接口仍保留：
+
+- `GET /projects`
+- `POST /projects`
+- `POST /chat`
+- `GET /catalog/products`
+- `POST /parse`
+- `POST /clarify`
+- `POST /verify`
+
+## 知识库多模态导入
+
+前端导入知识库时可选择文件或文件夹，也可以直接粘贴文本。
+
+支持类型：
+
+- 文本：`.txt`, `.md`, `.json`, `.csv`, `.tsv`, `.xml`, `.yaml`, `.html`, `.py`, `.js`, `.ts`
+- 文档：`.pdf`, `.doc`, `.docx`, `.xls`, `.xlsx`, `.ppt`, `.pptx`
+- 图片：`.png`, `.jpg`, `.jpeg`, `.webp`, `.gif`, `.bmp`, `.svg`
+- 音频：`.mp3`, `.wav`, `.m4a`
+- 视频：`.mp4`, `.mov`, `.avi`, `.webm`
+
+当前后端会对文本、`.docx`、`.xlsx` 做基础文本抽取；图片、音频、视频等多模态素材会保存文件名、类型、大小、模态类型和必要元数据。后续接入真正 RAG 或多模态模型时，可以直接使用这些元数据和附件内容扩展索引链路。
+
+## 开发与验证
+
+后端测试：
+
+```powershell
+pytest tests\ -v
 ```
 
-测试覆盖赛题示例规则、边界值、品牌日互斥、人工接管、完整图执行流程和 SQLite 持久化。
+前端构建：
+
+```powershell
+cd frontend
+npm run build
+```
+
+当前验证状态：
+
+- `pytest tests\ -v`: 16 passed
+- `npm run build`: passed
+
+## Git 分支
+
+- `main`: 已合并 React 前端和后端兼容层的稳定基础版。
+- `next`: 在 `main` 基础上修复多模态知识库导入和新任务创建流程，当前推荐体验分支。
+
+## 注意事项
+
+- `.env`、`data/*.db`、`node_modules/`、`frontend/dist/`、日志文件和缓存目录不会提交到 Git。
+- 大文件和本地数据库默认放在 `D:\AFH_Competition` 下，避免占用 C 盘。
+- 如果前端请求失败，先确认后端 `http://127.0.0.1:8000/api/health` 是否返回 `{"status":"ok"}`。

@@ -8,6 +8,9 @@ export interface Message {
     checklist?: CheckListItem[];
     risks?: RiskItem[];
     needs_clarification?: string[];
+    recommendations?: RecommendationItem[];
+    priority_analysis?: string[];
+    confirmation?: ConfirmationRequest;
   };
 }
 
@@ -21,6 +24,23 @@ export interface CheckListItem {
 export interface RiskItem {
   description: string;
   severity: 'high' | 'medium';
+}
+
+export interface RecommendationItem {
+  sku_id: string;
+  product_name: string;
+  priority: 'high' | 'medium' | 'low';
+  score: number;
+  reason: string;
+}
+
+export interface ConfirmationRequest {
+  required?: boolean;
+  status?: 'confirmed' | 'cancelled' | string;
+  question?: string;
+  confirm_label?: string;
+  revise_label?: string;
+  recommended_skus?: string[];
 }
 
 export interface HistoryItem {
@@ -48,9 +68,10 @@ export interface KnowledgeItem {
 }
 
 export interface StreamEvent {
-  type: 'text' | 'checklist' | 'risks' | 'clarification' | 'done';
+  type: 'text' | 'checklist' | 'risks' | 'clarification' | 'recommendations' | 'priority_analysis' | 'confirmation' | 'done';
   content?: string;
-  items?: CheckListItem[] | RiskItem[] | string[];
+  items?: CheckListItem[] | RiskItem[] | RecommendationItem[] | string[];
+  item?: ConfirmationRequest;
 }
 
 export interface ProjectItem {

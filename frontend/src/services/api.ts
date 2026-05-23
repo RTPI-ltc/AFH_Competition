@@ -1,5 +1,5 @@
 /* API service for backend communication */
-import type { HistoryItem, HistoryDetail, KnowledgeItem, ProjectItem } from '../types';
+import type { HistoryItem, HistoryDetail, KnowledgeItem, ProjectItem, StreamEvent } from '../types';
 
 const BASE = '/api';
 
@@ -16,7 +16,7 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
 }
 
 /* Task */
-export async function createTask(projectId: string = 'default'): Promise<{ task_id: string; created_at: string }> {
+export async function createTask(projectId: string = 'default'): Promise<{ task_id: string; created_at: string; project_id: string }> {
   return request(`/task/new?project_id=${encodeURIComponent(projectId)}`, { method: 'POST' });
 }
 
@@ -43,8 +43,13 @@ export async function saveMessage(taskId: string, role: string, content: string,
 
 export async function summarizeTask(taskId: string): Promise<{
   title: string;
+  overview?: string;
   rule_points: string[];
   recommendations: { item: string; reason: string }[];
+  final_selection?: SummarySelection[];
+  selection_reasons?: string[];
+  attention_items?: string[];
+  confirmed_listing?: SummaryListingItem[];
   checks: { name: string; status: string }[];
   risks: string[];
 }> {
@@ -53,12 +58,38 @@ export async function summarizeTask(taskId: string): Promise<{
 
 export async function summarizeProject(projectId: string): Promise<{
   title: string;
+  overview?: string;
   rule_points: string[];
   recommendations: { item: string; reason: string }[];
+  final_selection?: SummarySelection[];
+  selection_reasons?: string[];
+  attention_items?: string[];
+  confirmed_listing?: SummaryListingItem[];
   checks: { name: string; status: string }[];
   risks: string[];
 }> {
   return request(`/projects/${projectId}/summarize`, { method: 'POST' });
+}
+
+export interface SummarySelection {
+  sku_id: string;
+  product_name: string;
+  status: string;
+  category: string;
+  reason: string;
+  key_metrics?: {
+    stock?: number | null;
+    last_90d_sales?: number | null;
+    review_rate?: number | null;
+    return_rate?: number | null;
+  };
+}
+
+export interface SummaryListingItem {
+  sku_id: string;
+  product_name: string;
+  status: string;
+  notes: string;
 }
 
 /* Projects */
@@ -118,10 +149,11 @@ export async function getPersonalKnowledge(): Promise<KnowledgeItem[]> {
   return request('/knowledge/personal');
 }
 
-export async function uploadKnowledge(name: string, content: string): Promise<{ id: string }> {
+export async function uploadKnowledge(name: string, content: string, files: File[] = []): Promise<{ id: string }> {
   const formData = new FormData();
   formData.append('name', name);
   formData.append('content', content);
+  files.forEach((file) => formData.append('files', file, file.name));
   const res = await fetch(`${BASE}/knowledge/upload`, {
     method: 'POST',
     body: formData,
@@ -139,7 +171,7 @@ export async function streamChat(
   taskId: string,
   message: string,
   knowledgeIds: string[],
-  onEvent: (event: { type: string; content?: string; items?: unknown[] }) => void,
+  onEvent: (event: StreamEvent) => void,
   onDone: () => void,
   onError: (err: Error) => void,
 ) {

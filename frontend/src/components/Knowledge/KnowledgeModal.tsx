@@ -11,7 +11,9 @@ const SUPPORTED_EXTENSIONS = [
   '.txt', '.md', '.markdown', '.json', '.csv', '.tsv',
   '.xml', '.yaml', '.yml', '.html', '.htm', '.log',
   '.py', '.js', '.ts', '.jsx', '.tsx',
-  '.docx', '.pdf', '.xlsx',
+  '.doc', '.docx', '.pdf', '.xls', '.xlsx', '.ppt', '.pptx',
+  '.png', '.jpg', '.jpeg', '.webp', '.gif', '.bmp', '.svg',
+  '.mp3', '.wav', '.m4a', '.mp4', '.mov', '.avi', '.webm',
 ];
 
 const TEXT_EXTENSIONS = new Set([
@@ -37,7 +39,8 @@ interface FileInfo {
   files: File[];
   content: string;
   fileCount: number;
-  skippedCount: number;
+  textFileCount: number;
+  multimodalCount: number;
 }
 
 export function KnowledgeModal({ isOpen, onClose }: KnowledgeModalProps) {
@@ -65,12 +68,7 @@ export function KnowledgeModal({ isOpen, onClose }: KnowledgeModalProps) {
       const ext = f.name.split('.').pop()?.toLowerCase() || '';
       return TEXT_EXTENSIONS.has(ext);
     });
-    const skipped = fileArr.length - textFiles.length;
-
-    if (textFiles.length === 0) {
-      setError('所选文件中没有可读取的文本格式');
-      return;
-    }
+    const multimodalCount = fileArr.length - textFiles.length;
 
     // Auto-fill name from first file/folder
     if (!name.trim()) {
@@ -92,8 +90,8 @@ export function KnowledgeModal({ isOpen, onClose }: KnowledgeModalProps) {
     }
     const combined = contents.join('\n').slice(0, 50000);
 
-    setFileInfo({ files: fileArr, content: combined, fileCount: textFiles.length, skippedCount: skipped });
-    setContent(combined);
+    setFileInfo({ files: fileArr, content: combined, fileCount: fileArr.length, textFileCount: textFiles.length, multimodalCount });
+    if (combined) setContent(combined);
     setError('');
   };
 
@@ -108,17 +106,17 @@ export function KnowledgeModal({ isOpen, onClose }: KnowledgeModalProps) {
   };
 
   const handleSubmit = async () => {
-    if (!name.trim() || !content.trim()) return;
+    if (!name.trim() || (!content.trim() && !fileInfo?.files.length)) return;
     setIsUploading(true); setError('');
     try {
-      await uploadNewKnowledge(name.trim(), content.trim());
+      await uploadNewKnowledge(name.trim(), content.trim(), fileInfo?.files ?? []);
       resetForm(); onClose();
     } catch (err) {
       setError(err instanceof Error ? err.message : '导入失败');
     } finally { setIsUploading(false); }
   };
 
-  const canSubmit = name.trim() && content.trim();
+  const canSubmit = name.trim() && (content.trim() || fileInfo?.files.length);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
@@ -171,10 +169,14 @@ export function KnowledgeModal({ isOpen, onClose }: KnowledgeModalProps) {
                   </div>
                   <div className="text-left flex-1 min-w-0">
                     <p className="text-sm font-medium text-gray-700">
-                      已选择 {fileInfo.fileCount} 个文本文件
-                      {fileInfo.skippedCount > 0 && <span className="text-amber-500">（{fileInfo.skippedCount} 个跳过）</span>}
+                      已选择 {fileInfo.fileCount} 个文件
+                      {fileInfo.multimodalCount > 0 && <span className="text-indigo-500">（含 {fileInfo.multimodalCount} 个多模态素材）</span>}
                     </p>
-                    <p className="text-xs text-gray-400">{fileInfo.content.length} 字符</p>
+                    <p className="text-xs text-gray-400">
+                      {fileInfo.textFileCount} 个文本文件
+                      {fileInfo.multimodalCount > 0 && ` · ${fileInfo.multimodalCount} 个多模态素材`}
+                      {fileInfo.content ? ` · ${fileInfo.content.length} 字符预览` : ' · 后端将保存附件元数据'}
+                    </p>
                   </div>
                   <button onClick={(e) => { e.stopPropagation(); resetForm(); }}
                     className="p-1.5 rounded-lg hover:bg-red-100 text-gray-400 hover:text-red-500">
@@ -199,7 +201,7 @@ export function KnowledgeModal({ isOpen, onClose }: KnowledgeModalProps) {
                       选择文件夹
                     </button>
                   </div>
-                  <p className="text-xs text-gray-400 mt-3">支持 txt, md, json, csv, xml, py 等文本格式</p>
+                  <p className="text-xs text-gray-400 mt-3">支持文本、PDF、Office、图片、音频、视频等多模态素材</p>
                 </div>
               )}
             </div>
