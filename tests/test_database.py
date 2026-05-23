@@ -43,7 +43,7 @@ def test_database_persists_session_messages_and_product(tmp_path):
     os.environ.pop("AFH_DB_PATH", None)
 
 
-def test_project_conversation_listing_and_chat_fallback(tmp_path):
+def test_project_conversation_listing_and_chat_uses_model_actions(tmp_path, monkeypatch):
     db_path = tmp_path / "workspace.db"
     os.environ["AFH_DB_PATH"] = str(db_path)
     os.environ["AFH_DISABLE_LLM"] = "1"
@@ -52,6 +52,31 @@ def test_project_conversation_listing_and_chat_fallback(tmp_path):
     project_id = database.create_project("618 大促", "测试项目")
     conversation_id = database.create_conversation(project_id, "选品讨论")
 
+    monkeypatch.setattr(chat, "llm_available", lambda: True)
+    monkeypatch.setattr(
+        chat,
+        "call_llm",
+        lambda system, user: """
+        {
+          "reply": "已按模型判断加入上架清单。",
+          "actions": [
+            {
+              "type": "add_listing_item",
+              "product_name": "足金项链A",
+              "status": "待确认",
+              "notes": "模型返回的动作",
+              "details": {"source": "model"}
+            }
+          ],
+          "recommendations": [],
+          "priority_analysis": [],
+          "checklist": [],
+          "risks": [],
+          "needs_clarification": [],
+          "confirmation": {"required": false}
+        }
+        """,
+    )
     result = chat.handle_chat(project_id, conversation_id, "把足金项链A加入上架清单")
     listing = database.list_listing_items(project_id)
     conversations = database.list_conversations(project_id)
@@ -60,7 +85,7 @@ def test_project_conversation_listing_and_chat_fallback(tmp_path):
     assert conversations[0]["id"] == conversation_id
     assert len(messages) == 2
     assert result["applied_actions"]
-    assert listing[0]["product_name"]
+    assert listing[0]["product_name"] == "足金项链A"
 
     database.delete_conversation(conversation_id)
     assert database.list_conversations(project_id) == []

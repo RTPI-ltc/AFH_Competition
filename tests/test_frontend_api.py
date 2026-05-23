@@ -87,6 +87,53 @@ def test_frontend_task_history_and_stream_chat(tmp_path, monkeypatch):
 
 def test_frontend_recommendation_flow_waits_for_confirmation(tmp_path, monkeypatch):
     client = _client(tmp_path, monkeypatch)
+    import agent.chat as chat_module
+
+    def fake_call_llm(system: str, user: str) -> str:
+        if "确认执行上一个上架方案" in user:
+            return """
+            {
+              "reply": "已确认方案，按模型结果写入上架清单，状态为拟上架。",
+              "actions": [
+                {
+                  "type": "add_listing_item",
+                  "product_name": "5G黄金小蛮腰耳钉1.2g",
+                  "status": "拟上架",
+                  "notes": "用户确认模型方案",
+                  "details": {"source": "model_confirmed"}
+                }
+              ],
+              "recommendations": [],
+              "priority_analysis": [],
+              "checklist": [],
+              "risks": [],
+              "needs_clarification": [],
+              "confirmation": {"required": false, "status": "confirmed"}
+            }
+            """
+        return """
+        {
+          "reply": "我基于商品库推荐 5G黄金小蛮腰耳钉1.2g 优先上架。",
+          "actions": [],
+          "recommendations": [
+            {
+              "sku_id": "SKU000006",
+              "product_name": "5G黄金小蛮腰耳钉1.2g",
+              "priority": "high",
+              "score": 91,
+              "reason": "模型判断库存、销量、评价较优"
+            }
+          ],
+          "priority_analysis": ["模型认为该 SKU 优先级最高。"],
+          "checklist": [{"condition": "确认活动价", "priority": "high", "detail": "模型要求人工确认价格口径。"}],
+          "risks": [],
+          "needs_clarification": ["活动价是否低于价格保护线。"],
+          "confirmation": {"required": true, "question": "是否确认？", "confirm_label": "确认方案", "revise_label": "继续调整"}
+        }
+        """
+
+    monkeypatch.setattr(chat_module, "llm_available", lambda: True)
+    monkeypatch.setattr(chat_module, "call_llm", fake_call_llm)
 
     project = client.post("/api/projects?name=618选品项目").json()
     task = client.post(f"/api/task/new?project_id={project['id']}").json()
@@ -125,8 +172,27 @@ def test_frontend_recommendation_flow_waits_for_confirmation(tmp_path, monkeypat
     os.environ.pop("AFH_DISABLE_LLM", None)
 
 
-def test_frontend_lightweight_chat_does_not_call_llm(tmp_path, monkeypatch):
+def test_frontend_lightweight_chat_uses_model(tmp_path, monkeypatch):
     client = _client(tmp_path, monkeypatch)
+    import agent.chat as chat_module
+
+    monkeypatch.setattr(chat_module, "llm_available", lambda: True)
+    monkeypatch.setattr(
+        chat_module,
+        "call_llm",
+        lambda system, user: """
+        {
+          "reply": "模型回答：你好，我在。",
+          "actions": [],
+          "recommendations": [],
+          "priority_analysis": [],
+          "checklist": [],
+          "risks": [],
+          "needs_clarification": [],
+          "confirmation": {"required": false}
+        }
+        """,
+    )
 
     task = client.post("/api/task/new?project_id=default").json()
     stream = client.post(
@@ -135,9 +201,9 @@ def test_frontend_lightweight_chat_does_not_call_llm(tmp_path, monkeypatch):
     )
 
     assert stream.status_code == 200
-    assert "你好，我在" in stream.text
+    assert "模型回答：你好，我在。" in stream.text
     assert '"type": "done"' in stream.text
-    assert "模型调用失败" not in stream.text
+    assert "模型未配置" not in stream.text
 
     os.environ.pop("AFH_DB_PATH", None)
     os.environ.pop("AFH_DISABLE_LLM", None)
