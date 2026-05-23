@@ -1,0 +1,83 @@
+from __future__ import annotations
+
+import os
+from pathlib import Path
+
+
+DEFAULT_CHUNK_SIZE = 500
+DEFAULT_CHUNK_OVERLAP = 80
+DEFAULT_CHUNK_STRIDE = DEFAULT_CHUNK_SIZE - DEFAULT_CHUNK_OVERLAP
+DEFAULT_MERGE_TARGET = int(DEFAULT_CHUNK_SIZE * 0.7)
+
+DEFAULT_EMBEDDING_MODEL = "BAAI/bge-small-zh-v1.5"
+DEFAULT_EMBEDDING_DIM = 512
+
+SUPPORTED_EXTENSIONS: tuple[str, ...] = (
+    ".txt",
+    ".md",
+    ".markdown",
+    ".rst",
+    ".log",
+    ".csv",
+    ".tsv",
+    ".json",
+    ".yaml",
+    ".yml",
+    ".html",
+    ".htm",
+    ".pdf",
+    ".docx",
+)
+
+TEXT_EXTENSIONS: frozenset[str] = frozenset({
+    ".txt",
+    ".md",
+    ".markdown",
+    ".rst",
+    ".log",
+    ".csv",
+    ".tsv",
+    ".json",
+    ".yaml",
+    ".yml",
+    ".html",
+    ".htm",
+})
+
+
+def _project_root() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
+def _resolve_db_dir() -> Path:
+    configured = os.getenv("AFH_DB_PATH")
+    if configured:
+        return Path(configured).resolve().parent
+    return _project_root() / "data"
+
+
+def get_rag_root() -> Path:
+    override = os.getenv("AFH_RAG_ROOT")
+    if override:
+        return Path(override).expanduser().resolve()
+    return _resolve_db_dir() / "rag_index"
+
+
+def knowledge_dir(knowledge_id: str) -> Path:
+    safe = knowledge_id.replace("/", "_").replace("\\", "_").strip()
+    if not safe:
+        raise ValueError("knowledge_id 不能为空")
+    root = get_rag_root()
+    root.mkdir(parents=True, exist_ok=True)
+    return root / safe
+
+
+def embedding_disabled() -> bool:
+    return os.getenv("AFH_DISABLE_RAG_EMBEDDING") == "1"
+
+
+RAG_DISABLED = os.getenv("AFH_DISABLE_RAG") == "1"
+
+
+def preload_requested() -> bool:
+    return os.getenv("AFH_RAG_PRELOAD") == "1"
