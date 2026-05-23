@@ -100,7 +100,7 @@ interface AppContextType {
   sendMessage: (message: string) => Promise<void>;
   selectTask: (taskId: string) => Promise<void>;
   deleteTaskHistory: (taskId: string) => Promise<void>;
-  uploadNewKnowledge: (name: string, content: string) => Promise<void>;
+  uploadNewKnowledge: (name: string, content: string, files?: File[]) => Promise<void>;
   deleteKnowledgeItem: (id: string) => Promise<void>;
   renameTask: (taskId: string, name: string) => Promise<void>;
   renameProject: (projectId: string, name: string) => Promise<void>;
@@ -113,15 +113,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const taskIdRef = useRef<string | null>(null);
 
   const startNewTask = useCallback(async () => {
+    dispatch({ type: 'SET_ERROR', error: null });
     dispatch({ type: 'SET_LOADING', loading: true });
     try {
       const result = await api.createTask(state.currentProjectId);
       taskIdRef.current = result.task_id;
-      dispatch({ type: 'SET_CURRENT_TASK', taskId: result.task_id });
       dispatch({ type: 'RESET_CHAT' });
+      if (result.project_id && result.project_id !== state.currentProjectId) {
+        dispatch({ type: 'SET_CURRENT_PROJECT', projectId: result.project_id });
+      }
       dispatch({ type: 'SET_CURRENT_TASK', taskId: result.task_id });
+      const history = await api.getHistory(result.project_id || state.currentProjectId);
+      dispatch({ type: 'SET_HISTORY', history });
     } catch (err) {
       console.error('Failed to create task:', err);
+      dispatch({ type: 'SET_ERROR', error: err instanceof Error ? err.message : '开启新任务失败' });
     } finally {
       dispatch({ type: 'SET_LOADING', loading: false });
     }
@@ -140,10 +146,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     try {
       const projects = await api.getProjects();
       dispatch({ type: 'SET_PROJECTS', projects });
+      if (state.currentProjectId === 'default' && projects.length > 0) {
+        dispatch({ type: 'SET_CURRENT_PROJECT', projectId: projects[0].id });
+      }
     } catch (err) {
       console.error('Failed to load projects:', err);
     }
-  }, []);
+  }, [state.currentProjectId]);
 
   const switchProject = useCallback(async (projectId: string) => {
     dispatch({ type: 'SET_CURRENT_PROJECT', projectId });
@@ -189,6 +198,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
         if (!state.currentTaskId) {
           const result = await api.createTask(state.currentProjectId);
           taskIdRef.current = result.task_id;
+          if (result.project_id && result.project_id !== state.currentProjectId) {
+            dispatch({ type: 'SET_CURRENT_PROJECT', projectId: result.project_id });
+          }
           dispatch({ type: 'SET_CURRENT_TASK', taskId: result.task_id });
         }
 
@@ -274,7 +286,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         dispatch({ type: 'SET_LOADING', loading: false });
       }
     },
-    [state.currentTaskId, state.selectedKnowledge, loadHistory],
+    [state.currentProjectId, state.currentTaskId, state.selectedKnowledge, loadHistory],
   );
 
   const selectTask = useCallback(async (taskId: string) => {
@@ -303,8 +315,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   const uploadNewKnowledge = useCallback(
-    async (name: string, content: string) => {
-      await api.uploadKnowledge(name, content);
+    async (name: string, content: string, files: File[] = []) => {
+      await api.uploadKnowledge(name, content, files);
       await loadKnowledge();
     },
     [loadKnowledge],

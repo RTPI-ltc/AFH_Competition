@@ -1,8 +1,13 @@
 from __future__ import annotations
 
 import json
+import base64
+import io
+import mimetypes
+import zipfile
 from datetime import datetime
 from typing import Any
+from xml.etree import ElementTree
 
 from fastapi import APIRouter, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse
@@ -52,6 +57,83 @@ class SaveMessageRequest(BaseModel):
     role: str
     content: str
     metadata: dict[str, Any] | None = None
+
+
+def _decode_text(data: bytes) -> str:
+    for encoding in ("utf-8-sig", "utf-8", "gbk", "gb18030"):
+        try:
+            return data.decode(encoding)
+        except UnicodeDecodeError:
+            continue
+    return data.decode("utf-8", errors="ignore")
+
+
+def _extract_docx_text(data: bytes) -> str:
+    with zipfile.ZipFile(io.BytesIO(data)) as archive:
+        xml_data = archive.read("word/document.xml")
+    root = ElementTree.fromstring(xml_data)
+    texts = [node.text or "" for node in root.iter() if node.tag.endswith("}t")]
+    return "\n".join(text for text in texts if text.strip())
+
+
+def _extract_xlsx_text(data: bytes) -> str:
+    values: list[str] = []
+    with zipfile.ZipFile(io.BytesIO(data)) as archive:
+        for name in archive.namelist():
+            if name.startswith("xl/sharedStrings") or name.startswith("xl/worksheets/"):
+                root = ElementTree.fromstring(archive.read(name))
+                for node in root.iter():
+                    if node.tag.endswith("}t") and node.text:
+                        values.append(node.text)
+    return "\n".join(values)
+
+
+def _modality(content_type: str, filename: str) -> str:
+    kind = content_type.split("/", 1)[0] if "/" in content_type else ""
+    if kind in {"image", "audio", "video"}:
+        return kind
+    suffix = filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
+    if suffix in {"pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx"}:
+        return "document"
+    return "text" if kind == "text" else "binary"
+
+
+def _extract_upload_text(filename: str, content_type: str, data: bytes) -> str:
+    suffix = filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
+    if content_type.startswith("text/") or suffix in {
+        "txt", "md", "markdown", "json", "csv", "tsv", "xml", "yaml", "yml",
+        "html", "htm", "log", "py", "js", "ts", "jsx", "tsx",
+    }:
+        return _decode_text(data)
+    if suffix == "docx":
+        return _extract_docx_text(data)
+    if suffix == "xlsx":
+        return _extract_xlsx_text(data)
+    return ""
+
+
+async def _read_upload(value: Any) -> tuple[str, dict[str, Any]] | None:
+    filename = getattr(value, "filename", "")
+    reader = getattr(value, "read", None)
+    if not filename or not reader:
+        return None
+    data = await reader()
+    content_type = getattr(value, "content_type", None) or mimetypes.guess_type(filename)[0] or "application/octet-stream"
+    try:
+        text = _extract_upload_text(filename, content_type, data)
+    except Exception:
+        text = ""
+    modality = _modality(content_type, filename)
+    asset: dict[str, Any] = {
+        "filename": filename,
+        "content_type": content_type,
+        "size": len(data),
+        "modality": modality,
+        "text_extracted": bool(text.strip()),
+    }
+    if modality in {"image", "audio", "video"}:
+        asset["data_url"] = f"data:{content_type};base64,{base64.b64encode(data).decode('ascii')}"
+    return text, asset
 
 
 def _resolve_project_id(project_id: str | None = None) -> str:
@@ -318,17 +400,41 @@ async def frontend_upload_knowledge(request: Request) -> dict[str, str]:
     form = await request.form()
     name = str(form.get("name") or "未命名知识库").strip() or "未命名知识库"
     content = str(form.get("content") or "").strip()
-    if not content:
-        raise HTTPException(status_code=400, detail="知识库内容不能为空")
+    extracted_parts: list[str] = []
+    assets: list[dict[str, Any]] = []
+    for key, value in form.multi_items():
+        if key != "files":
+            continue
+        upload = await _read_upload(value)
+        if not upload:
+            continue
+        text, asset = upload
+        assets.append(asset)
+        if text.strip():
+            extracted_parts.append(f"\n## {asset['filename']}\n{text.strip()}")
+
+    combined_content = "\n".join(part for part in [content, *extracted_parts] if part.strip()).strip()
+    if not combined_content and not assets:
+        raise HTTPException(status_code=400, detail="请上传文件或填写知识库内容")
     knowledge_id = f"kb_{len(_personal_knowledge) + 1:06d}"
+    text_count = sum(1 for asset in assets if asset["text_extracted"])
+    multimodal_count = sum(1 for asset in assets if asset["modality"] != "text")
+    description_parts = []
+    if assets:
+        description_parts.append(f"{len(assets)} 个附件")
+    if text_count:
+        description_parts.append(f"{text_count} 个已抽取文本")
+    if multimodal_count:
+        description_parts.append(f"{multimodal_count} 个多模态素材")
     _personal_knowledge[knowledge_id] = {
         "id": knowledge_id,
         "name": name,
         "type": "personal",
-        "description": "用户上传的知识库",
-        "content": content,
+        "description": "，".join(description_parts) or "用户上传的知识库",
+        "content": combined_content,
+        "assets": assets,
         "created_at": datetime.now().isoformat(),
-        "file_type": "text",
+        "file_type": "multimodal" if assets else "text",
     }
     return {"id": knowledge_id}
 

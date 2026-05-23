@@ -64,6 +64,7 @@ def test_frontend_task_history_and_stream_chat(tmp_path, monkeypatch):
 
     project = client.post("/api/projects?name=前端联调项目").json()
     task = client.post(f"/api/task/new?project_id={project['id']}").json()
+    assert task["project_id"] == project["id"]
 
     stream = client.post(
         "/api/chat/stream",
@@ -79,6 +80,32 @@ def test_frontend_task_history_and_stream_chat(tmp_path, monkeypatch):
 
     history = client.get(f"/api/history?project_id={project['id']}").json()
     assert history[0]["task_id"] == task["task_id"]
+
+    os.environ.pop("AFH_DB_PATH", None)
+    os.environ.pop("AFH_DISABLE_LLM", None)
+
+
+def test_frontend_knowledge_upload_accepts_multimodal_files(tmp_path, monkeypatch):
+    client = _client(tmp_path, monkeypatch)
+
+    response = client.post(
+        "/api/knowledge/upload",
+        data={"name": "多模态知识库", "content": ""},
+        files={
+            "files": (
+                "sample.png",
+                b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR",
+                "image/png",
+            )
+        },
+    )
+    assert response.status_code == 200
+    knowledge_id = response.json()["id"]
+
+    personal = client.get("/api/knowledge/personal").json()
+    item = next(item for item in personal if item["id"] == knowledge_id)
+    assert item["file_type"] == "multimodal"
+    assert "多模态素材" in item["description"]
 
     os.environ.pop("AFH_DB_PATH", None)
     os.environ.pop("AFH_DISABLE_LLM", None)

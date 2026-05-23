@@ -16,7 +16,7 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
 }
 
 /* Task */
-export async function createTask(projectId: string = 'default'): Promise<{ task_id: string; created_at: string }> {
+export async function createTask(projectId: string = 'default'): Promise<{ task_id: string; created_at: string; project_id: string }> {
   return request(`/task/new?project_id=${encodeURIComponent(projectId)}`, { method: 'POST' });
 }
 
@@ -118,10 +118,11 @@ export async function getPersonalKnowledge(): Promise<KnowledgeItem[]> {
   return request('/knowledge/personal');
 }
 
-export async function uploadKnowledge(name: string, content: string): Promise<{ id: string }> {
+export async function uploadKnowledge(name: string, content: string, files: File[] = []): Promise<{ id: string }> {
   const formData = new FormData();
   formData.append('name', name);
   formData.append('content', content);
+  files.forEach((file) => formData.append('files', file, file.name));
   const res = await fetch(`${BASE}/knowledge/upload`, {
     method: 'POST',
     body: formData,
