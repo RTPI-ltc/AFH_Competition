@@ -1,0 +1,10 @@
+node_modules/
+dist/
+__pycache__/
+*.pyc
+.env
+data/tasks.json
+data/knowledge.json
+data/projects.json
+.workbuddy/
+*.bat
