@@ -342,6 +342,19 @@ def frontend_chat_stream(request: FrontChatRequest) -> StreamingResponse:
                     for item in actions
                 ],
             })
+        for event_type, key in (
+            ("recommendations", "recommendations"),
+            ("priority_analysis", "priority_analysis"),
+            ("checklist", "checklist"),
+            ("risks", "risks"),
+            ("clarification", "needs_clarification"),
+        ):
+            items = result.get(key) or []
+            if items:
+                yield _sse({"type": event_type, "items": items})
+        confirmation = result.get("confirmation") or {}
+        if confirmation.get("required") or confirmation.get("status"):
+            yield _sse({"type": "confirmation", "item": confirmation})
         yield _sse({"type": "done"})
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")

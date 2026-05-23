@@ -1,5 +1,5 @@
 /* API service for backend communication */
-import type { HistoryItem, HistoryDetail, KnowledgeItem, ProjectItem } from '../types';
+import type { HistoryItem, HistoryDetail, KnowledgeItem, ProjectItem, StreamEvent } from '../types';
 
 const BASE = '/api';
 
@@ -140,7 +140,7 @@ export async function streamChat(
   taskId: string,
   message: string,
   knowledgeIds: string[],
-  onEvent: (event: { type: string; content?: string; items?: unknown[] }) => void,
+  onEvent: (event: StreamEvent) => void,
   onDone: () => void,
   onError: (err: Error) => void,
 ) {

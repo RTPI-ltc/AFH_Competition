@@ -260,6 +260,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
                 content: streamedText,
                 metadata: { needs_clarification: event.items },
               });
+            } else if (event.type === 'recommendations' && event.items) {
+              agentMetadata = { ...agentMetadata, recommendations: event.items };
+              dispatch({
+                type: 'UPDATE_LAST_AGENT_MESSAGE',
+                content: streamedText,
+                metadata: { recommendations: event.items },
+              });
+            } else if (event.type === 'priority_analysis' && event.items) {
+              agentMetadata = { ...agentMetadata, priority_analysis: event.items };
+              dispatch({
+                type: 'UPDATE_LAST_AGENT_MESSAGE',
+                content: streamedText,
+                metadata: { priority_analysis: event.items },
+              });
+            } else if (event.type === 'confirmation' && event.item) {
+              agentMetadata = { ...agentMetadata, confirmation: event.item };
+              dispatch({
+                type: 'UPDATE_LAST_AGENT_MESSAGE',
+                content: streamedText,
+                metadata: { confirmation: event.item },
+              });
             }
           },
           async () => {

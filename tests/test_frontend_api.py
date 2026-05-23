@@ -85,6 +85,46 @@ def test_frontend_task_history_and_stream_chat(tmp_path, monkeypatch):
     os.environ.pop("AFH_DISABLE_LLM", None)
 
 
+def test_frontend_recommendation_flow_waits_for_confirmation(tmp_path, monkeypatch):
+    client = _client(tmp_path, monkeypatch)
+
+    project = client.post("/api/projects?name=618选品项目").json()
+    task = client.post(f"/api/task/new?project_id={project['id']}").json()
+
+    stream = client.post(
+        "/api/chat/stream",
+        json={"task_id": task["task_id"], "message": "推荐我上架什么商品", "knowledge_ids": []},
+    )
+    assert stream.status_code == 200
+    assert '"type": "recommendations"' in stream.text
+    assert '"type": "confirmation"' in stream.text
+    assert "请提供商品" not in stream.text
+
+    detail = client.get(f"/api/history/{task['task_id']}").json()
+    metadata = detail["messages"][-1]["metadata"]
+    assert metadata["recommendations"]
+    assert metadata["checklist"]
+    assert metadata["needs_clarification"]
+    assert metadata["confirmation"]["required"] is True
+
+    listing_before = client.get(f"/projects/{project['id']}/listing-items").json()
+    assert listing_before["items"] == []
+
+    confirmed = client.post(
+        "/api/chat/stream",
+        json={"task_id": task["task_id"], "message": "确认执行上一个上架方案", "knowledge_ids": []},
+    )
+    assert confirmed.status_code == 200
+    assert "拟上架" in confirmed.text
+
+    listing_after = client.get(f"/projects/{project['id']}/listing-items").json()
+    assert listing_after["items"]
+    assert {item["status"] for item in listing_after["items"]} == {"拟上架"}
+
+    os.environ.pop("AFH_DB_PATH", None)
+    os.environ.pop("AFH_DISABLE_LLM", None)
+
+
 def test_frontend_knowledge_upload_accepts_multimodal_files(tmp_path, monkeypatch):
     client = _client(tmp_path, monkeypatch)
 
