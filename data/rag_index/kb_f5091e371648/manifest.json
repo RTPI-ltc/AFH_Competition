@@ -1,0 +1,98 @@
+[
+  {
+    "filename": "category_day.md",
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "chunk_count": 18,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 4828,
+    "file_kind": "md"
+  },
+  {
+    "filename": "consumer_benefits.md",
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "chunk_count": 13,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 3869,
+    "file_kind": "md"
+  },
+  {
+    "filename": "double_eleven.md",
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "chunk_count": 12,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 3923,
+    "file_kind": "md"
+  },
+  {
+    "filename": "internal_marketing.md",
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "chunk_count": 18,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 5548,
+    "file_kind": "md"
+  },
+  {
+    "filename": "jd_super_brand_day.md",
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "chunk_count": 11,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 4547,
+    "file_kind": "md"
+  },
+  {
+    "filename": "livestream_campaign.md",
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "chunk_count": 17,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 4601,
+    "file_kind": "md"
+  },
+  {
+    "filename": "merchant_process_summary.md",
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "chunk_count": 33,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 8968,
+    "file_kind": "md"
+  },
+  {
+    "filename": "price_terminology.md",
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "chunk_count": 22,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 7084,
+    "file_kind": "md"
+  },
+  {
+    "filename": "README.md",
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "chunk_count": 11,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 3402,
+    "file_kind": "md"
+  },
+  {
+    "filename": "taobao_juhuasuan_baiyibutie.md",
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "chunk_count": 12,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 3869,
+    "file_kind": "md"
+  },
+  {
+    "filename": "tmall_618.md",
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "chunk_count": 30,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 8633,
+    "file_kind": "md"
+  },
+  {
+    "filename": "tmall_super_brand_day.md",
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "chunk_count": 17,
+    "uploaded_at": "2026-05-24T01:24:03Z",
+    "byte_size": 5940,
+    "file_kind": "md"
+  }
+]

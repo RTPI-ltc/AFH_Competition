@@ -1,0 +1,50 @@
+[
+  {
+    "filename": "company_qualifications.md",
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "chunk_count": 19,
+    "uploaded_at": "2026-05-24T01:23:18Z",
+    "byte_size": 4623,
+    "file_kind": "md"
+  },
+  {
+    "filename": "human_review_routing.md",
+    "file_hash": "956bf6cd7b1ecf38b8a201b225248c33f3309edc5f1e294dc5db93b48ca79c0f",
+    "chunk_count": 7,
+    "uploaded_at": "2026-05-24T01:23:18Z",
+    "byte_size": 2424,
+    "file_kind": "md"
+  },
+  {
+    "filename": "product_certifications.md",
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "chunk_count": 25,
+    "uploaded_at": "2026-05-24T01:23:18Z",
+    "byte_size": 6537,
+    "file_kind": "md"
+  },
+  {
+    "filename": "README.md",
+    "file_hash": "4cb848934af616ce3c851e957249ca839ff98bd28138a9e69f5c76cc6d6fd76f",
+    "chunk_count": 6,
+    "uploaded_at": "2026-05-24T01:23:18Z",
+    "byte_size": 2218,
+    "file_kind": "md"
+  },
+  {
+    "filename": "sku_catalog.md",
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "chunk_count": 68,
+    "uploaded_at": "2026-05-24T01:23:18Z",
+    "byte_size": 15864,
+    "file_kind": "md"
+  },
+  {
+    "filename": "supply_chain.md",
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "chunk_count": 11,
+    "uploaded_at": "2026-05-24T01:23:18Z",
+    "byte_size": 3218,
+    "file_kind": "md"
+  }
+]

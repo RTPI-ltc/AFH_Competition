@@ -1,0 +1,50 @@
+[
+  {
+    "filename": "ambiguity_patterns.md",
+    "file_hash": "8a8bf37ab64f4c18db5a495c6672badac9fb800225e32eb2bc979dce120442c6",
+    "chunk_count": 28,
+    "uploaded_at": "2026-05-24T01:24:18Z",
+    "byte_size": 8899,
+    "file_kind": "md"
+  },
+  {
+    "filename": "audit_rejection_cases.md",
+    "file_hash": "34951889f0984008148c9b78f301eceeb422bca0e4e0075577ba1afb85119e5f",
+    "chunk_count": 29,
+    "uploaded_at": "2026-05-24T01:24:18Z",
+    "byte_size": 7024,
+    "file_kind": "md"
+  },
+  {
+    "filename": "checklist_templates.md",
+    "file_hash": "8b0b0d4914a1e4c7f975cdbf2b9e534565a452066a9a8deb07abde3e721d9f29",
+    "chunk_count": 34,
+    "uploaded_at": "2026-05-24T01:24:18Z",
+    "byte_size": 7776,
+    "file_kind": "md"
+  },
+  {
+    "filename": "mutual_exclusion_matrix.md",
+    "file_hash": "2cdd98f4a24e1da7dce5f92f8dd12b4364e67e8eb356e8bcdee006f77c17eb26",
+    "chunk_count": 24,
+    "uploaded_at": "2026-05-24T01:24:18Z",
+    "byte_size": 6082,
+    "file_kind": "md"
+  },
+  {
+    "filename": "README.md",
+    "file_hash": "438410cfa2dfd4f6f5317d80dad62e8d3f214a0e9cb0c0b7a9fabd8db5748c5e",
+    "chunk_count": 6,
+    "uploaded_at": "2026-05-24T01:24:18Z",
+    "byte_size": 1741,
+    "file_kind": "md"
+  },
+  {
+    "filename": "risk_severity_rubric.md",
+    "file_hash": "74d8233eec8a248d174b0d38a8a8a08b19de1371387488c5d681b97f253ca98d",
+    "chunk_count": 20,
+    "uploaded_at": "2026-05-24T01:24:18Z",
+    "byte_size": 5110,
+    "file_kind": "md"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "knowledge_id": "kb_98f9d88b9b8f",
+  "chunk_count": 155,
+  "file_count": 7,
+  "embedding_backend": "hash-fallback",
+  "bm25_tokenizer": "jieba",
+  "retrieval_mode": "hybrid",
+  "updated_at": "2026-05-24T01:23:32Z"
+}

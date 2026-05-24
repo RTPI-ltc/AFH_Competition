@@ -1,0 +1,2570 @@
+[
+  {
+    "chunk_id": "973e9fd10c19419895b02c113c12b477",
+    "text": "# 行业品类日 / 超级品类日规则知识库\n> **聚焦赛题方向 C**：品类日 / 类目日是**赛题示例规则\"已参加品牌日不可重复报名\"互斥规则的对手方**，Agent 必须能识别其与品牌日的关系。\n---",
+    "source_file": "category_day.md",
+    "char_start": 0,
+    "char_end": 105,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "17817547089f43eb93b0b67f547bbd4f",
+    "text": "## 一、品类日 vs 品牌日 的核心差异",
+    "source_file": "category_day.md",
+    "char_start": 107,
+    "char_end": 128,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "9501232ea68b487fb3e8579ae74b7dc2",
+    "text": "| 维度 | 品牌日（Super Brand Day） | 品类日（Category Day） |\n|------|-----------------------------|--------------------------|\n| 主角 | 单一品牌 | 单一类目（如\"金饰类目日\"、\"钻饰类目日\"） |\n| 参与商家数 | 1 个品牌独占 | 多个品牌共同参与 |\n| 流量入口 | 品牌专属焦点图 | 类目专属频道 |\n| 价格门槛 | 品牌让利 ≥ 15% | 类目内 SKU 让利 ≥ 10% |\n| SKU 数量 | ≥ 200 款 | 单品牌 ≥ 30 款，类目总 ≥ 500 款 |\n| 互斥关系 | 与品类日**互斥**（同期不可同 SKU 参加） | 与品牌日**互斥** |",
+    "source_file": "category_day.md",
+    "char_start": 130,
+    "char_end": 479,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "52029112bb634c48a10edafdbae124e3",
+    "text": "> ⚠️ **赛题示例规则中\"已参加品牌日的商品不可重复报名\"**，Agent 解析时需识别：当前活动若是\"品类日\"，则需检测该 SKU 是否曾报名\"品牌日\"。\n---",
+    "source_file": "category_day.md",
+    "char_start": 481,
+    "char_end": 566,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "ee5888014ac146ee9398131c63e3fe82",
+    "text": "## 二、品类日的可解析规则条款",
+    "source_file": "category_day.md",
+    "char_start": 568,
+    "char_end": 584,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "e6f676b9b49c4360b873483f868c1cd2",
+    "text": "### 2.1 资质门槛\n| 检查项 | 门槛 |\n|--------|------|\n| 经营主体 | 旗舰店 / 专卖店 |\n| 类目覆盖 | 必须经营对应类目（如金饰类目日仅黄金类商家） |\n| DSR | ≥ 4.6（比品牌日略低） |\n| 违规记录 | 近 90 天无 A 级违规 |",
+    "source_file": "category_day.md",
+    "char_start": 586,
+    "char_end": 734,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "a886d83140764bee8c9dead20d25eff8",
+    "text": "### 2.2 SKU 选品条件\n| 检查项 | 门槛 |\n|--------|------|\n| 单品牌报名 SKU 数 | ≥ 30 款 |\n| 类目内总 SKU 数（全平台） | ≥ 500 款 |\n| 单 SKU 近 90 天销量 | ≥ 30 件 |\n| 单 SKU 好评率 | ≥ 95% |\n| 库存承诺 | ≥ 200 件 或 日均销量 × 7 天 |",
+    "source_file": "category_day.md",
+    "char_start": 736,
+    "char_end": 921,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "17fa8fbf9ece47e1adaf49a255ed9898",
+    "text": "### 2.3 价格管控\n| 检查项 | 规则 |\n|--------|------|\n| 活动价 ≤ 近 30 天最低价 | 与超品日一致 |\n| 让利幅度 | ≥ 10%（比超品日的 15% 略松） |\n| 划线价合规 | 近 30 天内有实际成交 |\n| 价保 | 7 天（比超品日 15 天短） |",
+    "source_file": "category_day.md",
+    "char_start": 923,
+    "char_end": 1077,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "3016bfb06c8844d19e5e9b2aba328f59",
+    "text": "### 2.4 品类日特有的互斥规则\n| 互斥项 | 说明 |\n|--------|------|\n| **与品牌日互斥** | 同 SKU 不可在同期同时参加品牌日和品类日 |\n| 与百亿补贴 | 可叠加（品类日不算\"流量频道\"，可以共存） |\n| 与聚划算品牌闪购 | 可叠加 |\n| 跨店满减 | 默认参加 |\n---",
+    "source_file": "category_day.md",
+    "char_start": 1079,
+    "char_end": 1243,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "8ce996d9fa584cb9a5d7821cd5db4865",
+    "text": "## 三、珠宝品类常见的品类日",
+    "source_file": "category_day.md",
+    "char_start": 1245,
+    "char_end": 1260,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "041d22edc1384bfa974a869b534b506a",
+    "text": "| 品类日 | 主推 SKU | 周大福对应品类 |\n|--------|---------|----------------|\n| **金饰类目日** | 黄金计重款 + 古法金 + 5G 黄金 | F-SZ-001/002 工厂产品 |\n| **钻饰类目日** | K 金钻戒 + 求婚钻戒 | F-SH-002 工厂产品 |\n| **珍珠类目日** | Akoya / 南洋珠 / 大溪地 | F-SH-004 工厂产品 |\n| **铂金类目日** | Pt950 对戒 + 项链 | F-SH-001 工厂产品 |\n| **婚嫁类目日** | 三金 + 求婚钻戒 + 对戒 | 跨工厂 |\n| **传承类目日** | 古法金 / 国潮系列 | F-SZ-001 工厂产品 |",
+    "source_file": "category_day.md",
+    "char_start": 1262,
+    "char_end": 1603,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "1dd32f2a0ee6458e9b5a6d5c5fbd0b7d",
+    "text": "> Agent 用法：解析品类日规则时，可基于 `sku.category_l1` 和 `sku.category_l2` 自动筛选符合该品类日的 SKU 池。\n---",
+    "source_file": "category_day.md",
+    "char_start": 1605,
+    "char_end": 1690,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "eae50a9d6fe746fe9d6f3a4fe70360dc",
+    "text": "## 四、互斥规则识别样例（关键，对应赛题）",
+    "source_file": "category_day.md",
+    "char_start": 1692,
+    "char_end": 1714,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "96cd048ed39e48fba9bb2afced5344b0",
+    "text": "### 4.1 互斥检测算法\n```python\ndef is_mutually_exclusive(sku, target_campaign):\n\"\"\"\ntarget_campaign: 当前要报名的活动\nsku.active_campaigns: SKU 当前在售的活动列表\n\"\"\"\n# 取出 SKU 已参加的所有活动\nactive = sku.active_campaigns",
+    "source_file": "category_day.md",
+    "char_start": 1716,
+    "char_end": 1932,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "5ab2a1b2b3614e0c9786c4e04015562f",
+    "text": "# 互斥规则矩阵（详见 ../rule_library/mutual_exclusion_matrix.md）\nexclusive_pairs = [\n(\"brand_day\", \"category_day\"), # 品牌日 vs 品类日\n(\"super_brand_day\", \"super_category_day\"), # 超品日 vs 超级品类日\n(\"juhuasuan\", \"baiyibutie\"), # 聚划算 vs 百亿补贴\n]",
+    "source_file": "category_day.md",
+    "char_start": 1934,
+    "char_end": 2195,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "e5d48eede71c4e769e0555a0068ae3df",
+    "text": "for camp in active:\nfor a, b in exclusive_pairs:\nif (camp == a and target_campaign == b) or \\\n(camp == b and target_campaign == a):\nreturn True, f\"已参加 {camp}, 与 {target_campaign} 互斥\"\nreturn False, None\n```",
+    "source_file": "category_day.md",
+    "char_start": 2197,
+    "char_end": 2461,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "3c351cddf5e842a6bb29f8a8e830327b",
+    "text": "### 4.2 赛题示例规则的实际识别\n```text\n[规则] \"已参加品牌日活动的商品不可重复报名\"\n[当前活动] 天猫 618（含品类日子频道）\n[Agent 检测]\n- 拉取所有报名 618 的 SKU\n- 对每个 SKU 检测 sku.active_campaigns 是否包含 \"brand_day\" / \"super_brand_day\"\n- 命中 → high 风险，建议下架该 SKU\n```\n---",
+    "source_file": "category_day.md",
+    "char_start": 2463,
+    "char_end": 2675,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "3c3b253b55e34defa55a3b4ec2ca1efb",
+    "text": "## 五、常见踩坑\n| 风险点 | 触发场景 | 风险等级 |\n|--------|---------|---------|\n| 同 SKU 双报品牌日 + 品类日 | 互斥规则未识别 | high |\n| 类目划分错配 | 误把镶嵌类 SKU 报金饰类目日 | medium |\n| 让利幅度按品牌日 15% 填品类日 10% | 规则混淆 | low（多让利不算违规但浪费预算） |\n| 价保 15 天 vs 7 天混淆 | 商家按 15 天承诺消费者，平台只赔 7 天 | medium |",
+    "source_file": "category_day.md",
+    "char_start": 2677,
+    "char_end": 2927,
+    "file_hash": "fcac5c908d57b93ea715231f7665ef2dfc371246b42125f878769de214ff94af",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "category_day.md"
+    }
+  },
+  {
+    "chunk_id": "f365514459f94437abb8647d0fbe749e",
+    "text": "# 消费者侧规则（商家执行视角）\n> **聚焦赛题方向 C**：本文档只保留\"商家在报名活动、商详页配置、客服话术中必须正确执行的消费者规则\"。具体消费者怎么领券、怎么用券、怎么申请价保等操作流程不在 C 方向核心范围（属于运营战略/客服 SOP），不在本文档展开。\n---",
+    "source_file": "consumer_benefits.md",
+    "char_start": 0,
+    "char_end": 139,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "3a24b4bbe30842509707e6801421cd88",
+    "text": "## 1. 商家在客服话术中必须告知的消费者权益（标准口径）\n| 权益 | 商家执行口径 |\n|------|--------------|\n| 价保（天猫 / 淘宝） | \"自支付完成起 **15 天**，按到手价口径自动退差\" |\n| 价保（京东普通用户 / PLUS） | \"普通用户 **30 天**，PLUS 用户 **45 天**\" |\n| 7 天无理由退货 | 黄金计重款、定制款、刻字款通常**不**支持，须商详页明示 |\n| 30 天质量问题包退包换 | 必须商详页明示 |\n| 假一赔十 | 珠宝品类承诺；商详页明示且需经得起复检 |\n---",
+    "source_file": "consumer_benefits.md",
+    "char_start": 141,
+    "char_end": 424,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "1f2704a75bc74ec8b136622b46552106",
+    "text": "## 2. 平台叠加规则矩阵（商家配置活动时必须按此判断能否叠加）",
+    "source_file": "consumer_benefits.md",
+    "char_start": 426,
+    "char_end": 459,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "ea7b7fb2641d4732b1b1c71a7da12816",
+    "text": "### 2.1 天猫 / 淘宝叠加矩阵",
+    "source_file": "consumer_benefits.md",
+    "char_start": 461,
+    "char_end": 480,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "b853984f33d5403ba91c33b5cf43d29d",
+    "text": "| 优惠 | 跨店满减 | 平台超级红包 | 88VIP 95 折 | 店铺券 | 百亿补贴 SKU | 聚划算 SKU |\n|------|---------|--------------|-------------|--------|---------------|-------------|\n| 跨店满减 | — | ✅ | ✅ | ✅ | ❌ | ✅ |\n| 平台超级红包 | ✅ | — | ✅ | ✅ | ✅ | ✅ |\n| 88VIP 95 折 | ✅ | ✅ | — | ✅ | ✅ | ✅ |\n| 店铺券 | ✅ | ✅ | ✅ | — | ✅ | ✅ |\n| 百亿补贴 SKU | ❌ | ✅ | ✅ | ✅ | — | ❌ |",
+    "source_file": "consumer_benefits.md",
+    "char_start": 482,
+    "char_end": 808,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "485f356b5d8c4ecf901336cf61c1f44d",
+    "text": "| ✅ | ✅ | — | ✅ | ✅ |\n| 百亿补贴 SKU | ❌ | ✅ | ✅ | ✅ | — | ❌ |\n| 聚划算 SKU | ✅ | ✅ | ✅ | ✅ | ❌ | — |",
+    "source_file": "consumer_benefits.md",
+    "char_start": 748,
+    "char_end": 843,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "09f92abcc9d246d393315dbcff73afb4",
+    "text": "### 2.2 京东叠加矩阵",
+    "source_file": "consumer_benefits.md",
+    "char_start": 845,
+    "char_end": 859,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "1bda283012154590b55c32f601a15154",
+    "text": "| 优惠 | 跨店满减 | 京享红包 | PLUS 95 折 | 店铺券 | 百亿补贴 SKU | 国补 SKU |\n|------|---------|---------|-------------|--------|---------------|----------|\n| 跨店满减 | — | ✅ | ✅ | ✅ | ❌ | ❌ |\n| 京享红包 | ✅ | — | ✅ | ✅ | ✅ | ❌ |\n| PLUS 95 折 | ✅ | ✅ | — | ✅ | ✅ | ❌ |\n| 店铺券 | ✅ | ✅ | ✅ | — | ✅ | ✅ |\n| 百亿补贴 SKU | ❌ | ✅ | ✅ | ✅ | — | ❌ |\n| 国补 SKU | ❌ | ❌ | ❌ | ✅ | ❌ | — |",
+    "source_file": "consumer_benefits.md",
+    "char_start": 861,
+    "char_end": 1206,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "ed3bd8607e4b49578ebf345192680494",
+    "text": "> Agent 在 `rule_parser` 解析\"该 SKU 可享 X / Y / Z 哪几种优惠\"时，必须按本矩阵判断；不可叠加项必须输出风险点。\n---",
+    "source_file": "consumer_benefits.md",
+    "char_start": 1208,
+    "char_end": 1289,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "6f5f1a09ca814b16ae39a59cc061e58b",
+    "text": "## 3. 商家配置满减 / 满赠的合规边界\n| 配置项 | 边界 |\n|--------|------|\n| 跨店满减 | 商家不可自主退出，必须默认参加 |\n| 单店满减 | 可与跨店满减叠加；商家在店铺后台设置 |\n| 满赠中的赠品估值 | **≤ 商品本身 30%**（天猫硬规则），超过视为变相打折，触发\"近 30 天最低价\"重算 |\n| 跨店满减按比例摊回 | 部分退货时按比例摊回，剩余商品到手价回升；商家须客服话术告知 |\n---",
+    "source_file": "consumer_benefits.md",
+    "char_start": 1291,
+    "char_end": 1516,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "f79dd140825245698560998e985c83fa",
+    "text": "## 4. 价保规则汇总\n| 平台 / 场景 | 价保期 | 价保口径 | 不在价保范围 |\n|-------------|--------|---------|---------------|\n| 天猫超品日 / 大促 | 15 天 | 到手价 | 新客券 / 定向券 / 不同 SKU |\n| 淘宝聚划算 / 百亿补贴 | 15 天 | 到手价 | 同上 |\n| 京东普通用户 | 30 天 | 到手价 | 不同 SKU / PLUS 专享价 |\n| 京东 PLUS | 45 天 | 到手价 | 不同 SKU |\n| 抖音商城 | 15 天 | 到手价 | 不同 SKU |",
+    "source_file": "consumer_benefits.md",
+    "char_start": 1518,
+    "char_end": 1809,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "1ed2006126e74ff2b15260dcad340520",
+    "text": "> 商家执行：每日跑批退差，按平台时效要求；超时未退差会被平台扣售后险分。\n---",
+    "source_file": "consumer_benefits.md",
+    "char_start": 1811,
+    "char_end": 1853,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "39663d27c4014f74b94f6135f97a752f",
+    "text": "## 5. 高频客诉与商家应对（Agent 输出风险点参考）\n| 客诉类型 | 触发原因 | 商家应对 |\n|---------|---------|---------|\n| \"退货后剩余商品涨价\" | 跨店满减按比例摊回 | 客服解释；必要时退差补偿 |\n| \"看到更低价要求价保\" | 价保期内降价 | 自动退差，T+1 完成 |\n| \"宣传到手价不实\" | 到手价未按最大优惠组合计算 | 立即下架该话术，整改 |\n| \"假一赔十\" | 商品瑕疵 / 证书不匹配 | 启动质检 + 赔付 |",
+    "source_file": "consumer_benefits.md",
+    "char_start": 1855,
+    "char_end": 2105,
+    "file_hash": "ed99467a1e660987916eda8b6002a6773abc84d8d4e694fa594825bfc3d5f9a7",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "consumer_benefits.md"
+    }
+  },
+  {
+    "chunk_id": "310bec692de447a8a0eb66f33b2e1c08",
+    "text": "# 双 11 大促规则知识库\n> **聚焦赛题方向 C**：双 11 是周大福电商最大节点。与日常品牌日的关键差异：**多波次时间结构 + 定金预售 + 跨期价保 30 天 + 近 30/365 天双重价格校验**。\n---",
+    "source_file": "double_eleven.md",
+    "char_start": 0,
+    "char_end": 114,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "101316bb7ec84e8c8e531a2b09621d0c",
+    "text": "## 一、双 11 时间结构（影响 Agent 解析\"活动期间\"语义）\n| 阶段 | 时间（典型） | Agent 关注 |\n|------|-------------|-----------|\n| 蓄水期 | 10/20 起 | 私域预热、加购、领券 |\n| 预售期（定金） | 10/24 20:00 ～ 10/31 | 付定金，定金膨胀 2–5 倍 |\n| 第一波 | 10/31 20:00 ～ 11/03 | 付尾款 + 现货售卖 |\n| 余热期 | 11/04 ～ 11/10 | 持续售卖 |\n| 高潮期 | 11/10 20:00 ～ 11/11 24:00 | 全场大促 + 跨店满减升级 |\n| 返场期 | 11/12 ～ 11/14 | 库存清理 |",
+    "source_file": "double_eleven.md",
+    "char_start": 116,
+    "char_end": 453,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "8ff207bf29c944e29f4ef006d4deaefb",
+    "text": "> Agent 用法：解析\"活动期间不得调价\" 这类规则时，需识别活动覆盖了上述哪几个阶段；定金预售阶段单独定价。\n---",
+    "source_file": "double_eleven.md",
+    "char_start": 455,
+    "char_end": 517,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "48ece674678a4831a21380b8bafc1280",
+    "text": "## 二、价格管控（最严，超 618 一档）\n| 检查项 | 规则 |\n|--------|------|\n| 活动价 ≤ 近 30 天最低价 | 标准滚动 30 天 |\n| 活动价 ≤ 历史 365 天最低 × 95% | **比 618 加严**：相对去年同期再降 5% |\n| 划线价合规 | 近 30 天有实际成交、未划线 |\n| 定金 + 尾款总价 ≤ 现货价 | 预售总价不可超过现货活动价 |\n| 价保期 | **30 天跨期价保**（覆盖整个双 11 周期） |\n| 跨店满减 | 升级到\"每满 300 减 50 + 每满 1000 减 200\" 双档位 |",
+    "source_file": "double_eleven.md",
+    "char_start": 519,
+    "char_end": 807,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "5c83e07559e54f508475b9f134e91429",
+    "text": "---",
+    "source_file": "double_eleven.md",
+    "char_start": 809,
+    "char_end": 812,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "3ee312c848834da8956d8f9324e467c7",
+    "text": "## 三、SKU 选品条件\n| 检查项 | 门槛 |\n|--------|------|\n| 报名 SKU 数 | ≥ 300 款（比超品日多） |\n| 超级单品数 | ≥ 8 款 |\n| 单 SKU 近 90 天销量 | ≥ 100 件（高于超品日的 50 件） |\n| 单 SKU 库存承诺 | ≥ 1000 件 或 日均销量 × 60 天 |\n| 新品占比 | ≥ 40%（高于超品日 30%） |\n| 直播专场 SKU | ≥ 30 款 |\n---",
+    "source_file": "double_eleven.md",
+    "char_start": 814,
+    "char_end": 1044,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "52152de9357b4039bd5c79156c00fe91",
+    "text": "## 四、双 11 特有的互斥规则\n| 互斥项 | 说明 |\n|--------|------|\n| 与品牌日 | 同年内已报本店品牌日的 SKU，双 11 价格须再降 5%（不是禁止，是加严） |\n| 与品类日 | 同期不可重复报名 |\n| 与百亿补贴 | 双 11 期间百亿补贴 SKU 单独运营，不进双 11 主会场 |\n| 与聚划算 | 双 11 高潮期聚划算 SKU 全部纳入主会场，不需单独报名 |\n| 与定金预售 vs 现货 | 同 SKU 不可同期既走预售又走现货（除非平台特别许可） |\n---",
+    "source_file": "double_eleven.md",
+    "char_start": 1046,
+    "char_end": 1304,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "99f691d928684fdfa5ecd83d58b03ee2",
+    "text": "## 五、Agent 解析双 11 规则的特殊注意",
+    "source_file": "double_eleven.md",
+    "char_start": 1306,
+    "char_end": 1331,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "abcd37769eca470d8d1426bc28681e20",
+    "text": "### 5.1 多波次价格切换\n```text\n[规则] \"活动期间不可调价\"\n[歧义] 活动期间是指 10/24-11/14 全程，还是仅 11/10-11/11 高潮期？\n[澄清问句] \"活动期间是涵盖预售期、第一波、余热期、高潮期、返场期，还是仅指其中某几个阶段？\"\n[Agent 默认] 全程，confidence 0.7\n```",
+    "source_file": "double_eleven.md",
+    "char_start": 1333,
+    "char_end": 1503,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "afde87b29d634a4a8a2f022d67386d3c",
+    "text": "### 5.2 定金预售价格陷阱\n```text\n[规则] \"定金膨胀 2 倍\"\n[Agent 解析]\n- 付定金阶段：消费者付定金 D 元，膨胀后视为已付 2D 元抵尾款\n- 尾款阶段：尾款 = 总价 - 2D\n- 关键校验：(D + 尾款) 是否 ≤ 现货活动价\n- 风险：若膨胀过大导致总价 < 近 30 天最低价 → 穿底\n```",
+    "source_file": "double_eleven.md",
+    "char_start": 1505,
+    "char_end": 1675,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "d38a1b63a62643518314444ef6002655",
+    "text": "### 5.3 跨期价保\n```text\n[规则] \"全周期 30 天价保\"\n[Agent 解析]\n- 价保口径：以\"到手价\"计算\n- 时段覆盖：10/24 付定到 12/14 全程\n- 商家执行：每日跑批退差，长达 50 天的价保窗口\n- 风险：长价保导致退差账目复杂，需 OMS 自动化\n```\n---",
+    "source_file": "double_eleven.md",
+    "char_start": 1677,
+    "char_end": 1832,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "836e0d2ed6e44b57a225771801a0cdaf",
+    "text": "## 六、常见踩坑\n| 风险点 | 触发场景 | 风险等级 |\n|--------|---------|---------|\n| 365 天历史最低 × 95% 穿底 | 用今年 618 的活动价填，没再降 5% | high |\n| 定金 + 尾款 > 现货价 | 膨胀比例错配 | high |\n| 互斥与品牌日\"加严降价 5%\"被误读为\"禁止\" | 规则理解错误 | medium |\n| 直播专场库存 < 30 款门槛 | 直播 SKU 数量不足 | medium |\n| 跨期价保账目混乱 | 没有自动化退差 | high |",
+    "source_file": "double_eleven.md",
+    "char_start": 1834,
+    "char_end": 2104,
+    "file_hash": "dcdaf17ece6159b44bcb9d758fc2a8f154540f5e5711c5baa8cd52ab7acf09e9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "double_eleven.md"
+    }
+  },
+  {
+    "chunk_id": "fd093ff77cba46e9b2d3895f5016f760",
+    "text": "# 内部营销项目规则知识库（赛题原文提及）\n> **赛题原文：\"企业 X 在参与各类平台活动**或内部部署营销项目**时...\"**\n> 内部营销项目是周大福自有的、不依赖电商平台规则的营销活动。规则口径与电商平台差异显著，Agent 必须能识别并分别处理。\n---",
+    "source_file": "internal_marketing.md",
+    "char_start": 0,
+    "char_end": 135,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "f523320dadc146f8ad7f1415d48ad673",
+    "text": "## 一、内部营销项目的典型类型\n| 项目类型 | 周期 | 触发场景 |\n|---------|------|---------|\n| **会员日 / 黄金会员日** | 每月固定日 | VIP 会员复购激励 |\n| **店庆 / 周年庆** | 每年 9 月（周大福创立纪念） | 全集团统一促销 |\n| **婚嫁季营销** | 5–6 月、9–10 月 | 婚嫁高峰针对性营销 |\n| **节日营销** | 春节、情人节、520、七夕、母亲节、圣诞 | 节日礼赠场景 |\n| **以旧换新季** | 每季度 1 次 | 旧金回收 + 新款销售 |\n| **传承系列发布** | 不定期 | 古法金新品发布 |\n| **清仓 / 库存优化** | 季末 / 年末 | 库存周转 |",
+    "source_file": "internal_marketing.md",
+    "char_start": 137,
+    "char_end": 480,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "e096b067219b4e7e83384beaf6e82227",
+    "text": "---",
+    "source_file": "internal_marketing.md",
+    "char_start": 482,
+    "char_end": 485,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "b3ce3253887446aebd4bf0a7516c3c33",
+    "text": "## 二、内部营销 vs 电商平台规则 的核心差异",
+    "source_file": "internal_marketing.md",
+    "char_start": 487,
+    "char_end": 512,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "e4bc634ac012483cb4dd6cf5c9d7d5d1",
+    "text": "| 维度 | 电商平台规则 | 内部营销项目 |\n|------|--------------|--------------|\n| 规则来源 | 平台公开 / 商家中心 | 集团总部 + 区域负责人下发 |\n| 价格管控 | \"近 X 天最低价\" 硬约束 | **自定**（可豁免近 X 天最低价） |\n| 互斥关系 | 平台间互斥矩阵 | **与平台活动需手动互斥**（重要） |\n| SKU 选品 | 平台数据门槛筛选 | 区域 / 渠道差异化选品 |\n| 让利预算 | 商家自承担 + 平台补贴 | 集团内部预算 |\n| 渠道 | 单一电商平台 | **同时跨线上 + 线下门店** |\n| 审批 | 平台小二 | 集团内部审批（详见 `..",
+    "source_file": "internal_marketing.md",
+    "char_start": 514,
+    "char_end": 838,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "ce808512501b44fdaafc462e0e15fbf1",
+    "text": "渠道 | 单一电商平台 | **同时跨线上 + 线下门店** |\n| 审批 | 平台小二 | 集团内部审批（详见 `../chow_tai_fook/human_review_routing.md`） |",
+    "source_file": "internal_marketing.md",
+    "char_start": 778,
+    "char_end": 880,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "96a25f5a004c4226a132c17b13fd1c69",
+    "text": "> ⚠️ **关键风险**：内部营销项目的\"特价款\"如果同时挂在天猫店铺，会被天猫风控算法识别为\"穿底\"，导致店铺评分下降。Agent 必须能识别这种\"线下+线上 联动\"风险。\n---",
+    "source_file": "internal_marketing.md",
+    "char_start": 882,
+    "char_end": 975,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "a1236d248d544dac859e01592cfe1639",
+    "text": "## 三、可解析的内部营销规则模板",
+    "source_file": "internal_marketing.md",
+    "char_start": 977,
+    "char_end": 994,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "4cfd995cd5414ae0b4b47ead42240e28",
+    "text": "### 3.1 会员日\n| 检查项 | 典型规则 |\n|--------|---------|\n| 适用对象 | VIP1+ 会员（年消费 ≥ 5000） / VIP3+ 会员（年消费 ≥ 5 万） |\n| 优惠形式 | 会员专享价 / 满减券 / 会员积分翻倍 |\n| 价格 | 会员价 ≤ 普通价 95 折（部分品类除外） |\n| 互斥 | 不与天猫超品日叠加 |\n| 渠道 | 仅会员专属页面 / 微信小程序 |\n| 时间 | 当月第 X 天 0:00 ～ 24:00 |",
+    "source_file": "internal_marketing.md",
+    "char_start": 996,
+    "char_end": 1236,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "b6a66cc231664636833b166dc9269483",
+    "text": "### 3.2 店庆\n| 检查项 | 典型规则 |\n|--------|---------|\n| 全集团统一参与 | 是 |\n| 让利幅度 | 全场 8 折起，部分品类 7 折 |\n| 互斥 | 与同期电商品牌日、品类日**互斥**（关键风险点） |\n| 渠道 | 线上 + 全国线下门店 |\n| 时间 | 9 月某 7–14 天 |",
+    "source_file": "internal_marketing.md",
+    "char_start": 1238,
+    "char_end": 1406,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "5602ca3d4ce141389d840fe5afb65c68",
+    "text": "### 3.3 婚嫁季\n| 检查项 | 典型规则 |\n|--------|---------|\n| 适用品类 | 婚嫁三金（项链 / 手镯 / 戒指）+ 求婚钻戒 + 对戒 |\n| 优惠形式 | 婚嫁套餐价（三件成套优惠） |\n| 价格 | 套餐价较单买总价让利 ≥ 10% |\n| 渠道 | 线上 + 线下门店均可 |\n| 互斥 | 与天猫钻饰类目日**可叠加**（属同类目宣传） |",
+    "source_file": "internal_marketing.md",
+    "char_start": 1408,
+    "char_end": 1602,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "233d8cefd8054a10a992a2eb562bc86e",
+    "text": "### 3.4 以旧换新\n| 检查项 | 典型规则 |\n|--------|---------|\n| 适用对象 | 持有周大福旧饰品的消费者 |\n| 旧金回收 | 按当日金价 × 95% 回收（扣 5% 折损） |\n| 新金价 | 新款 = 旧金克数 × 当日金价 + 工费 |\n| 手续费 | 工费 30%（活动期间可减半） |\n| 互斥 | 以旧换新差额部分**不享受**电商平台活动券 |\n| 渠道 | 仅线下门店 / 部分线上预约换货 |",
+    "source_file": "internal_marketing.md",
+    "char_start": 1604,
+    "char_end": 1828,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "19d0a555d7b349b09ccf76b0e3b20801",
+    "text": "### 3.5 清仓 / 库存优化\n| 检查项 | 典型规则 |\n|--------|---------|\n| 适用 SKU | 季末 / 年末高库存 SKU、过季款、停产款 |\n| 让利幅度 | 5–6 折（远超平台规则） |\n| 互斥 | **与所有电商品牌日 / 品类日互斥**（清仓价会穿天猫近 30 天最低） |\n| 渠道 | 仅奥莱店铺 / 特定清仓页面 |\n| 库存承诺 | 售完即止，不补货 |\n---",
+    "source_file": "internal_marketing.md",
+    "char_start": 1830,
+    "char_end": 2041,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "ccd5349b6c5f4e5492311e0c8870c733",
+    "text": "## 四、Agent 解析内部营销规则的特殊注意",
+    "source_file": "internal_marketing.md",
+    "char_start": 2043,
+    "char_end": 2067,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "b96308c39bc14e3fa499a43b7b53797c",
+    "text": "### 4.1 渠道隔离\n```text\n[规则] \"店庆全场 8 折\"\n[Agent 解析]\n- 渠道：线上（旗舰店 + 奥莱店）+ 线下全国门店\n- 若线上店铺同期参与天猫品牌日 → 高风险（店庆价穿天猫近 30 天最低）\n- 主动澄清：\"本店庆是否包括天猫官方旗舰店？\"\n```",
+    "source_file": "internal_marketing.md",
+    "char_start": 2069,
+    "char_end": 2212,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "e5350f74ec5648be94dde8ba00763376",
+    "text": "### 4.2 价格穿底风险（最高频）\n```text\n[场景] 内部清仓季 6 折，天猫旗舰店同时挂该 SKU\n[Agent 检测]\n- 拉取该 SKU 在天猫的\"近 30 天最低成交价\"\n- 若清仓 6 折价 < 天猫近 30 天最低 → high 风险\n→ 触发天猫价格管控算法\n→ 该店铺所有 SKU 可能被降权\n- 建议：清仓 SKU 同时在天猫下架，或线上线下分 SKU 编码运营\n```",
+    "source_file": "internal_marketing.md",
+    "char_start": 2214,
+    "char_end": 2419,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "2ed21d466d124ac58c2ea25631e856ab",
+    "text": "### 4.3 以旧换新差价与平台券叠加\n```text\n[规则] \"以旧换新差价部分不享受电商平台券\"\n[Agent 解析]\n- 商详页必须明示\n- 客服话术统一：\"以旧换新差价不可使用平台券，仅可使用店铺以旧换新专享券\"\n- 风险：消费者误叠加平台券 → 客诉\n```\n---",
+    "source_file": "internal_marketing.md",
+    "char_start": 2421,
+    "char_end": 2563,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "1b1fed13d6ee4cf9911eae11168ab8f5",
+    "text": "## 五、常见踩坑\n| 风险点 | 触发场景 | 风险等级 |\n|--------|---------|---------|\n| 清仓价穿天猫近 30 天最低 | 同 SKU 跨渠道 | high |\n| 店庆与天猫品牌日同期 | 互斥未识别 | high |\n| 以旧换新差价叠加平台券 | 商详页未明示 | medium |\n| 内部营销价被外渠抓取 | 影响百亿补贴\"全网最低\"承诺 | high |\n| 线上线下 SKU 同编码 | 库存承诺与实际不符 | medium |",
+    "source_file": "internal_marketing.md",
+    "char_start": 2565,
+    "char_end": 2808,
+    "file_hash": "ade9d6fc59f713be00e4305e0f46cc50dfabcd13b3e74d1eef8bc07bca5d4c47",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "internal_marketing.md"
+    }
+  },
+  {
+    "chunk_id": "78eddb712f53455194027e2b36338e68",
+    "text": "﻿# 京东超级品牌日（JD Super Brand Day）规则知识库\n> **聚焦赛题方向 C**：仅整理\"可被解析为检查项 + 风险点\"的规则条款。京东与天猫的核心差异在于：**价格回溯口径 14 天而非 30 天**、**价保 30 / 45 天**、**自营 vs POP 双轨**。\n---",
+    "source_file": "jd_super_brand_day.md",
+    "char_start": 0,
+    "char_end": 152,
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "jd_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "c9dbd70feb444e23875beb6e2138ebe6",
+    "text": "## 一、商家侧：可被解析为检查项的规则条款",
+    "source_file": "jd_super_brand_day.md",
+    "char_start": 154,
+    "char_end": 176,
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "jd_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "21e42aaab4264dec8bfb739af9d040fb",
+    "text": "### 1.1 资质门槛\n| 检查项 | 门槛 |\n|--------|------|\n| 经营主体 | 京东官方旗舰店、官方专卖店；C 类店铺不可参加 |\n| 行业资质 | 贵金属生产/销售许可、商标证 |\n| 店铺等级 | 京东商智综合分 ≥ 9.0 |\n| 违规记录 | 近 90 天无 A 类违规 |\n| 经营时长 | 旗舰店 ≥ 6 个月 |\n| 物流入仓 | 推荐入驻 JD Logistics 仓（影响 211 时效标签） |",
+    "source_file": "jd_super_brand_day.md",
+    "char_start": 178,
+    "char_end": 399,
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "jd_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "ff8f8ff34c314bef82befab662ed45a9",
+    "text": "### 1.2 自营 vs POP 双轨\n| 维度 | 自营（FBP / 经销） | POP 旗舰店（SOP） |\n|------|-------------------|--------------------|\n| 商品所有权 | 京东 | 商家 |\n| 价格制定权 | 京东买手 + 品牌方提报\"京采价\"（含税供货底价 + 毛保返点） | 商家自定，但需符合\"京采价\"对标 |\n| 物流 | 京东仓配 211 | 商家发货 / 入仓 JDL |\n| 售后 | 京东客服 | 商家客服 |\n> Agent 应在解析规则时先确认 SKU 走的是自营还是 POP；不同通道价格管控、库存逻辑差异显著。",
+    "source_file": "jd_super_brand_day.md",
+    "char_start": 401,
+    "char_end": 703,
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "jd_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "3dc266c998994f258776cba839522df6",
+    "text": "### 1.3 SKU 选品条件\n| 检查项 | 门槛 |\n|--------|------|\n| 报名 SKU 数 | ≥ 150 款 |\n| 超级单品数 | ≥ 3 款 |\n| 京东独家首发 / 联名 SKU | ≥ 1 款 |\n| 单 SKU 近 90 天好评率 | ≥ 97%（京东比天猫严） |\n| 商品证书电子件 | CMA 或国检任一可在线核验 |\n| 参数精度（黄金/镶嵌） | 与天猫一致（克重 0.01g、4C 精度到 0.01ct + 完整 4C 等级） |",
+    "source_file": "jd_super_brand_day.md",
+    "char_start": 705,
+    "char_end": 946,
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "jd_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "b7994f1131a348f29a7c21aeb3adc7f5",
+    "text": "### 1.4 价格管控（核心）\n| 检查项 | 规则 |\n|--------|------|\n| 京采价 vs 全网 | 必须 ≤ 全网最低价（含天猫、抖音、品牌官网） |\n| 活动价 vs 店内 | ≤ **近 14 天**京东自营 / POP 最低成交价（**注意：京东 14 天，不是 30 天**） |\n| 大促额外让利 | 部分品类要求活动价 ≤ 历史 365 天最低 × 95% |\n| 划线价合规 | 必须近 **14 天**内有实际成交、未划线的销售价 |\n| 价保期 | **30 天**（普通用户）/ **45 天**（PLUS 用户） |\n| 百亿补贴价 | 进入百亿补贴池的 SKU 须 ≤ 近 90 天历史最低 |",
+    "source_file": "jd_super_brand_day.md",
+    "char_start": 948,
+    "char_end": 1270,
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "jd_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "eb0af7d50df6497e8b5fc03ca57584dd",
+    "text": "### 1.5 品类互斥规则\n| 互斥项 | 说明 |\n|--------|------|\n| 跨店满减 | 默认参加\"每满 200 减 30\"（大促升级\"每满 1000 减 100\"） |\n| 百亿补贴 SKU | 默认不再参加跨店满减 |\n| 国补 / 政府补贴 SKU | 不可叠加平台券（可叠加店铺券） |\n| 同期活动 | 同 SKU 不可同时报\"超级品牌日\"和\"超级品类日\" |\n| PLUS 价 | 可与跨店满减叠加，但不可与品牌定向券叠加 |\n---",
+    "source_file": "jd_super_brand_day.md",
+    "char_start": 1272,
+    "char_end": 1507,
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "jd_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "346e4a636c33482297def579605e8012",
+    "text": "## 二、消费者侧（仅商家需要执行的合规条款）\n| 商家必须执行 | 说明 |\n|-------------|------|\n| 价保 30 / 45 天 | 普通用户 30 天，PLUS 用户 45 天，按到手价口径退差 |\n| PLUS 价不要求\"全网最低\"但要\"会员中最低\" | PLUS 价被外渠抓取后用于挑战全网最低承诺，是高频风险 |\n| 国补 SKU 不可叠加平台券 | 商详页必须明示\"国补 SKU\"不参与跨店满减 |\n---",
+    "source_file": "jd_super_brand_day.md",
+    "char_start": 1509,
+    "char_end": 1732,
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "jd_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "97bebdef89db427c86cec554da51b123",
+    "text": "## 三、商家关注的流程与环节（赛题视角）\n| 阶段 | 关键检查项 |\n|------|-----------|\n| T-30 京采价盘整 | 含税成本 + 行业返点 + 京东毛保 → 京采底价 |\n| T-30 价格盘点 | 拉 SKU 近 **14 天** + 近 90 天京东历史成交价（注意区别于天猫 30 天） |\n| T-15 京东商家后台提报 | 上传 SKU、京采价、库存承诺、证书 |\n| T-7 PLUS 触达 | 京东 APP Push、京麦短信、PLUS 微信社群 |\n| T0 物流时效 | 入仓 JDL，确保 211 时效；超 24 小时未发即扣分 |\n| T+30/T+45 价保退差 | T+1 起每日跑批；PLUS 用户特别关注 45 天窗口 |",
+    "source_file": "jd_super_brand_day.md",
+    "char_start": 1734,
+    "char_end": 2076,
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "jd_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "6bcb6cfa88eb40e5aae199f2e5041d14",
+    "text": "---",
+    "source_file": "jd_super_brand_day.md",
+    "char_start": 2078,
+    "char_end": 2081,
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "jd_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "1a4bbae7ee794f11afad4ed72f3cb611",
+    "text": "## 四、常见踩坑（与天猫规则差异 + 京东独有项）\n| 风险点 | 触发场景 | 风险等级 |\n|--------|---------|---------|\n| 14 天 vs 30 天混淆 | 用天猫 30 天口径填京东 | high |\n| 京采价被穿底 | 供货价高于外渠成交价 | high |\n| 百亿补贴叠加跨店满减 | 误以为可叠加 | high |\n| 国补 SKU 叠加平台券 | 政府返款被取消 | high |\n| PLUS 价低于全网 | 被抓取后违反全网最低承诺 | medium |\n| 物流时效不达 | 未入仓 JDL，超 24h 未发 | high |\n| 自营 / POP 同款双轨穿仓 | 自营价 < POP 价或反之 | high |",
+    "source_file": "jd_super_brand_day.md",
+    "char_start": 2083,
+    "char_end": 2422,
+    "file_hash": "663f5328ed63e2d612efce7d35ad6d67538de2e92fae1e45c7304c5bb5adbcd5",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "jd_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "c715c27664ec409fa802868aab7e7741",
+    "text": "# 直播专场规则知识库（抖音 / 淘宝直播 / 京东直播）\n> **聚焦赛题方向 C**：直播专场是与货架电商规则口径差异最大的渠道；商家在选品执行时极易踩坑。\n---",
+    "source_file": "livestream_campaign.md",
+    "char_start": 0,
+    "char_end": 86,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "a1fdf0ea486e4156a0168191cab870c9",
+    "text": "## 一、直播专场 vs 货架电商的关键差异",
+    "source_file": "livestream_campaign.md",
+    "char_start": 88,
+    "char_end": 110,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "a991cb78123641e2b25a9b03972943ce",
+    "text": "| 维度 | 货架电商（超品日等） | 直播专场 |\n|------|-----------------------|----------|\n| 价格主体 | 商家 / 平台 | **达人 / 主播** 也可议价 |\n| 价格底线 | 近 X 天最低价 | 通常要求\"全网最低 + 直播间专享更低\" |\n| 价格窗口 | 活动期内统一价 | **直播间限时价**（仅直播过程中生效） |\n| 库存 | 单 SKU 上链接库存 | 抢购式：限量库存逐步释放 |\n| SKU 数量 | ≥ 100 款 | 单场通常 30–80 款（直播节奏决定） |\n| 选品 | 商品标签 + 数据筛 | **主播亲选**或商家匹配 |\n| 售后 | 商家承担 | 商家承担 + 主播形象担保 |",
+    "source_file": "livestream_campaign.md",
+    "char_start": 112,
+    "char_end": 452,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "c379f72b72f9482798a2f912312d5546",
+    "text": "商品标签 + 数据筛 | **主播亲选**或商家匹配 |\n| 售后 | 商家承担 | 商家承担 + 主播形象担保 |\n| 价保 | 15–30 天 | 通常**不享受价保**（直播间价为限时优惠） |",
+    "source_file": "livestream_campaign.md",
+    "char_start": 392,
+    "char_end": 493,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "b324d926129249cd826a2fd20598b2cf",
+    "text": "---",
+    "source_file": "livestream_campaign.md",
+    "char_start": 495,
+    "char_end": 498,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "ce599df89fa44b358c5daae1a237a5f5",
+    "text": "## 二、抖音直播专场可解析规则",
+    "source_file": "livestream_campaign.md",
+    "char_start": 500,
+    "char_end": 516,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "6106fcdcffde429fa726793b5df9dc8f",
+    "text": "### 2.1 商家资质\n| 检查项 | 门槛 |\n|--------|------|\n| 抖音店铺类型 | 旗舰店 / 专营店 |\n| 抖音综合体验分 | ≥ 4.6 |\n| 商品体验分 | ≥ 4.5 |\n| 物流体验分 | ≥ 4.5 |\n| 服务体验分 | ≥ 4.5 |\n| 近 30 天违规 | 0 次 |",
+    "source_file": "livestream_campaign.md",
+    "char_start": 518,
+    "char_end": 678,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "e2a54a63cb5e409c97a572b6062d7d6f",
+    "text": "### 2.2 SKU 选品\n| 检查项 | 门槛 |\n|--------|------|\n| 报名 SKU 数 | 单场 30–80（看直播节奏） |\n| 单 SKU 近 30 天销量 | ≥ 50 件 |\n| 商详页主图视频 | 必备（直播切片用） |\n| 抖音独家 SKU | ≥ 20% |",
+    "source_file": "livestream_campaign.md",
+    "char_start": 680,
+    "char_end": 830,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "a6195568eed94300b540fffba9b7f137",
+    "text": "### 2.3 价格管控（抖音独有口径）\n| 检查项 | 规则 |\n|--------|------|\n| 直播间价 | ≤ 抖音全渠道（含商详、商城、其他直播间） |\n| 让利幅度 | ≥ 25%（高于其他平台） |\n| 直播间限时价 vs 商详价 | 直播间结束后商详价可恢复，但**期间不可降到比直播间更低** |\n| 比价口径 | 抖音生态内\"近 30 天最低\" |\n| 价保 | 直播间限时价**通常不享受价保**（须在商详页明示） |",
+    "source_file": "livestream_campaign.md",
+    "char_start": 832,
+    "char_end": 1056,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "3b8e3b21ed03495f9c164b5938089d3e",
+    "text": "### 2.4 直播间独有规则\n| 规则 | 说明 |\n|------|------|\n| 限时秒杀 | 1–3 分钟内限量库存释放 |\n| 满减券 | 主播代发权益券，可叠加店铺券 |\n| 退换货 | 7 天无理由（黄金计重款除外） |\n| 主播形象担保 | 主播自承担\"假一赔十\"形象责任 |\n---",
+    "source_file": "livestream_campaign.md",
+    "char_start": 1058,
+    "char_end": 1212,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "7a3c9a92ef224eaf97d8cc6712d07aad",
+    "text": "## 三、淘宝直播专场可解析规则\n| 检查项 | 门槛 |\n|--------|------|\n| 经营主体 | 旗舰店 / 专卖店 |\n| 淘宝直播带货分 | ≥ 80（百分制） |\n| 报名 SKU 数 | 单场 30–60 |\n| 直播间价 | ≤ 淘宝全渠道最近 30 天最低 |\n| 让利幅度 | ≥ 20% |\n| 价保 | 限时价不享价保；非限时价享 15 天 |\n---",
+    "source_file": "livestream_campaign.md",
+    "char_start": 1214,
+    "char_end": 1409,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "c9c7ab63a60545a9a8ccba780cde7d51",
+    "text": "## 四、京东直播专场可解析规则\n| 检查项 | 门槛 |\n|--------|------|\n| 经营主体 | 京东自营 / POP 旗舰店 |\n| 京东直播带货分 | ≥ 8.0 |\n| 价格 | ≤ 京东全渠道近 14 天最低 |\n| 让利幅度 | ≥ 20% |\n| 价保 | 30 天（同京东主体规则） |\n| PLUS 价 | 直播间可单独设 PLUS 价 |\n---",
+    "source_file": "livestream_campaign.md",
+    "char_start": 1411,
+    "char_end": 1603,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "17c6514044504bdcafddaa51554ade04",
+    "text": "## 五、Agent 解析直播专场规则的特殊注意",
+    "source_file": "livestream_campaign.md",
+    "char_start": 1605,
+    "char_end": 1629,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "ec13e8f98c9c40b497ce304e7bffc4d1",
+    "text": "### 5.1 \"直播间价\"的歧义\n```text\n[规则] \"直播间价不得高于商详价\"\n[歧义] 商详价是指\"近 30 天最低\"还是\"今日商详挂牌价\"？\n[Agent 主动澄清] \"本规则中'商详价'是指近 X 天最低成交价，还是当日商详挂牌价？\"\n```",
+    "source_file": "livestream_campaign.md",
+    "char_start": 1631,
+    "char_end": 1761,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "fbf30cff17394f0a986eb5649676a6b8",
+    "text": "### 5.2 \"全网最低\"在直播场景的特殊解释\n直播间价通常被认为是\"限时极限低价\"，监管视角下\"全网最低\"的口径要严格区分：\n- 货架电商：与京东、抖音、品牌官网比价\n- 直播场景：与所有直播间（含同 SKU 在其他直播间）比价",
+    "source_file": "livestream_campaign.md",
+    "char_start": 1763,
+    "char_end": 1880,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "0b95fb598d514348ac0dd3e02515df60",
+    "text": "### 5.3 主播自带预算（坑位费、佣金、平台补贴）的让利归属\n```text\n[规则] \"直播间让利 ≥ 25%\"\n[Agent 解析]\n- 让利构成 = 商家让利 + 主播让利 + 平台补贴\n- 若 25% 全部由商家承担 → 利润穿底\n- 主动澄清：\"25% 让利中商家承担多少、主播让利多少、平台补贴多少？\"\n```\n---",
+    "source_file": "livestream_campaign.md",
+    "char_start": 1882,
+    "char_end": 2051,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "fe3ae56617834a39a4aace500ea64587",
+    "text": "## 六、常见踩坑\n| 风险点 | 触发场景 | 风险等级 |\n|--------|---------|---------|\n| 直播间价低于商详价 X 天最低 | 形成\"商详穿底\" | high |\n| 限时价被消费者要求价保 | 商详页未明示限时价不价保 | high |\n| 同款 SKU 多直播间穿仓 | 不同主播给出不同直播价 | high |\n| 让利幅度让利归属不清 | 商家与主播让利分摊错算 | medium |\n| 抖音独家 SKU 不足 20% | 选品比例不达 | medium |\n| 直播间库存 0 后仍挂链接 | 消费者下单失败差评 | medium |",
+    "source_file": "livestream_campaign.md",
+    "char_start": 2053,
+    "char_end": 2347,
+    "file_hash": "8faec3621ef3c588dc5ae146ffb4e3b546c833f1cdb16dd3cb2304f3e1f52b10",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "livestream_campaign.md"
+    }
+  },
+  {
+    "chunk_id": "b9f8e32c9315477fa7461f1585700558",
+    "text": "﻿# 商家关注的流程与环节（赛题核心总结）\n> **赛题要求：\"并最终站在商家的角度，给出需要关注的流程和环节的总结。\"**\n> 本文档面向企业X电商运营 / 选品执行人员，**跨平台抽象出一份完整的\"报名→上架→大促→售后\" 全链路 SOP**。Agent 在 `checklist_builder` 节点应直接以本文档结构作为骨架。\n---",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 0,
+    "char_end": 174,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "1324a3f16dc7421e9ac96a1abb9e6e8a",
+    "text": "## 1. 全链路阶段图\n```\n[T-45] [T-30] [T-15] [T-7] [T0] [T+1] [T+30]\n│ │ │ │ │ │ │\n[资质年审] [选品 + 价格盘] [报名提报] [预热] [大促售卖] [价保 + 售后] [复盘 + 结算]\n```\n---",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 176,
+    "char_end": 492,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "89160daa2a1f4987abb6a0d49ba6f6d0",
+    "text": "## 2. 阶段 1：资质年审与赛事筹备（T-45 ～ T-30）",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 494,
+    "char_end": 527,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "27e98826bdc64b8787f02d6c6fc5f005",
+    "text": "### 2.1 商家关注点",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 529,
+    "char_end": 542,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "0360f339ad0c443a93dd5353326975c9",
+    "text": "| 环节 | 检查项 | 风险等级 |\n|------|--------|---------|\n| 营业执照、商标证 | 在有效期；经营范围覆盖珠宝 | high |\n| 贵金属生产 / 销售许可证 | 在有效期 | high |\n| 国检证书 / CMA 实验室资质 | 不少于 6 份样品近 6 个月内的检测报告 | medium |\n| 品牌天猫 / 京东 / 抖音店铺评分 | DSR ≥ 4.7（天猫），京东商智 ≥ 9.0 | high |\n| 店铺违规记录 | 近 180 天无 A 级违规 | high |\n| 财务体系 | 平台佣金、技术服务费已结清 | medium |\n| 商品库存系统 | ERP / OMS / WMS 与平台库存接口正常 | medium |",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 544,
+    "char_end": 887,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "9e2d1cd024d341d9a51b37a007fabae4",
+    "text": "### 2.2 Agent 在该阶段应输出\n- **资质过期清单**：从 `../chow_tai_fook/company_qualifications.md` 中拉取所有资质证书，按过期日排序。\n- **违规风险提示**：店铺评分接近阈值（如 DSR = 4.71 离 4.7 仅 0.01 差距）时主动预警。\n---",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 889,
+    "char_end": 1052,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "48548b07026f4fc894a2fae36784a9cf",
+    "text": "## 3. 阶段 2：选品 + 价格盘整（T-30 ～ T-15）",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 1054,
+    "char_end": 1087,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "ba8adacde5a347fca9b48e91a74f9493",
+    "text": "### 3.1 选品执行步骤",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 1089,
+    "char_end": 1103,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "dfeec5854b1a42809e4155a42e7d3b07",
+    "text": "1. **拉取主推 SKU 池**\n- 维度：黄金 / 镶嵌 / 一口价 / 古法金 / 5G 黄金 / 钻石 / 翡翠 / 珍珠（参见 `../chow_tai_fook/sku_catalog.md`）。\n- 数据筛选：近 90 天店内销量 ≥ 50 件、好评率 ≥ 95%、退货率 ≤ 5%。\n2. **匹配活动门槛**\n- 数量门槛：天猫 200+，京东 150+，淘宝百亿补贴 ≥ 1。\n- 新品门槛：近 90 天上新占比 ≥ 30%（天猫）。\n- 库存门槛：单 SKU 库存承诺 ≥ 500 件 或 日均销量 × 10 天。\n3. **价格盘整**\n- 拉取 SKU 近 14 天 / 近 30 天 / 近 90 天 / 近 365 天最低成交价。",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 1105,
+    "char_end": 1436,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "d09087d4d5934c3cb5a9dcbe0bb575d0",
+    "text": "**价格盘整**\n- 拉取 SKU 近 14 天 / 近 30 天 / 近 90 天 / 近 365 天最低成交价。\n- 全网比价：京东、抖音、品牌官网、得物、拼多多同款 SKU 实时价。\n- 计算让利幅度：(划线价 - 活动价) / 划线价 ≥ 15%（基本门槛）。\n4. **互斥活动盘点**\n- 同 SKU 是否在其他平台同期报名？\n- 同店铺是否同期跑超品日 + 聚划算？\n- 是否触发\"品牌日 vs 品类日\"互斥？",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 1376,
+    "char_end": 1589,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "dee3d098b3194b99ba809af75d01cda7",
+    "text": "### 3.2 Agent 在该阶段应输出\n- **价格穿底预警**：标记不满足\"近 30 天最低 / 全网最低\"的 SKU。\n- **互斥冲突清单**：明确列出与当前规则互斥的其他活动名称。\n- **库存不足预警**：单 SKU 实际库存 < 承诺值时主动提示。",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 1624,
+    "char_end": 1757,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "ae56f4bcfa05431391d1ef7319b6b4ec",
+    "text": "### 3.3 易混淆维度提醒\n> **黄金计重款** vs **一口价金饰**：\n> - 计重款：克数 × 实时金价 + 工费，价格随金价波动；不进入\"超品日\"价格管控（因为单价不固定）。\n> - 一口价款：固定价格，参与价格管控。\n> 选品时务必区分，避免把计重款误填入\"活动价 ≤ 近 30 天最低价\" 的池。\n---",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 1759,
+    "char_end": 1923,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "d407a5f7a34347b2b52c977bd73f8b81",
+    "text": "## 4. 阶段 3：报名提报（T-15 ～ T-7）",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 1925,
+    "char_end": 1952,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "3d17dd88ea7a4c37b71bb2fb16407f55",
+    "text": "### 4.1 报名材料清单\n| 材料 | 来源 | 备注 |\n|------|------|------|\n| SKU 列表（Excel / CSV） | ERP 导出 | 含 SKU 编码、品名、克重、4C、活动价 |\n| 价格清单 | 价格盘整结果 | 划线价、活动价、近 X 天最低价、全网最低价对比 |\n| 库存承诺 | WMS | 单 SKU ≥ 500 件 或 等价金额 |\n| 商品证书电子件 | 国检 / GIA / NGTC | 单独打包，每个 SKU 对应一份 |\n| 营业执照、商标证 | 法务 | 加盖公章扫描件 |\n| 活动履约协议 | 商务 | 双方签字盖章 |",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 1954,
+    "char_end": 2251,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "a6487445e44a403da73809010f165c66",
+    "text": "### 4.2 平台小二审核要点\n| 小二关注 | 商家应对 |\n|----------|---------|\n| 活动价是否 ≤ 近 X 天最低 | 提供订单库截图佐证 |\n| 让利幅度是否 ≥ 15% | 提供让利计算明细 |\n| 库存承诺是否真实 | 提供 WMS 实时库存截图 |\n| 新品占比 | 提供近 90 天上新 SKU 列表 |\n| 全网价是否最低 | 提供 5 大平台比价表 |",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 2253,
+    "char_end": 2453,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "0dfd2b211f0641cbae5ed8baf460dd74",
+    "text": "### 4.3 Agent 在该阶段应输出\n- **报名材料缺失清单**：自动核对必交材料。\n- **审核被驳回原因建模**：解析平台审核反馈，定位是价格、库存、资质中的哪一项。\n---",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 2455,
+    "char_end": 2550,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "a66f2b8d4c0a4cb1af303277ce67f062",
+    "text": "## 5. 阶段 4：预热（T-7 ～ T-1）",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 2552,
+    "char_end": 2576,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "8a9dc0fd9263476cb5301f8b3df41218",
+    "text": "### 5.1 预热动作清单\n1. **店铺装修**：首页 / 商详页打上活动 banner、利益点角标。\n2. **券与红包配置**：店铺券、品牌满减、定金预售在后台配置完成。\n3. **私域触达**：会员短信、企业微信、淘宝订阅消息、京东 PLUS 触达。\n4. **内容投放**：抖音 / 小红书种草内容，直播预告。\n5. **库存调拨**：将目标 SKU 库存预留 80% 给当日，剩余 20% 留售后。\n6. **客服培训**：统一活动话术、价保规则、跨店满减计算方法。",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 2578,
+    "char_end": 2819,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "6eb4a8129c5648c68480807f94e7641a",
+    "text": "### 5.2 Agent 在该阶段应输出\n- **触达任务清单**：自动生成\"会员短信 / 企业微信 / 直播预热\" 的 to-do。\n- **客服话术包**：根据规则原文自动生成\"价保 / 退差 / 跨店满减\" 的标准回复。\n---",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 2821,
+    "char_end": 2941,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "8690ebbc29d9468bbd2808bfe0f5a94e",
+    "text": "## 6. 阶段 5：大促售卖（T0）",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 2943,
+    "char_end": 2962,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "a67b8756bc8e400b93f9f732fb9e9f45",
+    "text": "### 6.1 当日盯盘清单（每小时检查）\n| 项 | 检查动作 |\n|----|---------|\n| 价格 | 价格、券、跨店满减是否正常生效 |\n| 流量 | 品牌词 / 品类词排名是否稳定 |\n| 库存 | 主推 SKU 是否快速售罄，触发缺货告警 |\n| 转化 | 加购 / 下单转化率是否符合预期 |\n| 客诉 | 价保、券失效、宣传不实类投诉是否集中 |\n| 物流 | 仓库出库速率、订单堆积情况 |",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 2964,
+    "char_end": 3173,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "6ebf4eba2d374fbf9b6376cdb2bad440",
+    "text": "### 6.2 异常处理 SOP\n| 异常 | 处理动作 | 上报对象 |\n|------|---------|---------|\n| 主推 SKU 价格穿底 | 30 分钟内调价或下架 | 商务 + 法务 |\n| 流量掉位 | 联系平台小二 | 运营 |\n| 库存告急 | 紧急调拨 / 限购 | 仓配 |\n| 客诉集中 | 客服话术升级 | 客服主管 |\n| 物流堆积 | 启用备用仓 | 仓配 |",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 3175,
+    "char_end": 3378,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "7bfbf8023ef2403fb7e3b2a456a4a817",
+    "text": "### 6.3 Agent 在该阶段应输出\n- **实时盯盘看板**：自动汇总价格、流量、库存、转化、客诉。\n- **异常告警**：触发阈值时自动推送处理建议。\n---",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 3380,
+    "char_end": 3466,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "e1bc644818c7415f8cdc883d0e7e864a",
+    "text": "## 7. 阶段 6：售后（T+1 ～ T+30）",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 3468,
+    "char_end": 3493,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "47992f33e6e14e58bf4d65d42154351e",
+    "text": "### 7.1 售后动作清单\n| 环节 | 动作 | 时间窗口 |\n|------|------|---------|\n| 价保退差 | 每日跑批退差 | T+1 ～ T+15（天猫）/ T+30（京东）/ T+45（京东 PLUS） |\n| 7 天无理由退货 | 退货审核、换货发货 | T+1 ～ T+7 |\n| 30 天质量问题 | 检测、维修、换货 | T+1 ～ T+30 |\n| 假一赔十 / 假一赔三 | 鉴定、赔付 | 视情况而定 |\n| GMV 结算 | 与平台对账 | T+30 |\n| 保证金解冻 | 平台返还 | T+30（天猫）/ T+90（百亿补贴） |\n| 数据复盘 | 导出看板、分析 | T+7 |",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 3495,
+    "char_end": 3812,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "8952aa007a7e4692a4084d5fb4f7697f",
+    "text": "### 7.2 Agent 在该阶段应输出\n- **价保退差任务流**：自动生成每日退差清单 + 异常账单。\n- **复盘报告骨架**：自动生成 GMV、新客、复购、跨品类拉新等核心指标的报告模板。\n---",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 3814,
+    "char_end": 3919,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "9f4ac8fa5d364d5991d53d980c20f1be",
+    "text": "## 8. 跨平台流程对比表",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 3921,
+    "char_end": 3935,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "7569a1454780467bbee62b6a8fc57c9f",
+    "text": "| 阶段 | 天猫 | 京东 | 淘宝聚划算 / 百补 | 抖音 |\n|------|------|------|---------------------|------|\n| T-30 资质核验 | DSR ≥ 4.7 | 商智 ≥ 9.0 | DSR ≥ 4.7 | 抖音综合 ≥ 4.6 |\n| T-15 报名 | 商家中心 | 商家后台 | 阿里妈妈 | 抖音商家中心 |\n| T-7 预热 | 私域 + 直播 | PLUS 触达 | 私域 | 短视频 + 直播 |\n| T0 售卖 | 当日全天 | 当日全天 | 频道常驻 | 24 小时滚动 |\n| 价保 | 15 天 | 30/45 天 | 15 天 | 15 天 |",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 3937,
+    "char_end": 4254,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "033023c158e941cba077127a01b31768",
+    "text": "全天 | 频道常驻 | 24 小时滚动 |\n| 价保 | 15 天 | 30/45 天 | 15 天 | 15 天 |\n| 结算 | T+30 | T+30 | T+90 | T+15 |",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 4194,
+    "char_end": 4288,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "d37678e1033b47a7aa087493981163a6",
+    "text": "---",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 4290,
+    "char_end": 4293,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "39cd0a6a2a934efda33cbba6889d9ca5",
+    "text": "## 9. 总结：商家最容易漏掉的 10 个环节",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 4295,
+    "char_end": 4319,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "9442161128d84b60bc286a9fe57d9f9b",
+    "text": "1. **历史最低价回溯**：尤其是近 365 天某次秒杀价被忘记。\n2. **全网比价**：京东、抖音、品牌官网的价格未拉平。\n3. **库存承诺与实际库存差距**：报名时承诺 1000 件，实际 200 件。\n4. **互斥活动重叠**：同 SKU 既报超品日又报百补。\n5. **新品占比不足**：近 90 天上新 SKU 数量不够。\n6. **划线价虚高**：使用厂商指导价 / 吊牌价。\n7. **赠品估值超 30%**：变相打折触发价格管控。\n8. **价保规则不一致**：天猫 15 天 vs 京东 30/45 天，客服误答。\n9. **跨店满减叠加错配**：百亿补贴 SKU 误挂跨店满减标签。\n10. **资质过期**：营业执照、贵金属许可证、商标证忘记年审。",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 4321,
+    "char_end": 4660,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "0a6f3aeb5fb4499caa3391921f1fd5c5",
+    "text": "> Agent 在 `checklist_builder` 节点应针对每一个环节生成显式检查项，标记为 high 风险，并在 `risk_points` 中加粗提示。",
+    "source_file": "merchant_process_summary.md",
+    "char_start": 4662,
+    "char_end": 4746,
+    "file_hash": "af4764b958f09fad7bcf3bcdb400b9eabf6981fe87025e7c7771345fd2d43cfe",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "merchant_process_summary.md"
+    }
+  },
+  {
+    "chunk_id": "6c6b0c64b598478c9790e852bca9b673",
+    "text": "# 价格术语统一字典（天猫 / 淘宝 / 京东 / 抖音通用）\n> 本文档统一定义价格相关术语，供 Agent 在解析活动规则时做\"语义归一化\"。\n> Agent 解析规则时如果遇到术语，应优先匹配本文档中的标准定义；若规则原文与本文档定义冲突，以**规则原文为准**，并在 `risk_points` 中标记\"术语口径冲突\"。\n---",
+    "source_file": "price_terminology.md",
+    "char_start": 0,
+    "char_end": 170,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "ee4ebec3b8394d6f9c2e090be12d33ee",
+    "text": "## 1. 价格术语速查表",
+    "source_file": "price_terminology.md",
+    "char_start": 172,
+    "char_end": 185,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "0c0d33d15820488ba8f063d5271cade1",
+    "text": "| 术语 | 标准定义 | 平台 / 场景差异 | 合规要点 |\n|------|---------|-----------------|----------|\n| **吊牌价** | 商品物理吊牌上的标价，通常等于品牌指导零售价 | 各平台通用 | 不能直接作为商详页\"划线价\"使用 |\n| **品牌指导价 / 厂商指导价（MSRP）** | 品牌方建议的统一对外零售价 | 各平台通用 | **禁止**用作划线价（虚标参考价行为，可处罚） |\n| **店铺销售价 / 日常价** | 店铺对外正常售卖的价格（非活动期） | 各平台通用 | 必须是近期有实际成交、未被划线的价格 |",
+    "source_file": "price_terminology.md",
+    "char_start": 187,
+    "char_end": 480,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "e50be744934747a5bc32414191bbf5a8",
+    "text": "/ 日常价** | 店铺对外正常售卖的价格（非活动期） | 各平台通用 | 必须是近期有实际成交、未被划线的价格 |\n| **划线价 / 原价** | 商详页中带删除线展示的\"原价\" | 天猫近 30 天 / 京东近 14 天 | 必须等于近期有成交、未划线的销售价 |\n| **活动价 / 促销价** | 活动期间实际成交价（不含跨店满减、红包） | 各平台 | 一般 ≤ 近 30 天最低成交价 |\n| **到手价** | 用户实付价格 = 活动价 - 跨店满减 - 红包 - 优惠券 | 各平台 | 详情页\"到手 xxx 元\"必须按\"最大优惠组合\"计算 |\n| **参考价** | 一般用于商详非主价位置，标注\"参考某渠道价\" | 通用 | 必须真实存在该渠道，不能虚标 |",
+    "source_file": "price_terminology.md",
+    "char_start": 420,
+    "char_end": 762,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "0cd865c59ade425aafa6dc4233f90c24",
+    "text": "| **参考价** | 一般用于商详非主价位置，标注\"参考某渠道价\" | 通用 | 必须真实存在该渠道，不能虚标 |\n| **预售价 / 定金膨胀价** | 定金 + 尾款的总价，膨胀部分由定金倍数决定 | 双 11、6.18 多用 | 定金一般 50–500 元，膨胀 2–5 倍 |\n| **直降价** | 不通过任何券和满减，直接降到的价格 | 通用 | 必须是与日常价相比的真实差额 |\n| **专享价 / VIP 价 / PLUS 价** | 仅限会员可见 / 可享的价格 | 88VIP / PLUS / 京东 PLUS | 不要求\"全网最低\"，但要求\"会员中最低\" |\n| **京采价** | 京东自营对品牌方的供货价（内部口径） | 仅京东自营 | 不对外展示 |",
+    "source_file": "price_terminology.md",
+    "char_start": 702,
+    "char_end": 1044,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "d7245fe4747446f58debd88416db239d",
+    "text": "求\"会员中最低\" |\n| **京采价** | 京东自营对品牌方的供货价（内部口径） | 仅京东自营 | 不对外展示 |\n| **百亿补贴价** | 进入百亿补贴池的对外最终价 | 淘宝/京东/拼多多各家定义 | 必须 ≤ 全网最低 |\n| **官方立减 / 平台立减** | 平台直接对消费者补贴的让利 | 各平台百亿补贴 | 商家不出资部分由平台承担 |\n| **历史最低价 / 近 30 天最低价 / 近 90 天最低价 / 近 365 天最低价** | 指定回溯窗口内的店内最低成交价 | 各平台口径不同 | **天猫 30 天 / 京东 14 天 / 百补 90 天** |\n| **保留价** | 商家给平台的最低可接受成交价 | 京东自营 / 聚划算入驻谈判 | 不对外公开 |",
+    "source_file": "price_terminology.md",
+    "char_start": 984,
+    "char_end": 1329,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "c49cabef8d6e4e1fb08da8c316103c01",
+    "text": "---",
+    "source_file": "price_terminology.md",
+    "char_start": 1331,
+    "char_end": 1334,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "293b27e030244b1fb338d0c7dcb01061",
+    "text": "## 2. \"近 X 天最低价\"口径对照表（最容易踩坑）\n不同平台对\"最低价\"的回溯窗口与计算方式不同，Agent 解析时必须按平台区分：",
+    "source_file": "price_terminology.md",
+    "char_start": 1336,
+    "char_end": 1406,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "cd380fb80fee4645897b098746ce8be9",
+    "text": "| 平台 / 频道 | 回溯窗口 | 计算口径 | 备注 |\n|-------------|----------|---------|------|\n| 天猫超级品牌日 | 近 **30 天** | 店铺 SKU 实际成交价（不含跨店满减、红包） | 取最低单日成交价 |\n| 天猫 11.11 / 6.18 | 近 **30 天** + 近 **365 天** 双重校验 | 同上 | 部分大促对历史最低价再降 5% |\n| 京东超级品牌日 | 近 **14 天** | 店铺 SKU 实际成交价 | 京东独有 14 天口径 |\n| 京东百亿补贴 | 近 **90 天** | 店铺 SKU 实际成交价 + 全网比价 | 必须同时是全网最低 |",
+    "source_file": "price_terminology.md",
+    "char_start": 1408,
+    "char_end": 1732,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "4c07610df582411a8366425c4d309d18",
+    "text": "|\n| 京东百亿补贴 | 近 **90 天** | 店铺 SKU 实际成交价 + 全网比价 | 必须同时是全网最低 |\n| 淘宝聚划算品牌闪购 | 近 **30 天** | 实际成交价 | 与天猫一致 |\n| 淘宝百亿补贴 | 近 **90 天** + **全网比价** | 同上 | 全网包含京东、抖音、拼多多、得物、品牌官网 |\n| 抖音商城 | 近 **30 天** + **抖音生态内比价** | 抖音生态内最低 | 抖音\"低价心智频道\" 要求生态内全网最低 |\n| 拼多多 | 近 **30 天** | 拼多多平台内最低 | 不与外渠对比 |\n| 得物 | 近 **30 天** | 得物平台内最低 | 鉴别后实付价 |",
+    "source_file": "price_terminology.md",
+    "char_start": 1672,
+    "char_end": 1987,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "4ec7bb3e2c3b4e06a6b42c813626405d",
+    "text": "> ⚠️ \"近 X 天\" 是滚动窗口还是自然月？业内标准是**滚动窗口**（活动开始日往前推 X 天），但部分商家会按\"自然月\"理解，导致价格穿底。Agent 在解析规则时若发现\"近 30 天\"表述含混，应主动生成澄清问题。\n---",
+    "source_file": "price_terminology.md",
+    "char_start": 1989,
+    "char_end": 2106,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "7fd139f0f1194c68927965fc4230b5be",
+    "text": "## 3. 划线价合规专题",
+    "source_file": "price_terminology.md",
+    "char_start": 2108,
+    "char_end": 2121,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "32b5cda796474c6a9031bca75450a26b",
+    "text": "### 3.1 国家市场监督管理总局《明码标价和禁止价格欺诈规定》（2022 年 7 月起施行）核心要点\n1. 划线价（被划线的\"原价\"）必须是\"促销前 7 日内最低成交价\"。\n2. 若 7 日内无成交记录，应按\"最后一次成交价 / 最近一次销售价\" 标注。\n3. 不得使用\"建议零售价 / 厂商指导价 / 吊牌价\" 作为划线价（除非有充分依据）。\n4. 不得使用虚高原价误导消费者；处罚最高 50 万元 + 行政警告。",
+    "source_file": "price_terminology.md",
+    "char_start": 2123,
+    "char_end": 2334,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "a6efbe407daf4ba0b1e1bd914d1eafea",
+    "text": "### 3.2 各平台对划线价的额外要求\n| 平台 | 要求 |\n|------|------|\n| 天猫 | 近 30 天有实际成交且未划线的销售价 |\n| 京东 | 近 14 天有实际成交且未划线的销售价 |\n| 淘宝 C 店 | 近 7 日有实际成交（参照市监总局规定） |\n| 抖音商城 | 近 30 天 + 行业大促期间再加 7 天保护期 |",
+    "source_file": "price_terminology.md",
+    "char_start": 2336,
+    "char_end": 2513,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "5ba206f90816424c943ddc0e8d7c11c8",
+    "text": "### 3.3 常见违规划线价\n- ❌ 使用 5 年前的吊牌价作为划线价。\n- ❌ 把\"建议零售价 9999 元\" 作为划线价，实际从未以该价销售。\n- ❌ \"活动价 199 元，原价 999 元\"，但近 30 天该 SKU 实际最高成交价仅为 399 元。\n- ✅ 划线价 399 元（近 30 天最高有成交）、活动价 199 元，合规。\n---",
+    "source_file": "price_terminology.md",
+    "char_start": 2515,
+    "char_end": 2691,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "aab8d6f18c17443f82741196c1093fbe",
+    "text": "## 4. 让利幅度与补贴口径",
+    "source_file": "price_terminology.md",
+    "char_start": 2693,
+    "char_end": 2708,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "8ea24127de9841abbdda8a10b217c656",
+    "text": "### 4.1 商家让利幅度计算\n```\n让利幅度 = (划线价 - 活动价) / 划线价\n让利金额 = 划线价 - 活动价\n```",
+    "source_file": "price_terminology.md",
+    "char_start": 2710,
+    "char_end": 2777,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "6f37a83507c54d569b79c8a96c0fafd9",
+    "text": "### 4.2 到手价让利幅度计算\n```\n到手让利幅度 = (划线价 - 到手价) / 划线价\n到手价 = 活动价 - 跨店满减 - 平台红包 - 店铺券 - 平台立减\n```",
+    "source_file": "price_terminology.md",
+    "char_start": 2779,
+    "char_end": 2869,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "04296d7352d141678cd40f1443719505",
+    "text": "### 4.3 平台对让利幅度的门槛（参考值）\n| 频道 | 让利门槛 |\n|------|---------|\n| 天猫超品日 | ≥ 15%（含让利、券、平台补贴合计） |\n| 京东超品日 | ≥ 15% |\n| 淘宝百亿补贴 | ≥ 15% |\n| 京东百亿补贴 | ≥ 20% |\n| 抖音超值购 | ≥ 25%（抖音对让利门槛要求更高） |\n---",
+    "source_file": "price_terminology.md",
+    "char_start": 2871,
+    "char_end": 3052,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "e5ff9d3b0dc74162aaf8f6bf0a44a161",
+    "text": "## 5. 价格相关常见歧义（供 Agent 主动澄清）",
+    "source_file": "price_terminology.md",
+    "char_start": 3054,
+    "char_end": 3082,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "fd340208f89447848b1ab881adb4e292",
+    "text": "| 歧义点 | 可能解读 1 | 可能解读 2 | Agent 建议 |\n|--------|------------|------------|------------|\n| \"近 30 天最低价\" | 自然月 | 滚动 30 天 | 主动澄清，默认按滚动 30 天 |\n| \"全网最低价\" | 全平台 | 仅天猫 / 仅京东 | 主动澄清，默认按全平台 |\n| \"到手价\" | 含跨店满减 | 不含跨店满减 | 主动澄清，默认含跨店满减 |\n| \"活动价 ≤ 历史最低\" | 近 365 天 | 历史所有时段 | 主动澄清，默认近 365 天 |\n| \"店铺券可叠加\" | 与跨店满减叠加 | 与百亿补贴叠加 | 主动澄清，默认与跨店满减叠加 |",
+    "source_file": "price_terminology.md",
+    "char_start": 3084,
+    "char_end": 3410,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "00dbefbcf19341878d81be90c2aabf8e",
+    "text": "近 365 天 |\n| \"店铺券可叠加\" | 与跨店满减叠加 | 与百亿补贴叠加 | 主动澄清，默认与跨店满减叠加 |\n| \"划线价\" | 原价 / 吊牌价 | 近 30 天最高成交价 | 主动澄清，按市监总局规定 |",
+    "source_file": "price_terminology.md",
+    "char_start": 3350,
+    "char_end": 3459,
+    "file_hash": "a3048b1efa5cc78488af24c14d9d82a5a01c142dd0a9fae3572d3fe313927e1f",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "price_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "7f705b95e68c492a8255abf9c2485d63",
+    "text": "﻿# 平台活动规则知识库（Platform Activity Rules KB）\n> 本知识库面向\"企业X电商运营执行辅助 Agent\"，整理天猫、淘宝、京东等主流电商平台的活动规则。每份文档统一按 **商家侧 / 消费者侧 / 商家关注的流程与环节** 三段式组织，便于 Agent 解析规则、生成检查清单、提示风险点。",
+    "source_file": "README.md",
+    "char_start": 0,
+    "char_end": 162,
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "1e7f410cd604492e875006c8f7fd2a73",
+    "text": "## 文件索引",
+    "source_file": "README.md",
+    "char_start": 164,
+    "char_end": 171,
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "38a524ab2617475f966a2208bd7a73d9",
+    "text": "| 文件 | 适用场景 | 核心内容 |\n|------|----------|----------|\n| **`tmall_618.md`** ⭐ | **天猫 618 大促（赛题示例对标）** | **直接对应 manual.pdf 给出的标准示例规则；含端到端解析样板** |\n| `double_eleven.md` | 双 11 大促 | 多波次时间结构 + 跨期价保 30 天 + 近 30/365 天双重校验 |\n| `tmall_super_brand_day.md` | 天猫超级品牌日 | 资质、价格管控、互斥、流程 |\n| `jd_super_brand_day.md` | 京东超级品牌日 | 14 天口径、自营/POP 双轨、PLUS 价保 45 天 |",
+    "source_file": "README.md",
+    "char_start": 173,
+    "char_end": 514,
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "af0301ac8c0040e285ad23ff1a171730",
+    "text": "r_brand_day.md` | 京东超级品牌日 | 14 天口径、自营/POP 双轨、PLUS 价保 45 天 |\n| `taobao_juhuasuan_baiyibutie.md` | 淘宝聚划算 / 百亿补贴 | 90 天口径、全网最低、限购 |\n| `category_day.md` | 行业品类日 / 超级品类日 | **与品牌日互斥（赛题第 4 条对应）** |\n| `livestream_campaign.md` | 抖音 / 淘宝 / 京东直播专场 | 直播间限时价、让利分摊、与货架电商口径差异 |\n| `internal_marketing.md` | 周大福内部营销项目 | **赛题原文提及；与电商平台规则互斥风险** |\n| `price_terminology.",
+    "source_file": "README.md",
+    "char_start": 454,
+    "char_end": 803,
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "d9777e4a7d7b4736a99c8a8739a02b38",
+    "text": "| 周大福内部营销项目 | **赛题原文提及；与电商平台规则互斥风险** |\n| `price_terminology.md` | 通用 | 划线价 / 活动价 / 到手价 / 近 14/30/90/365 天最低 口径对照 |\n| `consumer_benefits.md` | 通用（商家执行视角） | 叠加矩阵 + 价保 + 客服话术口径 |\n| `merchant_process_summary.md` | 通用（商家视角） | T-30 → T+30 全链路 SOP（检查清单骨架） |",
+    "source_file": "README.md",
+    "char_start": 743,
+    "char_end": 993,
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "281797ea3ef542a18ae38f8fe09d378f",
+    "text": "## 平台规则知识库的使用原则",
+    "source_file": "README.md",
+    "char_start": 995,
+    "char_end": 1010,
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "49c26dbef44e40018dfbdd5c8f4972d4",
+    "text": "1. **本知识库只作为辅助上下文**：Agent 在解析活动规则文本时，以\"用户输入的活动规则原文\"为最高优先级，本知识库用于解释术语、补全口径和提示常见风险点，不能覆盖用户输入。\n2. **以\"商家是否能拿到福利\"为视角**：所有规则都按\"商家侧门槛 / 商家侧福利 / 消费者侧福利\"三段式整理，方便 Agent 一次性产出\"能否报名 / 报名后能拿到什么 / 消费者看到什么\"。\n3. **数值型条款标记高置信度**：例如\"近 30 天最低价\"、\"满 300 减 50\"、\"店铺评分 ≥ 4.8\"是可机器核查的数值条款，rule_parser 给出 confidence ≥ 0.9。\n4.",
+    "source_file": "README.md",
+    "char_start": 1012,
+    "char_end": 1311,
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "609ea29b68384300b933f3cea72574b2",
+    "text": "、\"店铺评分 ≥ 4.8\"是可机器核查的数值条款，rule_parser 给出 confidence ≥ 0.9。\n4. **定性条款标记低置信度**：例如\"品牌力强\"、\"主推爆款\"、\"具备品牌调性\"等模糊词，confidence < 0.7，由 human_review_gate 暂停等待人工确认。\n5. **互斥与叠加规则单独提示**：跨店满减、品类日、品牌日之间往往互斥或部分叠加，必须在 Agent 输出的 `risk_points` 中显式提示。",
+    "source_file": "README.md",
+    "char_start": 1251,
+    "char_end": 1480,
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "f20d51f65e3c4832bd9980a78fbc2acd",
+    "text": "## 与赛题对齐",
+    "source_file": "README.md",
+    "char_start": 1482,
+    "char_end": 1490,
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "de16c203506542389c3b81656e736a51",
+    "text": "- **赛题示例规则的端到端解析**：见 `tmall_618.md`，含 parsed_rules / decision_flow / counter_examples / clarification_questions 完整 demo。\n- **商家流程总结**：见 `merchant_process_summary.md`，作为 `checklist_builder` 节点的输出骨架。\n- **互斥规则识别**：本目录的 `category_day.md` + `internal_marketing.md` 提供\"品牌日互斥对手方\"语料，配合 `../rule_library/mutual_exclusion_matrix.md` 与 `..",
+    "source_file": "README.md",
+    "char_start": 1492,
+    "char_end": 1820,
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "f305928a166b4109ae3f290246c7b718",
+    "text": "对手方\"语料，配合 `../rule_library/mutual_exclusion_matrix.md` 与 `../chow_tai_fook/sku_catalog.md` 的 `active_campaigns` 字段共同支撑赛题第 4 条规则的识别。",
+    "source_file": "README.md",
+    "char_start": 1760,
+    "char_end": 1891,
+    "file_hash": "21385a9091f1858a802e22b9596012c8500602026e0d9b83524ba30b6b5e44d4",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "7d9e51562f654631a43455a166ccd2d4",
+    "text": "﻿# 淘宝聚划算 / 百亿补贴规则知识库\n> **聚焦赛题方向 C**：聚划算 / 百亿补贴的核心特征是\"以**全网最低价**为前提的流量频道\"，价格规则比品牌日更严，回溯窗口为 90 天。\n---",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 0,
+    "char_end": 101,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "b35920d4ba804d659e72c44573f54539",
+    "text": "## 一、商家侧：可被解析为检查项的规则条款",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 103,
+    "char_end": 125,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "ae0b88e0d45f41a8a02bf9b20a6335d8",
+    "text": "### 1.1 资质门槛\n| 检查项 | 门槛 |\n|--------|------|\n| 经营主体 | 天猫旗舰店、专卖店、专营店；C 店、企业店不可参加 |\n| 店铺评分 | DSR ≥ 4.7 |\n| 违规记录 | 近 30 天店铺无 A 级违规 |\n| 经营时长 | 旗舰店 ≥ 6 个月 |\n| 发货时效 | 入驻菜鸟仓或自建仓，48 小时发货率 ≥ 99% |",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 127,
+    "char_end": 314,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "427a3faf60ac415d8738f0b48cce488d",
+    "text": "### 1.2 SKU 选品条件\n| 检查项 | 门槛 |\n|--------|------|\n| 聚划算品牌闪购单次报名 SKU 数 | ≥ 20 |\n| 百亿补贴 | 可单 SKU 报名 |\n| 单 SKU 近 90 天店内销量 | ≥ 30 件 |\n| 单 SKU 近 30 天好评率 | ≥ 95% |\n| 让利幅度（让利 + 券 + 平台补贴合计） | ≥ 15%（不达即不进算法池） |\n| 风险品类 | 定制款、刻字款、按需生产款不允许进百亿补贴池 |",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 316,
+    "char_end": 550,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "be13c04a11fa438a97b477df56a2c1bf",
+    "text": "### 1.3 价格管控（最严）\n| 检查项 | 规则 |\n|--------|------|\n| 全网最低价 | 必须 ≤ 京东、抖音、得物、唯品会、品牌官网、线下经销商任一渠道价 |\n| 店内最低价 | 必须 ≤ **近 90 天**店内最低成交价（**注意：百补 90 天**） |\n| 平台直接补贴 | 平台对部分热销 SKU 提供 5–15% 立减券（由阿里出资） |\n| 划线价合规 | 必须近 30 天内有实际成交、未划线的销售价 |\n| 价保期 | 15 天 |\n| 限购 | 单人限购 1–3 件（珠宝品类一般 2 件） |",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 552,
+    "char_end": 824,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "c5fe7829120f4012be4197b18cd4db4a",
+    "text": "### 1.4 品类互斥与叠加\n| 规则 | 说明 |\n|------|------|\n| 跨店满减 | **百亿补贴 SKU 默认不参加跨店满减**（已是平台让利后价格） |\n| 店铺券 | 可叠加，但券额计入\"让利幅度\"考核 |\n| 88VIP | 可叠加 95 折 |\n| 平台超级红包 | 可使用 |\n| 同期品牌日 / 超品日 | 不可同期 |\n| 聚划算品牌闪购 vs 百亿补贴 | 二选一，不可同 SKU 双报 |\n> ⚠️ 阿里风控算法每日抓取京东、抖音、拼多多等平台同款 SKU 价格。**穿底一次 → SKU 立即踢出补贴池且 30 天内不可再申请。**",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 826,
+    "char_end": 1115,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "66329ddbed0d4d91bfa1a1450233f60a",
+    "text": "---",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 1117,
+    "char_end": 1120,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "c6ca924a1df64f9e8eb8df6b06b240de",
+    "text": "## 二、消费者侧（仅商家需要执行的合规条款）\n| 商家必须执行 | 说明 |\n|-------------|------|\n| 价保 15 天 | 按到手价口径退差 |\n| 限购话术 | 客服必须告知\"单人限购 X 件\" |\n| 跨店满减不叠加 | 商详页明示\"百亿补贴 SKU 不参与跨店满减\" |\n---",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 1122,
+    "char_end": 1279,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "6a6e6b35f9dd46778d80624972e5bfcb",
+    "text": "## 三、商家关注的流程与环节（赛题视角）",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 1281,
+    "char_end": 1302,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "e0eafc5c669849008d795197ee10f6a4",
+    "text": "| 阶段 | 关键检查项 |\n|------|-----------|\n| T-30 全网价格盘查 | 抓取京东、抖音、拼多多、得物、品牌官网同款价；确保\"我家最低\" |\n| T-30 近 90 天店内最低价 | 从生意参谋导出滚动 90 天最低价（注意 90 天） |\n| T-30 让利幅度计算 | (划线价 - 活动价) / 划线价 + 券补 + 平台补贴 ≥ 15% |\n| T-30 互斥盘点 | 同 SKU 是否在天猫超品日、品类日、行业大促中已报名 |\n| T-15 后台提报 | 阿里妈妈\"营销中心 → 百亿补贴 → 入驻提报\" |\n| T+0 每日比价 | 跑批比价，发现穿底立即跟进；穿底 1 次即踢池 |\n| T+15 价保 | 每日跑批退差 |",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 1304,
+    "char_end": 1638,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "8baed9878fe142eaa34cf4934b0cb6ba",
+    "text": "---",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 1640,
+    "char_end": 1643,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "b638930218654e6d97051157554002f0",
+    "text": "## 四、常见踩坑\n| 风险点 | 触发场景 | 风险等级 |\n|--------|---------|---------|\n| 京东侧穿底 | 京东百亿补贴页同款更低 | high |\n| 抖音直播间穿底 | 同款达人直播间限时更低 | high |\n| 让利不足 15% | 划线价虚高导致表面让利大、实际不足 | medium |\n| 跨店满减误叠加 | 商详页错挂\"跨店满减\"标签 | high |\n| 退货率过高 | > 8% 触发流量降权 | medium |\n| 限购规则错配 | 限购 5 件被黄牛刷 | medium |\n| 30 天 vs 90 天混淆 | 用天猫 30 天填百补 90 天 | high |",
+    "source_file": "taobao_juhuasuan_baiyibutie.md",
+    "char_start": 1645,
+    "char_end": 1961,
+    "file_hash": "50131fa2dd8a4447e87834ddbbe598c13b5286e908ea627efa626b85cd74d8b0",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "taobao_juhuasuan_baiyibutie.md"
+    }
+  },
+  {
+    "chunk_id": "589740c5bab748d2864a2a8fe65ef21f",
+    "text": "# 天猫 618 大促规则知识库（赛题示例对应）\n> **本文档对标赛题方向 C 在 manual.pdf 中给出的标准示例规则**：\n>\n> > 天猫 618 大促选品规则：\n> > 1. 参与商品必须满足：近 30 天销量 ≥ 100 件；好评率 ≥ 95%；库存 ≥ 500 件。\n> > 2. 价格要求：活动价不得高于近 30 天最低价；折扣力度 ≥ 7 折。\n> > 3. 品类限制：黄金类目单店最多 5 个 SKU；钻石类目单店最多 10 个 SKU。\n> > 4. 互斥规则：已参加\"品牌日\"活动的商品不可重复报名。\n>\n> 本文档对该示例规则做完整领域化展开，作为 Agent 端到端 demo 时的对标规则。",
+    "source_file": "tmall_618.md",
+    "char_start": 0,
+    "char_end": 314,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "c4d2f5295abe48df813f47eb83a8fab5",
+    "text": "---",
+    "source_file": "tmall_618.md",
+    "char_start": 316,
+    "char_end": 319,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "7a55f34d25634af0837835040ee93707",
+    "text": "## 一、赛题示例规则的解析样板",
+    "source_file": "tmall_618.md",
+    "char_start": 321,
+    "char_end": 337,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "8eae9e11d24943ed82901c1b6274ee0f",
+    "text": "### 1.1 拆解到检查项（Agent 输出格式）",
+    "source_file": "tmall_618.md",
+    "char_start": 339,
+    "char_end": 365,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "6ac5bd824bc5475492c5933d8394d552",
+    "text": "| 序号 | 检查项 | 数据来源 | 期望值 | 置信度 | 风险等级 |\n|------|--------|---------|--------|--------|---------|\n| C1 | 近 30 天销量 | `sku.last_90d_sales` 推算或直接字段 | ≥ 100 件 | 0.95 | high（数值型） |\n| C2 | 近 30 天好评率 | `sku.review_rate` | ≥ 95% | 0.95 | high（数值型） |\n| C3 | 库存 | `sku.stock` | ≥ 500 件 | 0.95 | high（数值型） |\n| C4 | 活动价 ≤ 近 30 天最低价 | `sku.list_price_rmb` vs `sku.",
+    "source_file": "tmall_618.md",
+    "char_start": 367,
+    "char_end": 715,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "59adc84289294eec8ad9817e187f2320",
+    "text": "值型） |\n| C4 | 活动价 ≤ 近 30 天最低价 | `sku.list_price_rmb` vs `sku.last_30d_min_price` | 不大于 | 0.95 | high（价格类） |\n| C5 | 折扣力度 | (划线价 - 活动价) / 划线价 | ≥ 30% | 0.95 | high（数值型） |\n| C6 | 黄金类目 SKU 数 | `sku.category_l1 == '黄金'` 计数 | ≤ 5 | 0.95 | high（数量型） |\n| C7 | 钻石类目 SKU 数 | `sku.category_l1 == '镶嵌'` 且含钻 计数 | ≤ 10 | 0.95 | high（数量型） |\n| C8 | 互斥：已参加品牌日 | `sku.",
+    "source_file": "tmall_618.md",
+    "char_start": 655,
+    "char_end": 1004,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "af9f75f7250b470480e9ef7bfe862808",
+    "text": "且含钻 计数 | ≤ 10 | 0.95 | high（数量型） |\n| C8 | 互斥：已参加品牌日 | `sku.active_campaigns` 是否包含品牌日 | 不包含 | 0.9 | high（互斥型） |",
+    "source_file": "tmall_618.md",
+    "char_start": 944,
+    "char_end": 1055,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "c16f90f88f1d4980b4f9d78da6d27227",
+    "text": "### 1.2 决策流程（decision_flow，赛题要求）\n```\nStep 1: 商品近 30 天销量 ≥ 100 件？\n→ 是：继续 / 否：不符合，排除\nStep 2: 好评率 ≥ 95%？\n→ 是：继续 / 否：不符合，排除\nStep 3: 库存 ≥ 500 件？\n→ 是：继续\n→ 否：检查补货周期 lead_time_days 是否 ≤ 距活动天数\n→ 是：medium，建议立即补货\n→ 否：high，建议下调承诺或下架\nStep 4: 活动价 ≤ 近 30 天最低价？\n→ 是：继续 / 否：high，建议调价或退出\nStep 5: 折扣力度 ≥ 30%？\n→ 是：继续 / 否：medium，建议下调活动价",
+    "source_file": "tmall_618.md",
+    "char_start": 1057,
+    "char_end": 1397,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "1266440ee9b044c7a17a5f456d2c81c9",
+    "text": "Step 6: 该 SKU 已参加品牌日？\n→ 是：high，互斥，不可报名\n→ 否：继续\nStep 7: 该 SKU 类目计数是否超限？\n→ 黄金类：> 5 → high，需取舍\n→ 钻石类：> 10 → high，需取舍\n→ 否：通过\n```",
+    "source_file": "tmall_618.md",
+    "char_start": 1399,
+    "char_end": 1533,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "554ac6ce3d6d4882adaf13d762af9b4b",
+    "text": "### 1.3 边界反例（counter_examples，赛题要求 2-3 个）",
+    "source_file": "tmall_618.md",
+    "char_start": 1535,
+    "char_end": 1576,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "6d3899afd9c6455eb5075d3e471fedbb",
+    "text": "| 反例 | 触发的规则 | 用途 |\n|------|----------|------|\n| SKU 近 30 天销量 99 件 | C1（恰好不满足销量 ≥ 100） | 验证 Agent 是否正确处理\"恰好 < 阈值\"的边界 |\n| SKU 活动价 = 近 30 天最低价 - 1 元 | C4（恰好满足） | 验证 Agent 是否处理\"刚好通过\"边界 |\n| SKU 折扣力度 = 7 折，库存 = 500，但已参加品牌日 | C5 + C8 | 验证 Agent 在多规则共同作用下能否正确得出\"不通过\"（互斥优先） |\n| SKU 折扣力度 = 30.01%（恰好 7 折零点几） | C5 边界 | 验证 Agent 浮点精度处理 |",
+    "source_file": "tmall_618.md",
+    "char_start": 1578,
+    "char_end": 1904,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "97a450403387483b826ac4f9c1018157",
+    "text": "### 1.4 需要主动澄清的歧义点（clarification_questions）",
+    "source_file": "tmall_618.md",
+    "char_start": 1906,
+    "char_end": 1949,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "ec2d1e43019746ae8a86ccc22109c98b",
+    "text": "| # | 歧义点 | 标准澄清问句 |\n|---|-------|--------------|\n| Q1 | \"近 30 天\"是滚动 30 天还是自然月？ | \"本规则中'近 30 天'是按活动开始日往前推 30 个自然日（滚动），还是上一个完整自然月？\" |\n| Q2 | \"好评率 ≥ 95%\" 是近 30 天还是历史累计？ | \"好评率统计时窗是近 30 天、近 90 天还是全部历史？\" |\n| Q3 | \"库存 ≥ 500 件\" 是报名时还是活动开始时？ | \"库存校验时点是报名提报时、平台审核时，还是活动开始日 0:00？\" |\n| Q4 | \"活动价\"是否含跨店满减？ | \"活动价是指商品标价，还是含跨店满减后的到手价？\" |",
+    "source_file": "tmall_618.md",
+    "char_start": 1951,
+    "char_end": 2276,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "41616e4b7afa4ed08da3289aaf670552",
+    "text": "0:00？\" |\n| Q4 | \"活动价\"是否含跨店满减？ | \"活动价是指商品标价，还是含跨店满减后的到手价？\" |\n| Q5 | \"折扣力度 ≥ 7 折\"的分母是哪一个价？ | \"折扣 = 1 - 活动价 / 划线价，还是 1 - 到手价 / 划线价，还是 1 - 活动价 / 吊牌价？\" |\n| Q6 | \"品牌日\"指本店品牌日还是同行业任何品牌日？ | \"互斥规则中的品牌日是指本店在本平台的品牌日，还是同集团其他店铺 / 其他平台的品牌日？\" |\n| Q7 | \"黄金类目\"和\"钻石类目\"是按类目编码还是商品标签？ | \"类目限制是按平台后台一级类目，还是商品所打的'黄金'/'钻石'标签？\" |\n| Q8 | 黄金计重款是否纳入\"折扣力度 ≥ 7 折\"？",
+    "source_file": "tmall_618.md",
+    "char_start": 2216,
+    "char_end": 2549,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "7cc9b15fc63d442796810312b8e75dde",
+    "text": "台后台一级类目，还是商品所打的'黄金'/'钻石'标签？\" |\n| Q8 | 黄金计重款是否纳入\"折扣力度 ≥ 7 折\"？ | \"黄金计重款价格随金价波动，是否纳入折扣力度校验？\" |",
+    "source_file": "tmall_618.md",
+    "char_start": 2489,
+    "char_end": 2580,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "446862ce7c1845859839548db8074b66",
+    "text": "> Agent 在 `rule_parser` 节点应主动生成 Q1–Q5 的澄清问题，因为这些是**所有平台都会出现的口径歧义**。Q6–Q8 是珠宝品类专属歧义。\n---",
+    "source_file": "tmall_618.md",
+    "char_start": 2582,
+    "char_end": 2670,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "f90b602635414f3585089b6145287bd4",
+    "text": "## 二、618 大促与日常超品日的关键差异",
+    "source_file": "tmall_618.md",
+    "char_start": 2672,
+    "char_end": 2694,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "00a8001731e0408c843f888267dbd84b",
+    "text": "| 维度 | 日常超品日 | 618 大促 |\n|------|-----------|---------|\n| 时间结构 | 单日 | **多波次**（第一波 5/31-6/3 + 高潮期 6/16-6/18 + 返场 6/19-6/20） |\n| 跨店满减 | 每满 300 减 50 | 每满 300 减 50 **升级到每满 1000 减 200** |\n| 价保 | 15 天 | **跨期价保 30 天**（覆盖整个 618 周期） |\n| 价格回溯 | 近 30 天 | **近 30 天 + 近 365 天双重校验**（要求活动价 ≤ 历史最低 × 95%） |",
+    "source_file": "tmall_618.md",
+    "char_start": 2696,
+    "char_end": 2986,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "4f2381c11e12483d92ac7b6ecd03c648",
+    "text": "溯 | 近 30 天 | **近 30 天 + 近 365 天双重校验**（要求活动价 ≤ 历史最低 × 95%） |\n| 定金预售 | 通常无 | **有定金预售**（5/24-5/27 付定金，5/31-6/3 付尾款），定金膨胀 2–5 倍 |\n| 新品要求 | ≥ 30% | ≥ 30%（不变） |\n| 直播 | 店播日均 8h | 店播日均 16h + 总裁直播专场 |",
+    "source_file": "tmall_618.md",
+    "char_start": 2926,
+    "char_end": 3117,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "bd23fbc42d2f4d12a4c77b9f02c8a5d8",
+    "text": "---",
+    "source_file": "tmall_618.md",
+    "char_start": 3119,
+    "char_end": 3122,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "d6ffe34766b14f599b08a38aa7f5ad8a",
+    "text": "## 三、Agent 端到端 demo 输入 / 输出样板",
+    "source_file": "tmall_618.md",
+    "char_start": 3124,
+    "char_end": 3153,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "e6f51e675b0d415b9d71055388836b50",
+    "text": "### 3.1 输入（粘贴给 Agent 的活动规则原文）\n```text\n天猫 618 大促选品规则：\n1. 参与商品必须满足：近 30 天销量 ≥ 100 件；好评率 ≥ 95%；库存 ≥ 500 件。\n2. 价格要求：活动价不得高于近 30 天最低价；折扣力度 ≥ 7 折。\n3. 品类限制：黄金类目单店最多 5 个 SKU；钻石类目单店最多 10 个 SKU。\n4. 互斥规则：已参加\"品牌日\"活动的商品不可重复报名。\n```",
+    "source_file": "tmall_618.md",
+    "char_start": 3155,
+    "char_end": 3373,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "3b70f1f14c3641bfae7f2655212c51d6",
+    "text": "### 3.2 Agent 输出 `parsed_rules`（理想形态）",
+    "source_file": "tmall_618.md",
+    "char_start": 3375,
+    "char_end": 3412,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "ab81d7d7016846f695a823622e9ab57d",
+    "text": "```json\n[\n{\"id\":\"R1.1\",\"rule\":\"近 30 天销量 ≥ 100 件\",\"confidence\":0.95,\"ambiguous\":true,\"ambiguity_note\":\"近 30 天是滚动还是自然月待澄清\"},\n{\"id\":\"R1.2\",\"rule\":\"好评率 ≥ 95%\",\"confidence\":0.85,\"ambiguous\":true,\"ambiguity_note\":\"统计时窗未明确\"},\n{\"id\":\"R1.3\",\"rule\":\"库存 ≥ 500 件\",\"confidence\":0.9,\"ambiguous\":true,\"ambiguity_note\":\"校验时点未明确\"},\n{\"id\":\"R2.",
+    "source_file": "tmall_618.md",
+    "char_start": 3414,
+    "char_end": 3739,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "27d9fc578a96408ba3b7831d80139f5e",
+    "text": "0.9,\"ambiguous\":true,\"ambiguity_note\":\"校验时点未明确\"},\n{\"id\":\"R2.1\",\"rule\":\"活动价 ≤ 近 30 天最低价\",\"confidence\":0.95,\"ambiguous\":false},\n{\"id\":\"R2.2\",\"rule\":\"折扣力度 ≥ 30%\",\"confidence\":0.85,\"ambiguous\":true,\"ambiguity_note\":\"分母与口径未明确\"},\n{\"id\":\"R3.1\",\"rule\":\"黄金类 SKU ≤ 5\",\"confidence\":0.95,\"ambiguous\":false},\n{\"id\":\"R3.2\",\"rule\":\"钻石类 SKU ≤ 10\",\"confidence\":0.",
+    "source_file": "tmall_618.md",
+    "char_start": 3679,
+    "char_end": 4025,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "70e62a760fc24f71ba3de1bbb1204d2d",
+    "text": "\":false},\n{\"id\":\"R3.2\",\"rule\":\"钻石类 SKU ≤ 10\",\"confidence\":0.95,\"ambiguous\":false},\n{\"id\":\"R4.1\",\"rule\":\"已参加品牌日的 SKU 不可重复报名\",\"confidence\":0.85,\"ambiguous\":true,\"ambiguity_note\":\"品牌日范围未明确\"}\n]\n```",
+    "source_file": "tmall_618.md",
+    "char_start": 3965,
+    "char_end": 4158,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "c647e76889cb46e0b7829ae1703e09af",
+    "text": "### 3.3 Agent 输出 `risk_points`\n```json\n[\n{\"description\":\"近 30 天最低价校验易穿底，建议每日比价\",\"severity\":\"high\",\"suggestion\":\"接入订单库每日拉取 SKU 滚动 30 天最低价\"},\n{\"description\":\"互斥规则中'品牌日'范围歧义，可能误判\",\"severity\":\"medium\",\"suggestion\":\"主动澄清品牌日范围\"},\n{\"description\":\"黄金计重款是否纳入 7 折校验需确认\",\"severity\":\"medium\",\"suggestion\":\"品类经理确认计重款是否参与\"}\n]\n```",
+    "source_file": "tmall_618.md",
+    "char_start": 4176,
+    "char_end": 4498,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "7431a86d27b74b02bc0fd678f1231f72",
+    "text": "### 3.4 Agent 输出 `clarification_questions`\n见 §1.4，共 8 条标准澄清问句。",
+    "source_file": "tmall_618.md",
+    "char_start": 4500,
+    "char_end": 4563,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "ff50c25922254246b28eba68910e1d4a",
+    "text": "### 3.5 商品核查输出（针对 SKU `CTF-FJ-999-002`）\n```text\nSKU: CTF-FJ-999-002（足金 999 福字吊坠 3.5g）\n- C1 销量近 90 天 1024 件 → 30 天估算约 ≥ 340 ✅\n- C2 好评率 97.8% ✅\n- C3 库存 1800 件 ✅\n- C4 活动价 2680（划线价）vs 近 30 天最低 2580 → ❌\n- C5 折扣力度 (2880 - 2680)/2880 = 6.9% < 30% → ❌\n- C6/C7 类目限制 待统计全店\n- C8 active_campaigns 空 → 无互斥 ✅",
+    "source_file": "tmall_618.md",
+    "char_start": 4565,
+    "char_end": 4860,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "11c48e7b22c1464ebf5f383dd3df1284",
+    "text": "最终判定：不通过\n最终决策清单：\n1. 该 SKU 为黄金计重款（pricing_model='weight'），价格随金价波动；建议确认是否纳入\"折扣 ≥ 7 折\"校验\n2. 若纳入，需将活动价从 2680 调至 ≤ 2880 × 70% = 2016（不现实，建议退出报名）\n3. 若不纳入（计重款豁免），仅需保证活动价 ≤ 近 30 天最低 2580 → 调价至 2580 或下调\n```",
+    "source_file": "tmall_618.md",
+    "char_start": 4862,
+    "char_end": 5066,
+    "file_hash": "10d5cd08ee9c09b9d53b1b3e02ab4c6bbd375064e0d6ecc2d529cb44317d9b74",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_618.md"
+    }
+  },
+  {
+    "chunk_id": "887aeeabe42f4016a8ec7145b6e0b0a0",
+    "text": "﻿# 天猫超级品牌日（Tmall Super Brand Day）规则知识库\n> **聚焦赛题方向 C**：本文档只整理 Agent 在解析活动规则、生成检查清单、提示风险点时需要的\"可被机器核查的规则条款\"。不包含战略向（流量包/PR/数据看板）与合同向（佣金/保证金/扣点）内容——那些属于赛题方向 A/D。\n> 适用场景：周大福作为珠宝品类品牌方在天猫报名\"超级品牌日\"。规则以平台公开运营手册、商家中心规则为参考整理，落地以当期商家后台报名页为准。\n---",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 0,
+    "char_end": 234,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "a7ebc409856a4847874d32a1c14cd485",
+    "text": "## 一、商家侧：可被解析为检查项的规则条款",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 236,
+    "char_end": 258,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "0602713ad77f4f23a62c546c1ea826f5",
+    "text": "### 1.1 资质门槛（资质核验类）\n| 检查项 | 门槛 | 备注 |\n|--------|------|------|\n| 经营主体 | 必须为天猫旗舰店（官方旗舰店 / 专卖店） | 淘宝 C 店、企业店不可报名 |\n| 行业资质 | 商标权属证明、贵金属生产/销售许可（黄金珠宝类目） | 一口价饰品需 CMA 抽检报告样张 |\n| 店铺评分 | DSR ≥ 4.7 | 取报名当日值 |\n| 违规记录 | 近 180 天无 \"严重违规扣 12 分\" | 命中即不可报名 |\n| 经营时长 | 旗舰店开店 ≥ 12 个月 | 新店走\"新锐品牌日\" |",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 260,
+    "char_end": 541,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "86791aec03714ea3b7702e3e9b39459b",
+    "text": "### 1.2 SKU 选品条件（数量类 + 数据类 + 参数精度类）\n| 检查项 | 门槛 |\n|--------|------|\n| 报名 SKU 数 | ≥ 200 款 |\n| 超级单品（爆款）数 | ≥ 5 款 |\n| 品类覆盖 | 覆盖品牌主营 ≥ 3 个二级品类 |\n| 单 SKU 近 90 天店内销量 | ≥ 50 件 或 近 90 天搜索词曝光 ≥ 1 万 |\n| 单 SKU 近 30 天好评率 | ≥ 95% |\n| 单 SKU 近 30 天差评率 | ≤ 1% |\n| 新品占比（近 90 天上新） | ≥ 30% |\n| 单 SKU 报名库存承诺 | ≥ 500 件 或 ≥ 日均销量 × 10 天 |",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 543,
+    "char_end": 858,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "fb7af3af0e6041dd97e4e5a225c53d86",
+    "text": "### 1.3 参数精度类（针对珠宝类目）\n| 品类 | 必须填写的参数及精度 |\n|------|----------------------|\n| 黄金类 | 克重精度到 0.01g；成色（足金 999 / 999.9 / 999.99） |\n| 镶嵌类 | 主石克拉数 0.01ct；颜色（D-Z）；净度（FL-I3）；切工（EX/VG/G/F/P） |\n| 一口价类 | 明确标\"一口价 / 计重金\"二选一，禁止混标 |",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 860,
+    "char_end": 1075,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "48e8b67aaafa4339a3d18fae03024f34",
+    "text": "### 1.4 价格管控（核心，全部高置信度数值规则）\n> Agent 解析时全部标记为 `confidence ≥ 0.9`，并把\"近 30 天\"按**滚动 30 天**处理。",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 1077,
+    "char_end": 1167,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "a0363a14b52e4bac942393bc254096ca",
+    "text": "| 检查项 | 规则 |\n|--------|------|\n| 活动价 | ≤ 近 30 天店内最低成交价（含优惠后实付） |\n| 活动价 vs 全网 | ≤ 全网同款最低价（京东、抖音、得物、品牌官网等含） |\n| 大促额外让利 | 部分期次要求活动价 ≤ 历史 365 天最低 × 95% |\n| 划线价合规 | 必须是近 30 天内有实际成交、未划线的店铺销售价（不可用厂商指导价 / 吊牌价） |\n| 价保 | 价保 15 天，按\"到手价\"口径退差 |\n| 满赠估值 | 赠品估值 ≤ 商品本身 30%；超过视为变相打折，回溯计入近 30 天最低价 |",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 1169,
+    "char_end": 1450,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "eb93d1453b174a3380eda35064c28e14",
+    "text": "### 1.5 品类互斥规则\n| 互斥项 | 说明 |\n|--------|------|\n| 跨店满减 | 默认参加官方跨店满减（如 \"每满 300 减 50\"），不可单独退出 |\n| 品牌补贴 | 与\"百亿补贴\"、\"聚划算品牌闪购\"二选一作为前台主入口 |\n| 同期活动 | 不可同期参加\"行业品类日\"、\"超级品类日\"（大促期间另议） |\n| 跨子品牌店铺 | 周大福旗舰店、周大福 LOLA、SOINLOVE、T MARK 等需各自单独报名 |\n---",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 1452,
+    "char_end": 1683,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "a90c5f0f4808472c898d480d088ff7db",
+    "text": "## 二、消费者侧（仅商家需在客服话术中告知的部分）\n> 完整消费者规则见 `consumer_benefits.md`，本节仅列与\"商家是否能做某动作\"直接相关的合规条款。\n| 商家必须执行 | 说明 |\n|-------------|------|\n| 价保 15 天自动退差 | 客服话术统一答复\"自支付完成起 15 天，按到手价口径自动退差\" |\n| 满赠不超 30% | 商家自营满赠不可让赠品价值超过 30% |\n| 跨店满减摊回逻辑 | 部分退货后剩余商品按比例摊回满减，客服需向消费者告知 |\n| 价保不含会员价 | \"新客券、定向券、88VIP 95 折\"形成的低价不在价保范围 |",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 1685,
+    "char_end": 1987,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "6a2ab8f22fad4fa5b3828dcaa7b63af3",
+    "text": "---",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 1989,
+    "char_end": 1992,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "0f0d3c3827c848e08db36cd51dafcde7",
+    "text": "## 三、商家关注的流程与环节（赛题视角 → 检查清单骨架）\n> Agent 在 `checklist_builder` 节点应以此结构为骨架。详见 `merchant_process_summary.md`。",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 1994,
+    "char_end": 2100,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "05c103c73160404882e1623f2c885bcf",
+    "text": "| 阶段 | 关键检查项 | Agent 输出动作 |\n|------|-----------|----------------|\n| T-30 资质核验 | 营业执照、商标证、贵金属许可证在有效期；DSR ≥ 4.7；近 180 天无 A 级违规 | 缺/临期 → `high` |\n| T-30 价格盘点 | 拉取报名 SKU 的近 30 天 + 近 365 天最低价、全网同款价 | 穿底 → `high` |\n| T-30 互斥盘点 | 同 SKU 是否参与了其他互斥活动（聚划算、品牌日等） | 命中 → `high` |\n| T-15 报名提报 | 上传 SKU 列表、价格清单、库存承诺、商品证书电子件 | 缺件 → `medium` |",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 2102,
+    "char_end": 2429,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "597783dd27ea4631a42d55130a94adde",
+    "text": "| T-15 报名提报 | 上传 SKU 列表、价格清单、库存承诺、商品证书电子件 | 缺件 → `medium` |\n| T-7 预热 | 私域触达、直播预热、店铺装修打\"超品日\"角标 | — |\n| T0 当日盯盘 | 价格 / 券 / 跨店满减是否生效；流量 / 库存 / 转化盯盘 | 异常 → `high` |\n| T+15 价保 | 每日跑批退差，避免售后险扣分 | — |",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 2369,
+    "char_end": 2562,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "17c8b762aafb4ffbb67e41dfe4d4d8c2",
+    "text": "---",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 2564,
+    "char_end": 2567,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "76de9d217ed1477f97a4f0e4fa750f61",
+    "text": "## 四、常见踩坑（Agent 高优先级风险点输出参考）",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 2569,
+    "char_end": 2597,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "76fc5e701efd4e76aa4d8e3b51ec3695",
+    "text": "| 风险点 | 触发场景 | 风险等级 | Agent 建议 |\n|--------|---------|---------|------------|\n| 历史最低价穿底 | 漏查近 30 天某次秒杀价 | high | 拉订单库核查 |\n| 划线价虚高 | 用厂商指导价 / 吊牌价 | high | 改用近 30 天实际成交价 |\n| 赠品估值超 30% | 满赠中大额赠品 | medium | 拆为\"满赠 + 直降\"双结构 |\n| 互斥活动冲突 | 同期已报聚划算 | high | 二选一 |\n| 库存承诺不达 | 实际库存 < 报名承诺 | high | 同步仓库或下架该 SKU |\n| DSR 跌破阈值 | DSR < 4.7 | high | 先暂停售后高风险订单 |",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 2599,
+    "char_end": 2944,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  },
+  {
+    "chunk_id": "7e8606046e914dbf9650ca52487911bb",
+    "text": "同步仓库或下架该 SKU |\n| DSR 跌破阈值 | DSR < 4.7 | high | 先暂停售后高风险订单 |\n| 新品占比不足 | 近 90 天上新 < 30% | medium | 从上新中补充 |\n| 参数精度不全 | 钻石 SKU 缺净度等级 | medium | 补全后再提交 |",
+    "source_file": "tmall_super_brand_day.md",
+    "char_start": 2884,
+    "char_end": 3033,
+    "file_hash": "74304ff7dc727c52a92983f306c00c52ada204424a1a5692b5181a21f71707d9",
+    "metadata": {
+      "kb_id": "kb_f5091e371648",
+      "source_file": "tmall_super_brand_day.md"
+    }
+  }
+]

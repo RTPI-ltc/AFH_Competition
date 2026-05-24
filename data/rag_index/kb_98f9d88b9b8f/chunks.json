@@ -1,0 +1,1862 @@
+[
+  {
+    "chunk_id": "c9305dd98eb74425a28b9ea44d2a15cd",
+    "text": "# 价格与商品标注合规要点（Compliance Essentials）\n> **聚焦赛题方向 C**：仅保留\"与电商活动规则执行直接相关\"的合规依据——价格管控合规（《明码标价规定》）+ 商品标注国标（GB 11887、GB/T 16554、GB/T 16552）。\n> 已剥离《广告法》《反不正当竞争法》《消费者权益保护法》《电子商务法》的法规罗列、假一赔十等售后赔付制度、RJC 等供应链合规体系——这些属于赛题方向 D（风控合规）范畴。\n---",
+    "source_file": "compliance_essentials.md",
+    "char_start": 0,
+    "char_end": 228,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "7ada4dc4c3d74e0a9d3eb1c6e5e31966",
+    "text": "## 1. 价格合规（活动价 / 划线价的国家口径）",
+    "source_file": "compliance_essentials.md",
+    "char_start": 230,
+    "char_end": 256,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "4c43eaabaa32432bb6a93ad76f74ead4",
+    "text": "### 1.1 《明码标价和禁止价格欺诈规定》（国家市场监督管理总局令第 56 号，2022 年 7 月起施行）\n**与电商活动规则直接相关的核心条款**：\n| 条款要点 | Agent 解析含义 |\n|---------|----------------|\n| 划线价必须是\"促销前 7 日内最低成交价\" | \"近 7 天\" 是市监总局口径；天猫加严到 30 天，京东加严到 14 天 |\n| 若 7 日内无成交记录，按\"最后一次成交价\"标注 | 新 SKU 没有 7 天内成交 → 不可标划线价 |\n| 不得使用\"建议零售价 / 厂商指导价 / 吊牌价\"作为划线价 | 商详页严禁用 MSRP 当划线价 |\n| 不得虚高原价误导消费者 | 最高 50 万元罚款 + 行政警告 |",
+    "source_file": "compliance_essentials.md",
+    "char_start": 258,
+    "char_end": 601,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "15f4bf23fb26481cab9141e3ded072a6",
+    "text": "### 1.2 各平台对划线价的额外加严\n| 平台 | 划线价口径 |\n|------|-----------|\n| 市监总局基线 | 近 **7 天**有实际成交 |\n| 天猫 | 近 **30 天**有实际成交 |\n| 京东 | 近 **14 天**有实际成交 |\n| 抖音商城 | 近 **30 天** + 行业大促期间再加 7 天保护期 |\n> Agent 用法：解析\"划线价\"相关规则时**按最严平台口径**校验；规则原文若仅说\"原价\"，Agent 应主动澄清是按哪个平台口径。",
+    "source_file": "compliance_essentials.md",
+    "char_start": 603,
+    "char_end": 849,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "c934b2e479ea47d7ac308a4237a3649c",
+    "text": "### 1.3 常见违规模式\n| 模式 | 示例 | Agent 风险等级 |\n|------|------|----------------|\n| 用 MSRP 当划线价 | 划线价 9999（厂商指导价），实际从未以该价销售 | high |\n| 虚高吊牌价 | 5 年前吊牌价 9999，近 30 天最高成交 399 | high |\n| 数据时窗错配 | 用近 365 天最高价当划线价（按 7/14/30 天口径都违规） | high |\n| 满赠估值超 30% 触发回溯 | 满赠中赠品价值 > 商品 30% → 触发近 30 天最低价重算 | medium |",
+    "source_file": "compliance_essentials.md",
+    "char_start": 851,
+    "char_end": 1139,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "230bd9b8c155403cb4b33e1f3d73d0af",
+    "text": "---",
+    "source_file": "compliance_essentials.md",
+    "char_start": 1141,
+    "char_end": 1144,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "1fee365a76974765a4f693bfcff9a9e7",
+    "text": "## 2. 黄金 / 铂金 / 银饰命名合规",
+    "source_file": "compliance_essentials.md",
+    "char_start": 1146,
+    "char_end": 1168,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "3dda9b7094bf4314b16bc24f8ebd784b",
+    "text": "### 2.1 GB 11887-2012《首饰 贵金属纯度的规定及命名方法》\n**强制性国标，Agent 解析涉及\"成色 / 纯度\"的规则时按此校验。**",
+    "source_file": "compliance_essentials.md",
+    "char_start": 1170,
+    "char_end": 1249,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "007e1e03f5ef4861b60d295bb2b7a82a",
+    "text": "| 标识 | 含金量 | 通俗名 | 必备印记 |\n|------|--------|--------|---------|\n| Au990 | ≥ 990‰ | 足金 | 足金 / G990 / Au990 |\n| Au999 | ≥ 999‰ | 足金 999 | 足金 999 / Au999 |\n| Au999.9 | ≥ 999.9‰ | （旧称千足金，2016 起删除） | Au999.9 |\n| Au999.99 | ≥ 999.99‰ | （俗称万足金，2016 起删除） | Au999.99 |\n| Au750 | 75.0% ± 0.3% | 18K 金 | Au750 / 18K |\n| Au585 | 58.5% ± 0.",
+    "source_file": "compliance_essentials.md",
+    "char_start": 1251,
+    "char_end": 1577,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "b2c29bff3aa042a7838481a6da258658",
+    "text": "| 75.0% ± 0.3% | 18K 金 | Au750 / 18K |\n| Au585 | 58.5% ± 0.3% | 14K 金 | Au585 / 14K |\n| Pt950 | ≥ 950‰ | 铂金 / 950 铂金 | Pt950 / Plat950 |\n| Pt990 | ≥ 990‰ | 990 铂金 | Pt990 |\n| S925 | ≥ 925‰ | 925 银 / Sterling Silver | S925 / Ag925 |",
+    "source_file": "compliance_essentials.md",
+    "char_start": 1517,
+    "char_end": 1749,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "a89d9209a3bd43238d604f3a80c3028a",
+    "text": "### 2.2 GB 11887-2012 第 1 号修改单（2016 年起施行）\n- **删除\"千足金 / 万足金 / 千足银\"等称谓**，统一使用 Au999、Au999.9 等具体成色。\n- ✅ 合规商详页：足金 999.9 或 Au999.9。\n- ❌ 不合规商详页：仅写\"千足金\"作为成色标识。\n- Agent 在解析\"千足金\"相关规则时**主动澄清**：\"本规则中千足金是指 Au999 还是 Au999.9？\"",
+    "source_file": "compliance_essentials.md",
+    "char_start": 1751,
+    "char_end": 1964,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "b23eb27ab87944cda38f4c39cb97e206",
+    "text": "### 2.3 印记 / 钢印（电商商详页必查）\n国标要求所有贵金属饰品必须打钢印，缺失即\"三无产品\"：\n| 必须包含 | 示例 |\n|---------|------|\n| 厂家代号 | CTF / 周大福 |\n| 材料 + 纯度 | 足金 / Au999 / 18K / Pt950 |\n| 镶嵌主石（如有） | DIA / 0.50ct |\n---",
+    "source_file": "compliance_essentials.md",
+    "char_start": 1966,
+    "char_end": 2146,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "fa24657d2ea94283b23d507144574f1c",
+    "text": "## 3. 钻石 / 玉石 / 珍珠 命名合规",
+    "source_file": "compliance_essentials.md",
+    "char_start": 2148,
+    "char_end": 2171,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "2ea6fda4b769494b9e7be8f8d4bb1c89",
+    "text": "### 3.1 GB/T 16552-2017《珠宝玉石 名称》（推荐性国标）\n- 翡翠：必须明示 A 货 / B 货 / C 货 / B+C 货 / 优化处理；B/C 货当 A 货卖构成欺诈。\n- 钻石：必须明示天然钻 / 培育钻（实验室钻 / Lab-grown）；混淆构成欺诈。\n- 珍珠：必须明示海水 / 淡水。\n- 玉石：和田玉 / 软玉的产地（新疆 / 青海 / 俄罗斯 / 韩国）需有独立产地溯源证书才能标注。",
+    "source_file": "compliance_essentials.md",
+    "char_start": 2173,
+    "char_end": 2386,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "75a6620b36bd4b52b1daad173632cd27",
+    "text": "### 3.2 GB/T 16554-2017《钻石分级》（推荐性国标）\n- 4C 分级方法与 GIA 体系一致。\n- 30 分以上钻石商详页必须填写完整 4C（Carat / Color / Clarity / Cut）+ 证书编号。\n- 异形钻不评 Cut 等级，商详页禁标\"3EX\"。",
+    "source_file": "compliance_essentials.md",
+    "char_start": 2388,
+    "char_end": 2534,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "5d61bf5a2c5149b0afd0cac6d8f29413",
+    "text": "### 3.3 GB/T 18781-2008《珍珠分级》（推荐性国标）\n- 七项指标：直径、形状、颜色、光泽、表皮、珠层、匹配。\n- 光泽分级\"极强 / 强 / 中 / 弱\"不可虚标。\n---",
+    "source_file": "compliance_essentials.md",
+    "char_start": 2536,
+    "char_end": 2635,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "6695e2d26708450781c0e7ce7b228a39",
+    "text": "## 4. 权威机构（证书核验的合法来源）",
+    "source_file": "compliance_essentials.md",
+    "char_start": 2637,
+    "char_end": 2658,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "d83bc1bc005d4f26a5684601e867dfcb",
+    "text": "| 机构 | 简称 | 权威 | 平台接受度 |\n|------|------|------|-----------|\n| 国家珠宝玉石质量监督检验中心 | NGTC / 国检 | 国内最高 | 所有平台必查 |\n| Gemological Institute of America | GIA | 国际钻石权威 | 30 分以上钻石必备 |\n| International Gemological Institute | IGI | 国际，培育钻常用 | 部分平台接受 |\n| Hoge Raad voor Diamant | HRD | 欧洲钻石权威 | 部分平台接受 |\n| 中国计量认证 | CMA | 实验室检验资质 | 电商抽检报告必备 |",
+    "source_file": "compliance_essentials.md",
+    "char_start": 2660,
+    "char_end": 2987,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "761fc60f35b442448d4466c826f06d7d",
+    "text": "D | 欧洲钻石权威 | 部分平台接受 |\n| 中国计量认证 | CMA | 实验室检验资质 | 电商抽检报告必备 |\n| 中国合格评定国家认可委员会 | CNAS | 实验室国际互认 | 电商抽检报告补充 |\n| 上海黄金交易所 | SGE | 黄金价格基准（Au9999） | 计重金\"基础金价\"来源 |",
+    "source_file": "compliance_essentials.md",
+    "char_start": 2927,
+    "char_end": 3081,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "acedcc50f56e40c899cde8e9f3f5da06",
+    "text": "> Agent 用法：解析\"GIA 钻戒享 X 折\"等规则时，从 SKU.certificates 中筛选 `type='GIA'`；不存在 → 输出不通过。\n---",
+    "source_file": "compliance_essentials.md",
+    "char_start": 3083,
+    "char_end": 3167,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "b28ac81b961045e9af514352492133d4",
+    "text": "## 5. Agent 应用示例",
+    "source_file": "compliance_essentials.md",
+    "char_start": 3169,
+    "char_end": 3185,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "588b1e4e13ff44f883c4c0f209499496",
+    "text": "### 5.1 价格合规判定\n```text\n[规则] \"活动价不得高于近 30 天最低价\"（天猫超品日）\n[Agent 解析]\n- 规则口径：天猫 30 天滚动窗口\n- 引用合规依据：《明码标价和禁止价格欺诈规定》+ 天猫近 30 天加严\n- 校验：从订单库拉取该 SKU 近 30 天最低成交价\n- 若活动价 > 该值 → high；建议调价或退出报名\n```",
+    "source_file": "compliance_essentials.md",
+    "char_start": 3187,
+    "char_end": 3370,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "c0e6145667144df19dc548a3cba1f011",
+    "text": "### 5.2 商品标注合规判定\n```text\n[规则] \"活动期间销售 30 分以上钻戒须公示 4C\"（京东超品日）\n[Agent 解析]\n- 引用合规依据：GB/T 16554-2017\n- 校验：30 分以上 SKU 的 certificates 中 GIA 报告是否包含完整 4C 字段\n- 缺任一字段 → medium；建议补齐后再上架\n```",
+    "source_file": "compliance_essentials.md",
+    "char_start": 3372,
+    "char_end": 3551,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "29071bab52654fc7aca92c22e6dde1f7",
+    "text": "### 5.3 成色命名歧义澄清\n```text\n[规则] \"千足金商品 9.5 折\"\n[Agent 解析]\n- \"千足金\"在 2016 国标修改单后已删除\n- clarification_question: \"本规则中'千足金'指 Au999 还是 Au999.9？\"\n- confidence: 0.65 → human_review_gate 等待人工答复\n- 路由：品类经理（见 ../chow_tai_fook/human_review_routing.md）\n```",
+    "source_file": "compliance_essentials.md",
+    "char_start": 3553,
+    "char_end": 3794,
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "compliance_essentials.md"
+    }
+  },
+  {
+    "chunk_id": "28fbda7e881244bb8ea9fe965de94ad1",
+    "text": "﻿# 钻石基础知识（Diamond Basics）\n> 适用于 Agent 解析镶嵌 / 求婚钻戒等品类活动规则。\n---",
+    "source_file": "diamond_basics.md",
+    "char_start": 0,
+    "char_end": 63,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "2cfdea41e67548d7896d4b0d769b4272",
+    "text": "## 1. 钻石的 4C 分级（国际标准）",
+    "source_file": "diamond_basics.md",
+    "char_start": 65,
+    "char_end": 86,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "91a3d2ecd4f14f66945650500da895a0",
+    "text": "### 1.1 Carat（克拉数）\n- 1 克拉 = 0.2 克 = 200 毫克。\n- 精度要求：精确到 0.01 克拉（即 1 分）。\n- 1 克拉 = 100 分（点 / 分）。\n- 常见点位：5 分、10 分、20 分、30 分、50 分、70 分、1 克拉、2 克拉、3 克拉、5 克拉。\n- **电商商详页要求**：必须精确到 0.01ct，不能用\"约 0.5 克拉\" 等模糊表述。",
+    "source_file": "diamond_basics.md",
+    "char_start": 88,
+    "char_end": 287,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "c4c25501a24d41f1a3507f8cf886f952",
+    "text": "### 1.2 Color（颜色）\n颜色等级（D 是最白，Z 是最黄 / 棕，依次降低）：\n| 等级 | 描述 | 商业价值 |\n|------|------|---------|\n| D | 极白（无色透明） | 最高级 |\n| E | 极白 | 高级 |\n| F | 极白 | 高级 |\n| G | 优白 | 中高 |\n| H | 优白 | 中高 |\n| I | 微黄白 | 中 |\n| J | 微黄白 | 中 |\n| K | 浅黄 | 中 |\n| L–Z | 黄至棕 | 低 |\n> ✅ 30 分以上钻石商详页必须标注精确颜色等级（D–Z 中的某个字母）。",
+    "source_file": "diamond_basics.md",
+    "char_start": 289,
+    "char_end": 573,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "d32540740a75430d8adea2f977c34d5f",
+    "text": "### 1.3 Clarity（净度）\n净度等级（FL 最高，I3 最低）：",
+    "source_file": "diamond_basics.md",
+    "char_start": 575,
+    "char_end": 614,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "49657f6dcb8e4e9b954bbe12678c0f9b",
+    "text": "| 等级 | 全称 | 描述 |\n|------|------|------|\n| FL | Flawless | 完美无瑕 |\n| IF | Internally Flawless | 内部无瑕 |\n| VVS1 | Very Very Slightly Included 1 | 极微瑕 1 |\n| VVS2 | Very Very Slightly Included 2 | 极微瑕 2 |\n| VS1 | Very Slightly Included 1 | 微瑕 1 |\n| VS2 | Very Slightly Included 2 | 微瑕 2 |\n| SI1 | Slightly Included 1 | 小瑕 1 |",
+    "source_file": "diamond_basics.md",
+    "char_start": 616,
+    "char_end": 936,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "6ba0c6d4ef0c40d983b0799aa03ea7a9",
+    "text": "ly Included 2 | 微瑕 2 |\n| SI1 | Slightly Included 1 | 小瑕 1 |\n| SI2 | Slightly Included 2 | 小瑕 2 |\n| I1 / I2 / I3 | Included | 瑕疵明显 |",
+    "source_file": "diamond_basics.md",
+    "char_start": 876,
+    "char_end": 1007,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "8518520a2ff94983bcd6651caf9b2fbe",
+    "text": "> ✅ 30 分以上钻石商详页必须标注精确净度等级。",
+    "source_file": "diamond_basics.md",
+    "char_start": 1009,
+    "char_end": 1035,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "440edef637c945ed971cb6692cd4f6ee",
+    "text": "### 1.4 Cut（切工）\n切工等级（仅适用于圆形明亮式 Round Brilliant Cut）：\n| 等级 | 描述 |\n|------|------|\n| EX (Excellent) | 完美 |\n| VG (Very Good) | 非常好 |\n| G (Good) | 好 |\n| F (Fair) | 一般 |\n| P (Poor) | 差 |\n**3EX 切工**：切工（Cut）+ 抛光（Polish）+ 对称（Symmetry）三项均为 EX，是高端钻饰常见卖点。\n> ✅ 30 分以上圆钻商详页必须标注切工等级；异形钻（公主方、梨形等）GIA 不给 Cut 评级。",
+    "source_file": "diamond_basics.md",
+    "char_start": 1037,
+    "char_end": 1336,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "6183f03168674e1990e10eb627227328",
+    "text": "### 1.5 4C 价格敏感度（演示用经验值）\n- **Carat 影响最大**：克拉数加倍，价格往往涨 2–4 倍。\n- **Color 次之**：D 比 H 贵 50–80%（同克数同净度）。\n- **Clarity 再次**：VVS1 比 SI1 贵 30–50%。\n- **Cut 影响切工溢价**：3EX 比 G 切工贵 20–30%。\n---",
+    "source_file": "diamond_basics.md",
+    "char_start": 1338,
+    "char_end": 1518,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "40a33610c81d4c22ac6ac61ea453b065",
+    "text": "## 2. 钻石证书体系（电商必查）",
+    "source_file": "diamond_basics.md",
+    "char_start": 1520,
+    "char_end": 1538,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "61102e900f684070af5cc0391e03da31",
+    "text": "### 2.1 主流证书机构",
+    "source_file": "diamond_basics.md",
+    "char_start": 1540,
+    "char_end": 1554,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "b08732da702a44f5ae57ab030569b288",
+    "text": "| 机构 | 全称 | 总部 | 行业地位 | 适用范围 |\n|------|------|------|---------|---------|\n| **GIA** | Gemological Institute of America | 美国 | 国际权威，最受认可 | 30 分以上裸钻必备 |\n| **IGI** | International Gemological Institute | 比利时 | 国际，培育钻常用 | 培育钻 / 部分天然钻 |\n| **HRD** | Hoge Raad voor Diamant | 比利时 | 欧洲权威 | 欧洲市场常用 |\n| **NGTC** | 国家珠宝玉石质量监督检验中心 | 中国 | 国内权威 | 国内市场必备 |",
+    "source_file": "diamond_basics.md",
+    "char_start": 1556,
+    "char_end": 1898,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "cae13cb2f44946db99326345cc190376",
+    "text": "欧洲市场常用 |\n| **NGTC** | 国家珠宝玉石质量监督检验中心 | 中国 | 国内权威 | 国内市场必备 |\n| **CTF（T MARK）** | 企业X自有标准 | 中国 | 品牌自有切工标准 | T MARK 系列 |",
+    "source_file": "diamond_basics.md",
+    "char_start": 1838,
+    "char_end": 1955,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "a0a0fc7de70b4183955994ff484bfb76",
+    "text": "### 2.2 平台对证书的要求\n| 平台 | 30 分以上钻石 | 主石碎钻 | 培育钻 |\n|------|----------------|---------|--------|\n| 天猫 | GIA / NGTC | NGTC（总重证书） | 必须明示\"培育钻 / 实验室钻\" 字样 |\n| 京东自营 | GIA / NGTC | NGTC | 同上 |\n| 京东 POP | GIA / NGTC | NGTC | 同上 |\n| 淘宝百亿补贴 | GIA / NGTC | NGTC | 同上 |\n| 抖音 | GIA / NGTC | NGTC | 同上 |",
+    "source_file": "diamond_basics.md",
+    "char_start": 1957,
+    "char_end": 2243,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "f746ee88fbeb456981ca623fced21468",
+    "text": "### 2.3 GIA 证书核心字段（电商必填）\n```\nReport Number: 2400001234\nShape and Cutting Style: Round Brilliant\nMeasurements: 4.31 - 4.34 x 2.65 mm\nCarat Weight: 0.30\nColor Grade: F\nClarity Grade: VVS2\nCut Grade: Excellent\nPolish: Excellent\nSymmetry: Excellent\nFluorescence: None\n```",
+    "source_file": "diamond_basics.md",
+    "char_start": 2245,
+    "char_end": 2513,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "0507f18dc63c4d00b19bc0c9b3d2d621",
+    "text": "### 2.4 培育钻（实验室钻 / Lab-grown Diamond）\n- **定义**：通过 HPHT / CVD 工艺在实验室制造的钻石，分子结构与天然钻完全相同。\n- **国家标准**：GB/T 16554-2017《钻石分级》同样适用，但商详页必须**明确标注\"培育钻 / 实验室钻\"**。\n- **价格**：约为同 4C 天然钻的 20–30%。\n- **争议**：电商中混淆\"培育钻\" 与\"天然钻\" 是高频违规行为，监管严打。\n- **证书**：IGI 培育钻证书最常见。\n---",
+    "source_file": "diamond_basics.md",
+    "char_start": 2515,
+    "char_end": 2765,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "f38201d9b4374319bf084db50d942efd",
+    "text": "## 3. 镶嵌工艺",
+    "source_file": "diamond_basics.md",
+    "char_start": 2767,
+    "char_end": 2777,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "1344ac07c1e042df9382ffcb233e886d",
+    "text": "### 3.1 主流镶嵌方式\n| 镶嵌方式 | 中文名 | 特点 |\n|----------|--------|------|\n| **Prong / Claw Setting** | 爪镶 | 用 4 ~ 6 个金属爪固定，常见六爪经典款 |\n| **Bezel Setting** | 包镶 | 金属环绕主石，更安全，但显小 |\n| **Pavé Setting** | 密镶 | 小钻密集排列，常见\"钻石路面\" |\n| **Channel Setting** | 槽镶 | 主石嵌入金属沟槽 |\n| **Tension Setting** | 张力镶 | 两侧金属夹住主石，无爪 |\n| **Halo Setting** | 群镶 / 光环 | 主石外围一圈碎钻 |",
+    "source_file": "diamond_basics.md",
+    "char_start": 2779,
+    "char_end": 3116,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "2c743524182646f09626ac5f55c27104",
+    "text": "### 3.2 镶嵌金属选择\n- **Pt950 铂金**：强度高，对钻石颜色衬托好。\n- **18K 白金（Au750 白）**：高度抛光后接近铂金视觉效果。\n- **18K 玫瑰金（Au750 玫瑰）**：时尚款常用。\n- **18K 黄金（Au750 黄）**：复古款常用。\n---",
+    "source_file": "diamond_basics.md",
+    "char_start": 3118,
+    "char_end": 3264,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "07a84a92384b43dc917e6bd31eeeea44",
+    "text": "## 4. 钻石电商常见活动规则",
+    "source_file": "diamond_basics.md",
+    "char_start": 3266,
+    "char_end": 3282,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "44236d7a08224589acd43ad4eff9a52d",
+    "text": "### 4.1 \"30 分以上钻戒 8 折\"\n- Agent 解析：限定 carat ≥ 0.30。\n- 数据校验：从 SKU 数据中筛选 gem_carat ≥ 0.30。",
+    "source_file": "diamond_basics.md",
+    "char_start": 3284,
+    "char_end": 3372,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "9e07a8fab5e04d1ab62c031bf505cf36",
+    "text": "### 4.2 \"GIA 钻戒 7.5 折\"\n- Agent 解析：限定 certificate.type = \"GIA\"。\n- 风险：需注意是否包含 IGI / NGTC 证书钻戒。",
+    "source_file": "diamond_basics.md",
+    "char_start": 3374,
+    "char_end": 3467,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "3602044ff25141f9950b660c14f9dc07",
+    "text": "### 4.3 \"T MARK 品牌切工系列享额外 95 折\"\n- Agent 解析：限定 brand = \"T MARK\"。\n- 与全场 8 折叠加？需澄清。",
+    "source_file": "diamond_basics.md",
+    "char_start": 3469,
+    "char_end": 3550,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "401f9447820b4a1aa2556f948c63a034",
+    "text": "### 4.4 \"求婚钻戒以旧换新差额计算\"\n- 含义：旧戒可抵扣新戒价款；钻石按\"鉴定时间 5 折回收 + 同款升级\" 公式。\n- Agent 解析：confidence 较低（业务规则复杂），建议人工确认。\n---",
+    "source_file": "diamond_basics.md",
+    "char_start": 3552,
+    "char_end": 3663,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "ff5fc682feaa438d861cebf0af8bb8ef",
+    "text": "## 5. 钻石电商常见踩坑点",
+    "source_file": "diamond_basics.md",
+    "char_start": 3665,
+    "char_end": 3680,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "f2786c59fc294de19d3f6fe6c82216eb",
+    "text": "| 踩坑点 | 详细 | Agent 建议 |\n|--------|------|------------|\n| **培育钻虚标天然钻** | 商详页未明示\"培育钻\" 字样 | 标记 high；建议法务核查 |\n| **碎钻总重虚标** | 商详页标注\"含 0.5ct 钻石\" 实际是碎钻总重 | 标记 medium；建议商详页明示\"主石 + 副石 + 总重\" |\n| **30 分以下缺证书** | 30 分以下不强制 GIA，但平台仍要求 NGTC 总重证书 | 标记 medium |\n| **切工等级误标** | 异形钻 GIA 不给 Cut，但商详页虚标\"3EX\" | 标记 high；建议下架整改 |",
+    "source_file": "diamond_basics.md",
+    "char_start": 3682,
+    "char_end": 3989,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "7193b53ee34b45f8b97a86bd5f286a48",
+    "text": "**切工等级误标** | 异形钻 GIA 不给 Cut，但商详页虚标\"3EX\" | 标记 high；建议下架整改 |\n| **荧光等级隐藏** | 强荧光（Strong）会影响钻石透光，需在商详页标注 | 标记 medium |",
+    "source_file": "diamond_basics.md",
+    "char_start": 3929,
+    "char_end": 4044,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "da44e9eca46a4efb85438a3d53e58f37",
+    "text": "---",
+    "source_file": "diamond_basics.md",
+    "char_start": 4046,
+    "char_end": 4049,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "70db1b7f9fa541ebac589e7d7ab1536d",
+    "text": "## 6. Agent 应用示例\n```text\n[活动规则] \"30 分以上 GIA 钻戒享 8 折\"\n[Agent 解析]\n- parsed_rule_1: \"gem_carat ≥ 0.30\"\nconfidence: 0.95\n- parsed_rule_2: \"certificates 包含 type='GIA'\"\nconfidence: 0.95\n- parsed_rule_3: \"活动价 = list_price × 0.8\"\nconfidence: 0.95",
+    "source_file": "diamond_basics.md",
+    "char_start": 4051,
+    "char_end": 4296,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "fd37d2453b14453baa3f0ba5c1b5ec33",
+    "text": "[Agent 商品核验]\n- SKU: CTF-G18K-RG-002（T MARK 30 分钻戒）\n- gem_carat: 0.30 ✅\n- certificates: [{\"type\": \"GIA\", ...}] ✅\n- 结论：通过\n- SKU: CTF-G18K-RG-001（SOINLOVE 20 分钻戒）\n- gem_carat: 0.20 ❌ (< 0.30)\n- 结论：不通过\n```",
+    "source_file": "diamond_basics.md",
+    "char_start": 4298,
+    "char_end": 4511,
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "diamond_basics.md"
+    }
+  },
+  {
+    "chunk_id": "9c87bfe1f58d4ddfb77569329eb3ed90",
+    "text": "﻿# 黄金基础知识（Gold Basics）\n> 适用于 Agent 解析黄金类活动规则。涵盖成色、工艺、定价模式、印记、行业惯例。\n---",
+    "source_file": "gold_basics.md",
+    "char_start": 0,
+    "char_end": 72,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "20f592593bda4948968bfbf17e8cc435",
+    "text": "## 1. 黄金成色（国家标准 GB 11887-2012《首饰 贵金属纯度的规定及命名方法》）",
+    "source_file": "gold_basics.md",
+    "char_start": 74,
+    "char_end": 122,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "10ac38f3f7284ee6a43243b26bf06492",
+    "text": "### 1.1 标准成色",
+    "source_file": "gold_basics.md",
+    "char_start": 124,
+    "char_end": 136,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "52d8902162e34354a56cabfe5debc05d",
+    "text": "| 标识 | 含金量（千分数） | 通俗名 | 印记 |\n|------|------------------|--------|------|\n| Au990 | ≥ 990‰ | 足金 | 足金 / G990 / Au990 |\n| Au999 | ≥ 999‰ | 足金 999 / 千足金（旧国标） | 足金 999 / Au999 / G999 |\n| Au999.9 | ≥ 999.9‰ | 千足金 / 万足金（俗称） | Au999.9 / G999.9 |\n| Au999.99 | ≥ 999.99‰ | 万足金 | Au999.99 / G999.99 |\n| Au750 | 含金量 75.0% ± 0.3% | 18K 金 | Au750 / G750 / 18K |",
+    "source_file": "gold_basics.md",
+    "char_start": 138,
+    "char_end": 486,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "3cede2c32be54036adcce06650db13f1",
+    "text": "|\n| Au750 | 含金量 75.0% ± 0.3% | 18K 金 | Au750 / G750 / 18K |\n| Au585 | 含金量 58.5% ± 0.3% | 14K 金 | Au585 / G585 / 14K |\n| Au417 | 含金量 41.7% ± 0.3% | 10K 金 | Au417 / G417 / 10K |\n| Au375 | 含金量 37.5% ± 0.3% | 9K 金 | Au375 / G375 / 9K |",
+    "source_file": "gold_basics.md",
+    "char_start": 426,
+    "char_end": 657,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "d6485affc3a047b7b97de9cc6d12bdf0",
+    "text": "### 1.2 重要修订（2016 年国标更新）\nGB 11887-2012 第 1 号修改单（2016 年起施行）将\"千足金、万足金\"这些表述从国标中**删除**，统一改为\"足金\"。但商家在商详页仍可标注 Au999、Au999.9、Au999.99 等具体成色。这是 Agent 在解析规则时常见的混淆点。\n> ✅ 合规做法：商详页可写\"足金 999.9\"或\"Au999.9\"。\n> ❌ 不合规做法：仅写\"千足金\"作为成色标识。\n---",
+    "source_file": "gold_basics.md",
+    "char_start": 659,
+    "char_end": 882,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "27afffa713f14c7b8a0491c6b2a03363",
+    "text": "## 2. 黄金的两种定价模式（电商核心）",
+    "source_file": "gold_basics.md",
+    "char_start": 884,
+    "char_end": 905,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "caaf6a483c05445db6bb79563ba45261",
+    "text": "### 2.1 计重金（按克卖）\n- **定价公式**：成交价 = 克重 × 当日金价 + 工费\n- **当日金价**：实时从上海黄金交易所（Au9999）拉取，或品牌自定义\"品牌金价\"（一般在交易所价 + 5–20 元/克）。\n- **工费**：分\"按克计算\"（如 30 元/克）和\"按件计算\"（如 280 元/件）两种。\n- **特点**：价格随金价实时波动，**不适用\"近 X 天最低价\" 价格管控**（因为价格本就不固定）。\n- **电商应用**：商详页通常展示\"克重 + 工费 + 实时金价\" 三段拆分。\n- **常见品类**：素金链、素金手镯、足金小件、投资金条。",
+    "source_file": "gold_basics.md",
+    "char_start": 907,
+    "char_end": 1196,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "e42d39b52ca648cd942b3f7459d126ed",
+    "text": "### 2.2 一口价金（按件卖）\n- **定价**：固定价格，与金价波动无关。\n- **特点**：进入\"近 X 天最低价\" 价格管控；价格管控规则与镶嵌类一致。\n- **常见品类**：古法金、5G 黄金、硬足金、节日款（招财猫、福字）、传承系列。\n- **争议点**：一口价金折合\"克单价\" 通常比计重金高 30–80%（含设计 / 工艺溢价），消费者投诉时常用\"克单价过高\" 作为依据。",
+    "source_file": "gold_basics.md",
+    "char_start": 1198,
+    "char_end": 1394,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "25a6e0d06c8940adae8cdf7676321753",
+    "text": "### 2.3 计重 vs 一口价对照表\n| 维度 | 计重金 | 一口价金 |\n|------|--------|----------|\n| 定价 | 克重 × 金价 + 工费 | 固定 |\n| 价格管控 | 通常不进入 | 进入\"近 30 天最低价\" |\n| 工费占比 | 5–15% | 设计 / 工艺溢价 30–80% |\n| 适合活动 | \"金价立减\" / \"工费立减\" | 超品日 / 百亿补贴 |\n| 退货 | 一般支持 7 天无理由 | 一般不支持 7 天无理由 |\n| 以旧换新 | 计重换新（按克结算 + 手续费） | 按工艺类型差异收费 |",
+    "source_file": "gold_basics.md",
+    "char_start": 1396,
+    "char_end": 1678,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "c8b9384ec1524287ac85b7f715ac2581",
+    "text": "---",
+    "source_file": "gold_basics.md",
+    "char_start": 1680,
+    "char_end": 1683,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "7c21d6d57a79440c9dbdaf25f8467f9b",
+    "text": "## 3. 黄金的工艺类型",
+    "source_file": "gold_basics.md",
+    "char_start": 1685,
+    "char_end": 1698,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "5c24a391052a43a0a4b94460eb05a0d8",
+    "text": "### 3.1 古法金\n- **定义**：借鉴中国古代金器制作工艺（如錾刻、花丝、镶嵌）的足金饰品，表面通常呈\"哑光\"或\"磨砂\"质感。\n- **品类标识**：传承系列、宫廷系列。\n- **国标**：仍属 Au999 / Au999.9 成色范畴；\"古法金\" 是工艺名称，不是成色标识。\n- **特点**：硬度比普通足金稍高（但仍属软金），工艺溢价大。\n- **电商定价**：一般为一口价。",
+    "source_file": "gold_basics.md",
+    "char_start": 1700,
+    "char_end": 1895,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "b2faf21d7e1b478f88a2219d1a040745",
+    "text": "### 3.2 5G 黄金\n- **定义**：\"5G\" 是\"5th Generation\" 缩写，指第五代黄金电铸工艺，比传统硬金硬度更高、更轻、可做细薄结构。\n- **国标**：成色仍为 Au999（足金 999），但因电铸工艺，单件克重通常较轻。\n- **特点**：可以做出非常细的发丝纹饰、镂空、3D 结构。\n- **电商定价**：一口价为主。",
+    "source_file": "gold_basics.md",
+    "char_start": 1897,
+    "char_end": 2073,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "ab11f848565d4ce68778ebf66a2c7817",
+    "text": "### 3.3 硬足金\n- **定义**：在足金中添加微量稀土元素（铜、银、钯等不超过 0.1%），提升硬度而不改变成色。\n- **国标**：仍属 Au999 成色。\n- **特点**：硬度比普通足金高 4 倍以上；适合做尖角设计；耐刮擦。\n- **电商定价**：一口价为主。",
+    "source_file": "gold_basics.md",
+    "char_start": 2075,
+    "char_end": 2214,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "64495ff144df41ab8664fa5c7cb4a73b",
+    "text": "### 3.4 普通素金 / 计重款\n- **定义**：传统熔铸 / 锻造工艺，无明显附加工艺溢价。\n- **品类标识**：素金链、素金手镯、素金戒指。\n- **电商定价**：计重为主。",
+    "source_file": "gold_basics.md",
+    "char_start": 2216,
+    "char_end": 2310,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "4c3423eb1ac3405ea47a7b702a9b9b54",
+    "text": "### 3.5 工艺类型在商详页的标注要求\n- 必须在商详页明示工艺类型（古法金 / 5G 黄金 / 硬足金 / 普通）。\n- 不能用\"古法金\" 替代成色；成色必须独立标注（如 Au999）。\n- 平台对工艺类型标注错误的惩罚：商品下架 + 7 天内整改。\n---",
+    "source_file": "gold_basics.md",
+    "char_start": 2312,
+    "char_end": 2446,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "ef926bba48e44305957dd5b9fcafe1da",
+    "text": "## 4. K 金（不饱和金）",
+    "source_file": "gold_basics.md",
+    "char_start": 2448,
+    "char_end": 2463,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "52340463b6ed43df98224e7477a43e6c",
+    "text": "### 4.1 K 金成色\n| K 标识 | 含金量 | 千分数 | 常见用途 |\n|--------|--------|--------|----------|\n| 18K | 75.0% | Au750 | 钻饰主流镶嵌材料 |\n| 14K | 58.5% | Au585 | 轻奢 / 设计款 |\n| 10K | 41.7% | Au417 | 入门款 |\n| 9K | 37.5% | Au375 | 入门款（欧洲常用） |",
+    "source_file": "gold_basics.md",
+    "char_start": 2465,
+    "char_end": 2682,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "ad315cf9bcdc4b75835b4b7fba74d61f",
+    "text": "### 4.2 K 金颜色（合金影响）\n| 颜色 | 合金 | 用途 |\n|------|------|------|\n| **黄 K 金** | Au + Ag + Cu | 传统镶嵌 |\n| **白 K 金** | Au + Pd / Ni | 钻石镶嵌（颜色衬托）|\n| **玫瑰 K 金** | Au + Cu | 时尚款 |\n| **绿 K 金** | Au + Ag | 罕见 |",
+    "source_file": "gold_basics.md",
+    "char_start": 2684,
+    "char_end": 2881,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "4956d9b6ac874965acf3ff810df94db0",
+    "text": "### 4.3 K 金与\"白金\"的混淆\n> ⚠️ **重要消费者认知误区**：\n> - \"白金\" 在严格意义上指**铂金（Pt）**，而非\"白 K 金\"。\n> - 但消费者口语中常把\"白 K 金\" 误称为\"白金\"。\n> - 国家标准要求商详页必须明示\"白 K 金 / Au750（白色）\"，不能简单写\"白金\"。\n> - Agent 在解析规则时遇到\"白金\" 应主动询问\"是 Pt950 铂金还是白 K 金？\"。\n---",
+    "source_file": "gold_basics.md",
+    "char_start": 2883,
+    "char_end": 3094,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "14b7b7af79924ae7945a11507888fe2f",
+    "text": "## 5. 印记 / 印章（电商商详必备）\n国家标准要求所有贵金属饰品必须打\"印记 / 钢印\"，便于识别：\n| 项 | 印记 |\n|----|------|\n| 厂家代号 | 企业X：CTF / 企业X |\n| 材料名称 + 纯度 | 足金 / Au999 / 18K / Au750 / Pt950 |\n| 镶嵌主石（如有） | DIA（钻石） / RUBY（红宝石） |\n| 主石克拉数（如有） | 0.50ct |\n> ⚠️ 没有印记 / 钢印的金饰被认定为\"三无产品\"，平台立即下架且罚款。\n---",
+    "source_file": "gold_basics.md",
+    "char_start": 3096,
+    "char_end": 3353,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "0df3e787ede54ca0994d34acff2ac3f6",
+    "text": "## 6. 黄金常用术语字典",
+    "source_file": "gold_basics.md",
+    "char_start": 3355,
+    "char_end": 3369,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "1c27c1bddad04abdbe05f0b96b1965fd",
+    "text": "| 术语 | 通俗解释 | 国标对应 |\n|------|---------|---------|\n| 足金 | 含金量 ≥ 990‰ | Au990 |\n| 足金 999 | 含金量 ≥ 999‰ | Au999 |\n| 千足金（旧） | 旧国标 ≥ 999‰，2016 起删除 | Au999（现已不允许单独使用千足金） |\n| 万足金（俗称） | 含金量 ≥ 999.99‰ | Au999.99 |\n| 18K 金 | 含金量 75.0% | Au750 |\n| 24K 金 | 理论纯金（实际不存在 100%） | 理论值 |\n| 古法金 | 工艺名称，仍是 Au999 / Au999.9 | 工艺修饰 |\n| 5G 黄金 | 第五代电铸工艺，Au999 | 工艺修饰 |",
+    "source_file": "gold_basics.md",
+    "char_start": 3371,
+    "char_end": 3714,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "da3dc91e901443729a236ead43a97827",
+    "text": "是 Au999 / Au999.9 | 工艺修饰 |\n| 5G 黄金 | 第五代电铸工艺，Au999 | 工艺修饰 |\n| 硬足金 | 微量合金添加，Au999 | 工艺修饰 |\n| 一口价金 | 按件卖，价格固定 | 定价模式 |\n| 计重金 | 按克卖，价格随金价 | 定价模式 |\n| 投资金条 | 上海黄金交易所标准金条 | Au999.9 / Au999.99 |\n| 金价 / 基础金价 | 上海黄金交易所 Au9999 当日价 | 行业指数 |\n| 工费 | 加工 / 设计费 | 商家定义 |\n| 以旧换新 | 旧金重新加工或换新款，按克结算 + 手续费 | 商家服务 |\n| 退翻新 | 旧金返回工厂翻新，不换款 | 商家服务 |",
+    "source_file": "gold_basics.md",
+    "char_start": 3654,
+    "char_end": 3979,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "1b3f43dc49684abb852193432d02c346",
+    "text": "金重新加工或换新款，按克结算 + 手续费 | 商家服务 |\n| 退翻新 | 旧金返回工厂翻新，不换款 | 商家服务 |\n| 国检 | 国家珠宝玉石质量监督检验中心检测 | 鉴定服务 |",
+    "source_file": "gold_basics.md",
+    "char_start": 3919,
+    "char_end": 4011,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "145d846ab89e42f3927e2136d2091303",
+    "text": "---",
+    "source_file": "gold_basics.md",
+    "char_start": 4013,
+    "char_end": 4016,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "a524736a7cdd46f6a10204129e4cb8a9",
+    "text": "## 7. 电商常见黄金活动规则模式",
+    "source_file": "gold_basics.md",
+    "char_start": 4018,
+    "char_end": 4036,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "3d32c9378a4f4f4eb5b62e3327d3ac5f",
+    "text": "### 7.1 \"今日金价立减 X 元/克\"\n- 含义：当日金价基础上立减 X 元/克。\n- 适用：仅计重款。\n- Agent 解析：标记为 confidence 0.95（高），输出\"克单价 = 基础金价 - X\"。",
+    "source_file": "gold_basics.md",
+    "char_start": 4038,
+    "char_end": 4148,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "059eb8c67b274517b843dac7ee5f6c84",
+    "text": "### 7.2 \"工费立减 50%\"\n- 含义：工费按 50% 收取。\n- 适用：仅计重款（一口价金通常无工费）。\n- Agent 解析：标记 confidence 0.9，输出\"工费 = 原工费 × 0.5\"。",
+    "source_file": "gold_basics.md",
+    "char_start": 4150,
+    "char_end": 4257,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "36e8b32a982c413d98338f7832d31605",
+    "text": "### 7.3 \"古法金 7 折\"\n- 含义：一口价古法金 SKU 享 7 折活动价。\n- 适用：仅古法金一口价 SKU。\n- Agent 解析：必须先核验是否 \"古法金 = 一口价 = 进入价格管控\"。",
+    "source_file": "gold_basics.md",
+    "char_start": 4259,
+    "char_end": 4362,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "ea108bfa61a3425fad4f12226db5aa4e",
+    "text": "### 7.4 \"以旧换新免手续费\"\n- 含义：旧金换新款时免工费 / 折损费。\n- 一般针对会员或大促节点。\n---",
+    "source_file": "gold_basics.md",
+    "char_start": 4364,
+    "char_end": 4425,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "fb5b517418ef475e94fb58808c4242ab",
+    "text": "## 8. Agent 应用示例\n```text\n[活动规则] \"企业X古法金传承系列 7 折，全场最低 6 折\"\n[Agent 解析]\n- parsed_rule_1: \"古法金（一口价）享 7 折活动价\"\n- confidence: 0.95\n- parsed_rule_2: \"全场最低 6 折\"\n- confidence: 0.6（\"全场\" 与\"古法金 7 折\" 范围歧义）\n- clarification_question: \"全场 6 折是指除古法金外的其他古法金 SKU，还是包含计重款？\"\n[互斥提示]\n- 计重款不应参与\"X 折\" 类规则，建议运营人员确认。\n```",
+    "source_file": "gold_basics.md",
+    "char_start": 4427,
+    "char_end": 4722,
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "gold_basics.md"
+    }
+  },
+  {
+    "chunk_id": "4b23d68ec8924124a58c22899d7271c7",
+    "text": "# 珠宝行业术语字典（Industry Terminology）\n> Agent 在 `rule_parser` 中遇到行业术语时的统一翻译参考。优先匹配本字典中的标准定义；若规则原文与本字典冲突，以原文为准。\n---",
+    "source_file": "industry_terminology.md",
+    "char_start": 0,
+    "char_end": 111,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "047faf8b90fd4adf97a89046a591d6a9",
+    "text": "## 1. 计价 / 定价相关",
+    "source_file": "industry_terminology.md",
+    "char_start": 113,
+    "char_end": 128,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "8f1750ee04e947ad8931ddceb050f07a",
+    "text": "| 术语 | 定义 |\n|------|------|\n| **计重款 / 按克卖** | 按克重 × 金价 + 工费定价 |\n| **一口价 / 按件卖** | 固定价格，与金价波动无关 |\n| **工费** | 加工 / 设计 / 镶嵌的人工与设备成本 |\n| **基础金价 / 报价金** | 上海黄金交易所 Au9999 当日价 |\n| **品牌金价** | 品牌在基础金价上加价的对外价 |\n| **回收金价** | 品牌回收消费者旧金的价格（一般低于品牌金价） |\n| **以旧换新** | 旧金抵扣新款价款（按克 + 手续费） |\n| **退翻新** | 旧金返工厂翻新，不换款 |\n| **足金 / 千足金 / 万足金** | 见 gold_basics.md |",
+    "source_file": "industry_terminology.md",
+    "char_start": 130,
+    "char_end": 470,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "303c15f43846418aa18538caf847b6e1",
+    "text": "---",
+    "source_file": "industry_terminology.md",
+    "char_start": 472,
+    "char_end": 475,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "2744d16e0d5448d68e51389b847cadd8",
+    "text": "## 2. 工艺与品类\n| 术语 | 定义 |\n|------|------|\n| **古法金** | 借鉴古代工艺（錾刻 / 花丝）的足金，工艺名 |\n| **5G 黄金** | 第五代电铸工艺足金 |\n| **硬足金** | 微量合金添加，硬度提升的足金 |\n| **彩金** | 含色合金的 K 金（玫瑰金、白 K 金、黑金等） |\n| **素金** | 不含主石的纯金属饰品 |\n| **镶嵌款** | 含主石（钻石、宝石、玉石）的饰品 |\n| **求婚钻戒** | 30 分以上单颗钻石镶嵌的戒指 |\n| **婚戒 / 对戒** | 婚礼用素金或微镶对戒 |\n| **婴儿首饰** | 5g 以下的小件 |\n| **金宝** | 投资类金条 |",
+    "source_file": "industry_terminology.md",
+    "char_start": 477,
+    "char_end": 805,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "4ea9f22b71934e79b505448156af2544",
+    "text": "---",
+    "source_file": "industry_terminology.md",
+    "char_start": 807,
+    "char_end": 810,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "96677e0480ea40a8ac871f2cf0b12d44",
+    "text": "## 3. 鉴定与认证",
+    "source_file": "industry_terminology.md",
+    "char_start": 812,
+    "char_end": 823,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "bfc7b8bc2f52493fbd062023ecc1efb7",
+    "text": "| 术语 | 定义 |\n|------|------|\n| **国检** | 国家珠宝玉石质量监督检验中心（NGTC） |\n| **CMA** | 中国计量认证（实验室资质） |\n| **CNAS** | 中国合格评定国家认可委员会 |\n| **GIA** | 美国宝石学院（钻石鉴定权威） |\n| **IGI** | 国际宝石学院（培育钻常用） |\n| **HRD** | 比利时钻石高层议会 |\n| **A 货 / B 货 / C 货** | 翡翠等级（A 货是天然未处理） |\n| **3EX 切工** | 钻石的 Cut / Polish / Symmetry 三项均为 Excellent |",
+    "source_file": "industry_terminology.md",
+    "char_start": 825,
+    "char_end": 1127,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "15865190f7184057bd927f6c10375cd8",
+    "text": "| **3EX 切工** | 钻石的 Cut / Polish / Symmetry 三项均为 Excellent |\n| **荧光（Fluorescence）** | 钻石在紫外光下发光，分 None / Faint / Medium / Strong / Very Strong |",
+    "source_file": "industry_terminology.md",
+    "char_start": 1067,
+    "char_end": 1210,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "759aed66999e4bd1a77e1c86c0c475a7",
+    "text": "---",
+    "source_file": "industry_terminology.md",
+    "char_start": 1212,
+    "char_end": 1215,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "27158202efb54372b7838d7dd9295eaa",
+    "text": "## 4. 平台与电商术语",
+    "source_file": "industry_terminology.md",
+    "char_start": 1217,
+    "char_end": 1230,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "9f59a3a9c388476db89e3b68d2e8dc81",
+    "text": "| 术语 | 定义 |\n|------|------|\n| **超品日 / SBD** | 超级品牌日（天猫 / 京东主推的品牌专场） |\n| **品类日** | 行业类目专场（如珠宝品类日） |\n| **聚划算** | 阿里旗下低价心智频道 |\n| **百亿补贴** | 阿里 / 京东 / 拼多多的全网最低价频道 |\n| **京采价** | 京东自营内部供货价 |\n| **划线价** | 商详页带删除线的\"原价\" |\n| **活动价** | 活动期间的成交价 |\n| **到手价** | 用户实付价（含跨店满减、券、红包后） |\n| **跨店满减** | 跨店铺合并计算的满减优惠 |\n| **价保** | 价保期内若降价，平台 / 商家自动退差 |",
+    "source_file": "industry_terminology.md",
+    "char_start": 1232,
+    "char_end": 1561,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "fd3d928077af409c89b8a157edffce88",
+    "text": "**跨店满减** | 跨店铺合并计算的满减优惠 |\n| **价保** | 价保期内若降价，平台 / 商家自动退差 |\n| **退差** | 价保自动退还差额 |\n| **DSR** | Detailed Seller Rating，店铺评分（描述 / 服务 / 物流） |\n| **PLUS / 88VIP** | 平台付费会员 |\n| **京准通 / 阿里妈妈** | 平台站内广告投放系统 |\n| **UD / 全域** | 阿里妈妈站外投放 |\n| **达摩盘 / 数据银行** | 阿里人群标签系统 |",
+    "source_file": "industry_terminology.md",
+    "char_start": 1501,
+    "char_end": 1757,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "0a9d00570a4c4125bc5e6bee73df5237",
+    "text": "---",
+    "source_file": "industry_terminology.md",
+    "char_start": 1759,
+    "char_end": 1762,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "8ea1e11c662c4b179d67fc28c458d96c",
+    "text": "## 5. 库存与供应链",
+    "source_file": "industry_terminology.md",
+    "char_start": 1764,
+    "char_end": 1776,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "ed21298406fc44e19590e3698553a959",
+    "text": "| 术语 | 定义 |\n|------|------|\n| **ERP** | 企业资源计划（核心系统） |\n| **OMS** | 订单管理系统 |\n| **WMS** | 仓库管理系统 |\n| **TMS** | 运输管理系统 |\n| **PCS** | Pieces，件数 |\n| **SKU** | Stock Keeping Unit，库存单位 |\n| **SPU** | Standard Product Unit，标准商品单位 |\n| **库存承诺** | 报名活动时承诺的库存数量 |\n| **补货周期 / Lead Time** | 从下单到入仓的时间 |\n| **现货 / 期货** | 现货为已有库存，期货为按订单生产 |\n| **以销定产** | 根据销量预测安排生产 |",
+    "source_file": "industry_terminology.md",
+    "char_start": 1778,
+    "char_end": 2126,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "7d2b817a0c824522aec5a9872a98ac22",
+    "text": "---",
+    "source_file": "industry_terminology.md",
+    "char_start": 2128,
+    "char_end": 2131,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "23c1908726774257b48498abdf38b5ce",
+    "text": "## 6. 售后与服务\n| 术语 | 定义 |\n|------|------|\n| **7 天无理由退货** | 收到货 7 天内无理由退换 |\n| **30 天质量问题包退包换** | 质量问题 30 天内包退包换 |\n| **假一赔十** | 珠宝品类的假货赔付承诺 |\n| **以旧换新** | 旧饰品抵扣新饰品价款 |\n| **退翻新** | 旧饰品翻新，不换款 |\n| **保养** | 镀层翻新、抛光、清洁等服务 |\n---",
+    "source_file": "industry_terminology.md",
+    "char_start": 2133,
+    "char_end": 2353,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "b871f4095eb6492280af016d796262a4",
+    "text": "## 7. 高频歧义术语（Agent 主动澄清）",
+    "source_file": "industry_terminology.md",
+    "char_start": 2355,
+    "char_end": 2379,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "79fdfef8b2cb4d5981ca93c2fdb35b51",
+    "text": "| 术语 | 可能解读 1 | 可能解读 2 |\n|------|------------|------------|\n| **白金** | 铂金（Pt） | 白 K 金（Au750 白） |\n| **千足金** | 旧国标 Au999 | 现已不允许单独使用 |\n| **古法金** | 工艺类型，仍是 Au999 | 易被误解为新成色 |\n| **24K 金** | 理论纯金（实际不存在 100%） | 营销话术 |\n| **GIA 钻** | 仅指 GIA 证书的钻石 | 易被误解为高品质钻 |\n| **A 货翡翠** | 天然未处理 | 易被误解为最高品质 |\n| **南洋珠 / 大溪地** | 海水珍珠 + 产地修饰 | 需有产地溯源 |",
+    "source_file": "industry_terminology.md",
+    "char_start": 2381,
+    "char_end": 2708,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "5f1807c3e0634c47b9c346ba2056f501",
+    "text": "---",
+    "source_file": "industry_terminology.md",
+    "char_start": 2710,
+    "char_end": 2713,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "8686f51154894140ac78248072474492",
+    "text": "## 8. Agent 应用示例\n```text\n[规则原文] \"活动期间，白金对戒享 8 折\"\n[Agent 解析]\n- 术语\"白金\" 有歧义：\n- 可能 1：Pt950 铂金对戒\n- 可能 2：Au750 白 K 金对戒\n- clarification_question: \"本次活动'白金对戒' 是指 Pt950 铂金还是 Au750 白 K 金？\"\n- confidence: 0.6\n- requires_human: true\n```",
+    "source_file": "industry_terminology.md",
+    "char_start": 2715,
+    "char_end": 2943,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "2373a2b0728c4e6f8e6a8a31a074596e",
+    "text": "```text\n[规则原文] \"千足金商品 9.5 折\"\n[Agent 解析]\n- 术语\"千足金\" 在 2016 国标后已不允许单独使用\n- 推断：可能指 Au999 或 Au999.9\n- clarification_question: \"本次活动'千足金' 是指 Au999 还是 Au999.9？\"\n- confidence: 0.65\n- requires_human: true\n```",
+    "source_file": "industry_terminology.md",
+    "char_start": 2945,
+    "char_end": 3144,
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "industry_terminology.md"
+    }
+  },
+  {
+    "chunk_id": "560054abc32a42a2bc1e91d3a01525cf",
+    "text": "# 翡翠、珍珠、和田玉基础知识（Jadeite, Pearl, Jade）\n> 适用于 Agent 解析玉石、珍珠类活动规则。\n---",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 0,
+    "char_end": 69,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "b17ba511fc92470a9905ecd5cb9c67ed",
+    "text": "## 1. 翡翠（Jadeite）",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 71,
+    "char_end": 88,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "ce108b49cf9c454aa51c0889a44c35e4",
+    "text": "### 1.1 翡翠 ABC 货\n| 等级 | 定义 | 是否合规 |\n|------|------|---------|\n| **A 货** | 天然翡翠，未经任何人工优化 | ✅ 合规，可销售 |\n| **B 货** | 经过酸洗 + 注胶处理 | ❌ 必须明示，不可冒充 A 货 |\n| **C 货** | 经过染色处理 | ❌ 必须明示，不可冒充 A 货 |\n| **B+C 货** | 酸洗 + 注胶 + 染色 | ❌ 必须明示 |\n| **D 货** | 玻璃 / 塑料仿制 | ❌ 必须明示\"仿翡翠\" |\n> ⚠️ 电商必须明示\"A 货 / B 货 / 优化处理\" 字样；B / C / D 货当作 A 货销售构成欺诈，最高罚款 50 万 + 行政处罚。",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 90,
+    "char_end": 426,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "31cd9c02631b45f3ad612e3091a67cee",
+    "text": "### 1.2 翡翠\"种 / 水 / 色\"\n| 维度 | 描述 | 商业价值 |\n|------|------|---------|\n| **种** | 翡翠晶体的细腻程度 | 玻璃种 > 冰种 > 糯种 > 豆种 |\n| **水** | 透光性 | 透 > 通 > 干 |\n| **色** | 颜色（绿、紫、黄、红、黑） | 帝王绿 > 苹果绿 > 阳绿 > 油绿 |",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 428,
+    "char_end": 614,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "672276ea38bc413cb3f5091495f922a5",
+    "text": "### 1.3 翡翠 A 货证书\n- **颁发机构**：NGTC / 国检 / 各省珠宝玉石质量监督检验中心。\n- **核心字段**：\n- 鉴定结论：翡翠（A 货）\n- 颜色：（具体颜色）\n- 形状 / 重量\n- 折射率 / 密度 / 内部特征\n- **平台要求**：天猫 / 京东 / 淘宝必须展示 A 货证书电子件。\n---",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 616,
+    "char_end": 790,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "147246fdb2ba40879f457db0b3a2de9c",
+    "text": "## 2. 珍珠（Pearl）",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 792,
+    "char_end": 807,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "b4f38c8b7e2e41e5a928e675a191ec28",
+    "text": "### 2.1 珍珠分类",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 809,
+    "char_end": 821,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "235316a8b1704618bb6eca352c6072b6",
+    "text": "#### 按生长方式\n| 类型 | 定义 | 价格 |\n|------|------|------|\n| **天然珍珠** | 完全自然生长（极罕见） | 顶级 |\n| **养殖珍珠** | 人工植入核 / 养殖 | 中等到高 |",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 823,
+    "char_end": 939,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "9351cbc3699040a7bfd2508d8ffd37d5",
+    "text": "#### 按水域\n| 类型 | 主要产地 | 特点 |\n|------|---------|------|\n| **海水珍珠** | 日本 / 中国 / 大溪地 / 南洋 | 圆度高、光泽强、价高 |\n| **淡水珍珠** | 中国浙江 / 安徽 | 形状多变、色彩丰富、价中 |",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 941,
+    "char_end": 1082,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "fe9d7c7379bd45ae8c770ff3189e0cda",
+    "text": "#### 主流海水珍珠品类\n| 品类 | 产地 | 直径 | 颜色 | 价格 |\n|------|------|------|------|------|\n| **Akoya 珍珠** | 日本 / 中国 | 5–10mm | 白 / 粉 | 中高 |\n| **南洋珠（白）** | 澳大利亚 / 印尼 | 9–18mm | 白 / 银 / 金 | 顶级 |\n| **南洋珠（金）** | 菲律宾 / 印尼 | 9–16mm | 金 | 顶级 |\n| **大溪地黑珍珠** | 法属波利尼西亚 | 8–16mm | 黑 / 绿 / 紫 | 顶级 |",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 1084,
+    "char_end": 1359,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "db4ad574f12440aa9eacbadfd24b79dd",
+    "text": "### 2.2 珍珠分级（7 项指标）\n| 维度 | 描述 |\n|------|------|\n| **直径（Size）** | 毫米精度，影响最大 |\n| **形状（Shape）** | 圆度（正圆 > 近圆 > 椭圆 > 巴洛克） |\n| **颜色（Color）** | 主色 + 伴色（如白色带粉伴色） |\n| **光泽（Luster）** | 极强 / 强 / 中 / 弱 |\n| **表皮（Surface）** | 无暇 / 微瑕 / 小瑕 / 重瑕 |\n| **珠层（Nacre）** | 厚 / 中 / 薄 |\n| **匹配（Matching）** | 一串珍珠间的一致性 |",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 1361,
+    "char_end": 1657,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "cc154e3a5ff84abe9cf27a3d3d8ae002",
+    "text": "### 2.3 珍珠证书\n- **机构**：NGTC / 国检 / 各省珠宝玉石中心。\n- **核心字段**：珍珠类型（海水 / 淡水）、直径、颜色、光泽。",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 1659,
+    "char_end": 1738,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "a2b87d04a24f435296e424483eb432e7",
+    "text": "### 2.4 珍珠电商常见活动\n- \"Akoya 珍珠节 8 折\"\n- \"海水珍珠满 3000 减 300\"\n- 价格管控：一口价款进入\"近 X 天最低价\"管控。\n---",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 1740,
+    "char_end": 1828,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "87998a3e4a094576aff8435944cac09c",
+    "text": "## 3. 和田玉 / 软玉（Nephrite）",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 1830,
+    "char_end": 1854,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "420b273714f2495db22fa0dfda889285",
+    "text": "### 3.1 和田玉分类\n| 类型 | 颜色 | 商业价值 |\n|------|------|---------|\n| **白玉 / 羊脂白玉** | 白（顶级羊脂白） | 顶级 |\n| **青白玉** | 偏青的白 | 中高 |\n| **青玉** | 青绿 | 中 |\n| **碧玉** | 翠绿（俄罗斯产较多） | 中 |\n| **墨玉** | 黑 | 中 |\n| **黄玉** | 黄 | 罕见 / 顶级 |\n| **糖玉** | 红糖色 | 中 |",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 1856,
+    "char_end": 2086,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "a5c2d57f98624ebebfa3367256506098",
+    "text": "### 3.2 产地差异\n| 产地 | 特点 | 商业价值 |\n|------|------|---------|\n| **新疆和田（山料 / 山流水 / 籽料）** | 籽料最贵 | 顶级 |\n| **青海昆仑** | 与和田同矿脉 | 中 |\n| **俄罗斯** | 碧玉为主 | 中 |\n| **韩国** | 偏黄、偏黑 | 中低 |",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 2088,
+    "char_end": 2259,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "3d34ed0676b64c0780abc1c37f12bdd1",
+    "text": "### 3.3 和田玉证书\n- **机构**：NGTC。\n- **重要提示**：国家标准 GB/T 16553-2017 中\"软玉\" 包含和田玉、青海玉、俄罗斯玉等，证书一般只写\"和田玉\" 或\"软玉\"，**不强制写产地**。商详页明示产地的话，需有独立产地溯源证书。\n---",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 2261,
+    "char_end": 2400,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "3ae26b2fa5cf40519798ea82ecca04c3",
+    "text": "## 4. 玉石珍珠电商常见踩坑\n| 踩坑点 | 详细 | Agent 建议 |\n|--------|------|------------|\n| **B / C 货当 A 货卖** | 翡翠 B 货销售 | 标记 high；下架 + 法务介入 |\n| **染色珍珠当天然色卖** | 染色黑珍珠当大溪地黑珍珠 | 标记 high；商详页必须明示 |\n| **产地标注无证** | 标注\"新疆和田籽料\" 但只有\"软玉\" 证书 | 标记 medium；建议补产地证书或修改商详 |\n| **珍珠光泽虚标** | 标\"极强\" 实际\"强\" | 标记 medium |\n| **重量虚标** | 翡翠克数虚标 | 标记 medium；建议二次称重 |",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 2402,
+    "char_end": 2724,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "8e407fddc13b4c129407f900390ad6ea",
+    "text": "---",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 2726,
+    "char_end": 2729,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "47a35464b8c0446d8a04612e6c756059",
+    "text": "## 5. Agent 应用示例\n```text\n[活动规则] \"翡翠 A 货专场 9 折\"\n[Agent 解析]\n- parsed_rule_1: \"category_l2 = '翡翠' AND certificate.type 包含 'A 货'\"\nconfidence: 0.9\n- parsed_rule_2: \"活动价 = list_price × 0.9\"\nconfidence: 0.95\n[商品核验]\n- SKU: CTF-JADE-001（翡翠 A 货 平安无事牌吊坠）\n- 证书：翡翠 A 货证书 ✅\n- 结论：通过\n```",
+    "source_file": "jadeite_pearl_jade.md",
+    "char_start": 2731,
+    "char_end": 3013,
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "jadeite_pearl_jade.md"
+    }
+  },
+  {
+    "chunk_id": "0c9d936f849448e1bb8619eb58dddd9c",
+    "text": "# 铂金与银饰基础知识（Platinum & Silver）\n> 适用于 Agent 解析铂金、银饰活动规则。\n---",
+    "source_file": "platinum_silver.md",
+    "char_start": 0,
+    "char_end": 61,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "f1388ce88d7540fbb371faa6f0d42c6e",
+    "text": "## 1. 铂金（Platinum, Pt）",
+    "source_file": "platinum_silver.md",
+    "char_start": 63,
+    "char_end": 85,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "1e0333fb18124234ba43ec1da86d7570",
+    "text": "### 1.1 铂金成色（GB 11887-2012）\n| 标识 | 含铂量 | 通俗名 | 印记 |\n|------|--------|--------|------|\n| Pt950 | 95.0% | 950 铂金 | Pt950 / Plat950 |\n| Pt900 | 90.0% | 900 铂金 | Pt900 / Plat900 |\n| Pt850 | 85.0% | 850 铂金 | Pt850 |\n| Pt990 | 99.0% | 990 铂金 | Pt990 |",
+    "source_file": "platinum_silver.md",
+    "char_start": 87,
+    "char_end": 333,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "357f85f25f114498a9539ac591d1cd80",
+    "text": "### 1.2 铂金 vs \"白金\"（核心混淆点）\n| 项 | 铂金（Pt） | 白 K 金（Au 750 白） |\n|----|------------|----------------------|\n| 元素 | 铂（Platinum）单质 | 黄金 + 合金 |\n| 颜色 | 自然白色 | 镀白 / 抛光后呈白色 |\n| 密度 | 21.45 g/cm³（重） | 15.5 g/cm³（轻） |\n| 价格（每克） | 比黄金略低，但加工费高 | 与黄金成正比 |\n| 用途 | 婚戒、求婚钻戒 | 时尚款、镶嵌 |\n| 印记 | Pt950 / Pt900 | Au750 / 18K |",
+    "source_file": "platinum_silver.md",
+    "char_start": 335,
+    "char_end": 635,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "5a16ec177e4349a3a52109b4c2badc9f",
+    "text": "> ⚠️ \"白金\" 在国标和法律层面专指铂金（Pt），白 K 金不能简称\"白金\"。",
+    "source_file": "platinum_silver.md",
+    "char_start": 637,
+    "char_end": 678,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "77872698df0c427e8b1404718f623b63",
+    "text": "### 1.3 铂金电商定价\n- 多数为**计重模式**：成交价 = 克重 × 铂金价 + 工费。\n- 铂金价波动相对独立于黄金价，从国际铂金市场（NYMEX / 上海）跟踪。\n- 一口价铂金饰品也有，但占比小。",
+    "source_file": "platinum_silver.md",
+    "char_start": 680,
+    "char_end": 787,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "d4ad028c5ea44d9eb51db914e7239117",
+    "text": "### 1.4 铂金电商常见活动\n- \"铂金价立减 X 元/克\"\n- \"铂金对戒 8 折\"（限一口价款）\n- 价格管控：仅适用于一口价款。\n---",
+    "source_file": "platinum_silver.md",
+    "char_start": 789,
+    "char_end": 864,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "61ac5d8b59d9410f81791500bbad7839",
+    "text": "## 2. 银饰（Silver, Ag）",
+    "source_file": "platinum_silver.md",
+    "char_start": 866,
+    "char_end": 886,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "a52a9f6e8d594429b932ed168b1e7185",
+    "text": "### 2.1 银饰成色（GB 11887-2012）\n| 标识 | 含银量 | 通俗名 | 印记 |\n|------|--------|--------|------|\n| S990 | 99.0% | 足银 | S990 / Ag990 |\n| S925 | 92.5% | 925 银 / 标准银 / Sterling Silver | S925 / Ag925 / 925 |\n| S800 | 80.0% | 800 银 | S800 / Ag800 |",
+    "source_file": "platinum_silver.md",
+    "char_start": 888,
+    "char_end": 1121,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "64bfe4fc15d44f8ba9386a742cc5f85f",
+    "text": "### 2.2 925 银（电商主流）\n- **定义**：含 92.5% 银 + 7.5% 其他金属（通常是铜）。\n- **特点**：硬度比足银高，可塑性好，适合做精细工艺。\n- **价格**：相对便宜（每克数十元），入门级品类。\n- **电商定价**：一般为一口价。\n- **镀层**：925 银常镀铂、镀金、镀玫瑰金以提升外观。",
+    "source_file": "platinum_silver.md",
+    "char_start": 1123,
+    "char_end": 1290,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "cae3e18349c34361a6be15888bea9855",
+    "text": "### 2.3 925 银的常见问题\n- **氧化变黑**：925 银易氧化，需定期清洁。\n- **过敏**：合金中的铜 / 镍可能导致皮肤过敏。\n- **镀层脱落**：镀层使用 6–12 个月后可能脱落，需翻新。",
+    "source_file": "platinum_silver.md",
+    "char_start": 1292,
+    "char_end": 1400,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "134e8187d8b0438a9d859edb8552cf49",
+    "text": "### 2.4 银饰电商常见活动\n- \"925 银饰品 5 折\"（限定品类）\n- \"925 银 + 镶嵌（碎钻）8 折\"\n- 价格管控：一口价银饰品同样进入\"近 X 天最低价\"管控。\n---",
+    "source_file": "platinum_silver.md",
+    "char_start": 1402,
+    "char_end": 1499,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "3141a2099659451eb9be1227c93ddceb",
+    "text": "## 3. 其他贵金属",
+    "source_file": "platinum_silver.md",
+    "char_start": 1501,
+    "char_end": 1512,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "2475cb213fcf42c58a1b5392a814c31a",
+    "text": "### 3.1 钯金（Palladium, Pd）\n- **标识**：Pd950 / Pd990\n- **用途**：早期作为白金替代品，目前占比小。\n- **特点**：比铂金轻，颜色相似。\n- **电商**：以\"钯金对戒\" 等品类小批量销售。",
+    "source_file": "platinum_silver.md",
+    "char_start": 1514,
+    "char_end": 1636,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "974e693b9df84c0fa5edf92fb03bf190",
+    "text": "### 3.2 玫瑰金（Au + Cu 合金）\n- **不是独立金属**：而是 Au750（18K）+ 铜的合金，呈玫瑰色。\n- **印记**：Au750（玫瑰色）/ 18K Rose Gold。\n- **电商**：时尚款 / 设计款常用。\n---",
+    "source_file": "platinum_silver.md",
+    "char_start": 1638,
+    "char_end": 1764,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "1be72b4108a741c1931c0a2f74083a90",
+    "text": "## 4. 铂金 / 银饰电商踩坑点\n| 踩坑点 | 详细 | Agent 建议 |\n|--------|------|------------|\n| **混淆\"白金 / 白 K 金 / 铂金\"** | 商详页用\"白金\" 表述白 K 金 | 标记 high；要求商详页用 Pt950 或 Au750 |\n| **925 银无印记** | 银饰品缺 S925 钢印 | 标记 high；下架整改 |\n| **银饰镀层脱落** | 售后投诉集中 | 售后部门关注，提供翻新服务 |\n| **铂金价格管控错配** | 计重款误进入\"近 30 天最低价\" 池 | 标记 medium；建议剔除 |\n| **过敏责任** | 925 银导致皮肤过敏 | 商详页明示成分，提供退换货 |",
+    "source_file": "platinum_silver.md",
+    "char_start": 1766,
+    "char_end": 2104,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "7a43cffa46744b959ae551a76b63dc51",
+    "text": "---",
+    "source_file": "platinum_silver.md",
+    "char_start": 2106,
+    "char_end": 2109,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "5f003aa4014d411180151c40bf2092e7",
+    "text": "## 5. Agent 应用示例\n```text\n[活动规则] \"全场铂金对戒 8 折\"\n[Agent 解析]\n- parsed_rule_1: \"category_l1 = '铂金' AND category_l2 = '对戒'\"\nconfidence: 0.85\n- parsed_rule_2: \"活动价 = list_price × 0.8\"\nconfidence: 0.95\n[澄清问题]\n- \"是否含计重款？计重款价格随铂金价波动，是否一并参与？\"\n- Agent 主动询问，标记 confidence 0.7，requires_human=true",
+    "source_file": "platinum_silver.md",
+    "char_start": 2111,
+    "char_end": 2398,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "b1eb591d7e9a4e339e77709bb29c016d",
+    "text": "[商品核验]\n- SKU: CTF-PT-RG-001（铂金 Pt950 素圈对戒，计重）\n- pricing_model: weight\n- 结论：建议人工确认（计重款是否纳入折扣）\n```",
+    "source_file": "platinum_silver.md",
+    "char_start": 2400,
+    "char_end": 2501,
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "platinum_silver.md"
+    }
+  },
+  {
+    "chunk_id": "c3c8a70473cd43beb6771550ef3d5c53",
+    "text": "# 珠宝行业知识库（Jewelry Industry KB）\n> 本知识库提供珠宝行业**通用**领域知识，覆盖黄金、钻石、铂金、银饰、翡翠、珍珠等品类的术语、参数、国家标准与权威鉴定体系。\n> Agent 调用本知识库的目的：在 `rule_parser` 节点理解品类术语（如\"古法金\"、\"5G 黄金\"、\"4C\"），在 `checklist_builder` 节点把\"克重 / 成色 / 净度\" 等参数精度要求转化为可机器核查的检查项。",
+    "source_file": "README.md",
+    "char_start": 0,
+    "char_end": 221,
+    "file_hash": "2677848f4fb88b0e711a97389bca9b286b6eafcf5d03cd0ee18642d542af8351",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "f38c67422735447e8557f04a2128d2ac",
+    "text": "## 文件索引",
+    "source_file": "README.md",
+    "char_start": 223,
+    "char_end": 230,
+    "file_hash": "2677848f4fb88b0e711a97389bca9b286b6eafcf5d03cd0ee18642d542af8351",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "ed7691058c894813bbc6f04b90f40a15",
+    "text": "| 文件 | 内容 | 应用场景 |\n|------|------|---------|\n| `gold_basics.md` | 黄金（足金、千足金、万足金、K 金、5G 黄金、古法金等）的基础知识 | 黄金类活动规则解析 |\n| `diamond_basics.md` | 钻石 4C、证书体系、镶嵌工艺 | 钻石 / 镶嵌类活动规则解析 |\n| `platinum_silver.md` | 铂金、银饰的成色与工艺 | 铂金 / 银饰类活动规则解析 |\n| `jadeite_pearl_jade.md` | 翡翠、珍珠、和田玉的分级与鉴定 | 玉石 / 珍珠类活动规则解析 |\n| `compliance_essentials.",
+    "source_file": "README.md",
+    "char_start": 232,
+    "char_end": 550,
+    "file_hash": "2677848f4fb88b0e711a97389bca9b286b6eafcf5d03cd0ee18642d542af8351",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "a8d6d2a38ade419295422dfac7bb7339",
+    "text": "翡翠、珍珠、和田玉的分级与鉴定 | 玉石 / 珍珠类活动规则解析 |\n| `compliance_essentials.md` | 价格管控合规（《明码标价规定》）+ 商品标注国标（GB 11887 / 16554 / 16552） | 资质 / 价格 / 标注合规校验（已剥离方向 D 的法律法规罗列） |\n| `industry_terminology.md` | 行业术语字典（一口价 / 计重 / 工费 / 退翻新等） | 全局术语归一化 |",
+    "source_file": "README.md",
+    "char_start": 490,
+    "char_end": 715,
+    "file_hash": "2677848f4fb88b0e711a97389bca9b286b6eafcf5d03cd0ee18642d542af8351",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "4fde2c0467f249cfa792d09eff300f8e",
+    "text": "## 知识库使用原则\n1. **作为术语字典使用**：Agent 在 `rule_parser` 时遇到术语，应先在本知识库匹配标准定义。\n2. **作为参数精度参考使用**：Agent 在生成检查清单时，应按本知识库定义的参数精度要求（如克重 0.01g、克拉数 0.01ct、净度等级）输出可核查项。\n3. **作为风险判定的依据**：Agent 在判定 SKU 是否合规时，应参考本知识库的国家标准条款（如足金 ≥ 99.0%，千足金 ≥ 99.9%）。\n4. **作为业务术语翻译使用**：Agent 在向运营人员解释规则时，应优先使用本知识库的\"通俗解释\"列，避免技术黑话。",
+    "source_file": "README.md",
+    "char_start": 717,
+    "char_end": 1011,
+    "file_hash": "2677848f4fb88b0e711a97389bca9b286b6eafcf5d03cd0ee18642d542af8351",
+    "metadata": {
+      "kb_id": "kb_98f9d88b9b8f",
+      "source_file": "README.md"
+    }
+  }
+]

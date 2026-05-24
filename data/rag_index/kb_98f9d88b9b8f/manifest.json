@@ -1,0 +1,58 @@
+[
+  {
+    "filename": "compliance_essentials.md",
+    "file_hash": "6b8fc3a619b60608eb7d00c66b061c7e9a7bdbf704d83476d86d210398ed23dd",
+    "chunk_count": 24,
+    "uploaded_at": "2026-05-24T01:23:31Z",
+    "byte_size": 6838,
+    "file_kind": "md"
+  },
+  {
+    "filename": "diamond_basics.md",
+    "file_hash": "a03bdda573c9994d55c82f29f78ab203cbdd33c688f0bc777651576eec454d40",
+    "chunk_count": 31,
+    "uploaded_at": "2026-05-24T01:23:31Z",
+    "byte_size": 7169,
+    "file_kind": "md"
+  },
+  {
+    "filename": "gold_basics.md",
+    "file_hash": "7068f635add0d015842da129cc9060e0fe7199b3ded72a86ef441e4f83013ee3",
+    "chunk_count": 33,
+    "uploaded_at": "2026-05-24T01:23:31Z",
+    "byte_size": 8861,
+    "file_kind": "md"
+  },
+  {
+    "filename": "industry_terminology.md",
+    "file_hash": "cc0aa5279a34b73efd04ec65b493174c00a0d71cd49fe16a4359c3082455df88",
+    "chunk_count": 23,
+    "uploaded_at": "2026-05-24T01:23:31Z",
+    "byte_size": 5567,
+    "file_kind": "md"
+  },
+  {
+    "filename": "jadeite_pearl_jade.md",
+    "file_hash": "6da26aac03ed1f1ada696006db1bfa20561a0e2d45539983404d73b7fdf51d48",
+    "chunk_count": 20,
+    "uploaded_at": "2026-05-24T01:23:31Z",
+    "byte_size": 5202,
+    "file_kind": "md"
+  },
+  {
+    "filename": "platinum_silver.md",
+    "file_hash": "33112a71203a2527206e49b0bf61b65349d770ac12b9f4d0656d00375fabd9f3",
+    "chunk_count": 19,
+    "uploaded_at": "2026-05-24T01:23:31Z",
+    "byte_size": 4239,
+    "file_kind": "md"
+  },
+  {
+    "filename": "README.md",
+    "file_hash": "2677848f4fb88b0e711a97389bca9b286b6eafcf5d03cd0ee18642d542af8351",
+    "chunk_count": 5,
+    "uploaded_at": "2026-05-24T01:23:31Z",
+    "byte_size": 2023,
+    "file_kind": "md"
+  }
+]

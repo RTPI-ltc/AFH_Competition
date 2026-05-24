@@ -1,0 +1,1634 @@
+[
+  {
+    "chunk_id": "dc0ed013f39a43078085af06fb03841c",
+    "text": "﻿# 周大福企业资质（Company Qualifications）\n> **聚焦赛题方向 C**：仅保留\"活动报名前的资质核验\"和\"店铺评分门槛达标判断\"所需信息。佣金/保证金/技术服务费/GMV/行业排名等财务战略数据已剥离（属于赛题方向 A 战略模拟）。\n> 数值为演示用模拟样例，正式落地需通过法务对接确认。\n---",
+    "source_file": "company_qualifications.md",
+    "char_start": 0,
+    "char_end": 164,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "2e99c081fb18465797347a7572b2e353",
+    "text": "## 1. 经营主体与品牌\n| 项 | 信息 |\n|----|------|\n| 集团名称 | 周大福珠宝集团有限公司（Chow Tai Fook Jewellery Group Limited） |\n| 内地经营主体 | 周大福珠宝金行（深圳）有限公司 |\n| 主要子品牌 | 周大福（CTF）、周大福 T MARK、周大福 SOINLOVE、周大福 MONOLOGUE、周大福传承（古法金） |\n| 创立时间 | 1929 年 |\n---",
+    "source_file": "company_qualifications.md",
+    "char_start": 166,
+    "char_end": 389,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "56be5c7fa43a4b4aa833604d8c91883a",
+    "text": "## 2. 法律牌照（活动报名必查）",
+    "source_file": "company_qualifications.md",
+    "char_start": 391,
+    "char_end": 409,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "c186106bb626499795fddaecf9f03bd9",
+    "text": "| 牌照 / 证书 | 编号（模拟） | 有效期 | 状态 |\n|-------------|---------------|--------|------|\n| 营业执照 | 91440300MA0000XXXX | 2024-01 ～ 长期 | 有效 |\n| 商标注册证（\"周大福\" 文字 + 图形） | 商标 第 XXXXXX 号 | 2018-08 ～ **2028-08** | 有效，**2028 续展提醒** |\n| 进出口经营权 | 0000XXXX | 长期 | 有效 |\n| 贵金属生产许可证 | XXXX-0XX | 2023-06 ～ **2028-06** | 有效，2028 续展提醒 |",
+    "source_file": "company_qualifications.md",
+    "char_start": 411,
+    "char_end": 720,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "20dee7b42d5f48bbae2e700a9fc818cd",
+    "text": "金属生产许可证 | XXXX-0XX | 2023-06 ～ **2028-06** | 有效，2028 续展提醒 |\n| 增值税一般纳税人资格 | 91440300MA0000XXXX | 长期 | 有效 |",
+    "source_file": "company_qualifications.md",
+    "char_start": 660,
+    "char_end": 765,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "995a3976c8e6483aa6a554f725307a20",
+    "text": "> Agent 用法：报名前自动检查任一项是否过期 / 临期（≤ 6 个月）→ 输出 `high` / `medium` 风险点。\n---",
+    "source_file": "company_qualifications.md",
+    "char_start": 767,
+    "char_end": 837,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "0d31c0095e374eddae81eda9d09f9e5f",
+    "text": "## 3. 行业体系认证（部分平台要求）\n| 认证 | 编号（模拟） | 有效期 | Agent 视角 |\n|------|---------------|--------|-----------|\n| ISO 9001 质量管理体系 | 00xxxxx | 2023-04 ～ **2026-04** | 临期，需 2026-04 前完成年审 |\n| ISO 14001 环境管理体系 | 00xxxxx | 2023-04 ～ 2026-04 | 同上 |\n| ISO 45001 职业健康安全 | 00xxxxx | 2023-04 ～ 2026-04 | 同上 |\n| RJC 责任珠宝业认证 | — | 滚动 | 有效 |",
+    "source_file": "company_qualifications.md",
+    "char_start": 839,
+    "char_end": 1156,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "27a5fb8bd6094498b3e9e64749f26a0b",
+    "text": "> Agent 用法：部分平台报名（如京东自营、抖音品牌严选）要求 ISO 9001，临期需在报名前完成续期。\n---",
+    "source_file": "company_qualifications.md",
+    "char_start": 1158,
+    "char_end": 1218,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "a8078440b17141cf9058c63ddcd459e8",
+    "text": "## 4. 各电商平台店铺账号（活动报名时按店铺单位提报）",
+    "source_file": "company_qualifications.md",
+    "char_start": 1220,
+    "char_end": 1249,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "7effcce109ac4f0ca2accbbe737375dc",
+    "text": "| 平台 | 店铺名 | 店铺 ID（模拟） | 开店时间 | 状态 |\n|------|--------|-----------------|----------|------|\n| 天猫 | 周大福官方旗舰店 | tmall:000001 | 2014-11 | 正常营业 |\n| 天猫 | 周大福珠宝奥莱店 | tmall:000002 | 2019-06 | 正常营业 |\n| 京东 | 周大福官方旗舰店 | jd:1000001 | 2015-03 | 正常营业 |\n| 京东 | 周大福 T MARK 旗舰店 | jd:1000002 | 2020-09 | 正常营业 |\n| 淘宝 | 周大福珠宝官方店 | taobao:300001 | 2013-08 | 正常营业 |",
+    "source_file": "company_qualifications.md",
+    "char_start": 1251,
+    "char_end": 1595,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "ad65fc9a0b11428880e4d4d26c791b05",
+    "text": "| 正常营业 |\n| 淘宝 | 周大福珠宝官方店 | taobao:300001 | 2013-08 | 正常营业 |\n| 抖音 | 周大福官方旗舰店 | douyin:6500001 | 2021-04 | 正常营业 |\n| 微信小程序 | 周大福珠宝官方商城 | wx:000001 | 2017-01 | 正常营业 |",
+    "source_file": "company_qualifications.md",
+    "char_start": 1535,
+    "char_end": 1697,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "621bb1d336a04f70aa8a0e537024ee73",
+    "text": "> Agent 用法：同集团多个子品牌店铺（CTF / T MARK / SOINLOVE / MONOLOGUE）分别独立报名；当规则要求\"品牌全店参加\"时需识别多店铺并提示是否同期报名（互斥风险）。\n---",
+    "source_file": "company_qualifications.md",
+    "char_start": 1699,
+    "char_end": 1805,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "6419383aece34f47b38c15ffd3637e1b",
+    "text": "## 5. 店铺等级与评分（活动门槛达标判断）",
+    "source_file": "company_qualifications.md",
+    "char_start": 1807,
+    "char_end": 1830,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "8c79858f33a6417f891ad5307687cc7a",
+    "text": "| 平台 | 维度 | 当前值（模拟） | 平台门槛 | 状态 |\n|------|------|----------------|---------|------|\n| 天猫 | DSR 综合 | 4.82 | ≥ 4.70 | ✅ |\n| 天猫 | 描述相符 / 服务态度 / 物流速度 | 4.85 / 4.83 / 4.79 | 三项 ≥ 4.70 | ✅ |\n| 天猫 | 近 180 天严重违规扣分 | 0 次 | 0 次 | ✅ |\n| 京东 | 商智综合分 | 9.40 | ≥ 9.0 | ✅ |\n| 京东 | 好评率 | 98.5% | ≥ 97% | ✅ |\n| 京东 | 近 90 天 A 类违规 | 0 次 | 0 次 | ✅ |\n| 抖音 | 综合体验分 | 4.",
+    "source_file": "company_qualifications.md",
+    "char_start": 1832,
+    "char_end": 2178,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "6e3945dd6f274465b9a18381633f3bd4",
+    "text": "✅ |\n| 京东 | 近 90 天 A 类违规 | 0 次 | 0 次 | ✅ |\n| 抖音 | 综合体验分 | 4.78 | ≥ 4.60 | ✅ |\n| 抖音 | 商品体验分 | 4.75 | ≥ 4.50 | ✅ |",
+    "source_file": "company_qualifications.md",
+    "char_start": 2118,
+    "char_end": 2230,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "9de0c3d840fd4d0b8ebe8ae5fe1ab0b9",
+    "text": "> Agent 用法：报名前自动比对店铺等级与目标活动门槛；任一维度未达 → 输出 `high` 风险点，建议先优化该店铺再报名。\n---",
+    "source_file": "company_qualifications.md",
+    "char_start": 2232,
+    "char_end": 2302,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "e430e03bc25743f49614ff4361272c15",
+    "text": "## 6. Agent 调用样例",
+    "source_file": "company_qualifications.md",
+    "char_start": 2304,
+    "char_end": 2320,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "73c8a4577495488cab16c34257e30866",
+    "text": "### 6.1 资质核验\n```text\n[活动规则] 天猫超品日要求：商家具备贵金属生产许可证、商标证、DSR ≥ 4.7\n[Agent 行为]\n1. 拉取 company_qualifications：商标证 2028-08 到期、贵金属许可证 2028-06 到期、DSR 4.82\n2. 距离活动日 < 6 个月任一证书 → 输出 medium 风险（建议续展）\n3. DSR ≥ 4.7 → 通过\n4. 输出最终判定：✅ 资质达标\n```",
+    "source_file": "company_qualifications.md",
+    "char_start": 2322,
+    "char_end": 2547,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "17283b7d0c1742048f0590065849e996",
+    "text": "### 6.2 多店铺互斥识别\n```text\n[活动规则] 同品牌全店参加超品日\n[Agent 行为]\n1. 拉取该品牌下所有店铺 ID（tmall:000001 + tmall:000002 + ...）\n2. 输出\"涉及 N 家店铺，需各自单独提报\"\n3. 若某店铺已报其他互斥活动 → high 风险\n```",
+    "source_file": "company_qualifications.md",
+    "char_start": 2549,
+    "char_end": 2709,
+    "file_hash": "92a7976d2a23d36985121ee13654a8b2703f00652b3a6c64c682c88b1f3f721b",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "company_qualifications.md"
+    }
+  },
+  {
+    "chunk_id": "55c3824c2209450eb0ca9e22f47f1403",
+    "text": "# 人工接管路由（Human Review Routing）\n> **聚焦赛题方向 C**：Agent 在 `human_review_gate` 节点输出\"需人工确认\"时，根据规则类型路由到对应角色。本文档只保留路由表，不包含组织架构图、跨角色协作流程（属于赛题方向 B 协作沟通）。\n---",
+    "source_file": "human_review_routing.md",
+    "char_start": 0,
+    "char_end": 149,
+    "file_hash": "956bf6cd7b1ecf38b8a201b225248c33f3309edc5f1e294dc5db93b48ca79c0f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "human_review_routing.md"
+    }
+  },
+  {
+    "chunk_id": "0a1b6feaaaad4a9f9c96e23ea5d75030",
+    "text": "## 路由规则表",
+    "source_file": "human_review_routing.md",
+    "char_start": 151,
+    "char_end": 159,
+    "file_hash": "956bf6cd7b1ecf38b8a201b225248c33f3309edc5f1e294dc5db93b48ca79c0f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "human_review_routing.md"
+    }
+  },
+  {
+    "chunk_id": "c528323e7668440eb8f60f6eebb769ed",
+    "text": "| 规则类型 | 触发场景示例 | 路由角色 | SLA |\n|---------|--------------|---------|-----|\n| **价格规则歧义** | \"近 30 天最低价\" 口径未明确；让利幅度计算口径有争议 | 价格管理 + 品类经理 | 2 小时内反馈 |\n| **资质 / 证书有效性** | 商标证临期 6 个月内；证书 PDF 文件丢失 | 法务 | 4 小时内反馈 |\n| **库存承诺** | 实际库存 < 承诺；补货周期紧张 | 供应链 + 品类经理 | 2 小时内反馈 |\n| **互斥活动判定** | 同 SKU 已在其他平台同期报名；品牌日 vs 品类日冲突 | 平台运营 | 1 小时内反馈 |",
+    "source_file": "human_review_routing.md",
+    "char_start": 161,
+    "char_end": 485,
+    "file_hash": "956bf6cd7b1ecf38b8a201b225248c33f3309edc5f1e294dc5db93b48ca79c0f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "human_review_routing.md"
+    }
+  },
+  {
+    "chunk_id": "ef35d0f541fe447f9ee5f928647e32ad",
+    "text": "互斥活动判定** | 同 SKU 已在其他平台同期报名；品牌日 vs 品类日冲突 | 平台运营 | 1 小时内反馈 |\n| **新品 / 选品口径** | \"30% 新品\" 是按 SKU 数还是 GMV 占比 | 品类经理 | 4 小时内反馈 |\n| **让利预算上限** | 单 SKU 让利 ≥ 20% 或整场让利 ≥ 500 万 | 电商事业部总监 | 1 工作日 |\n| **价格穿底应急** | 当日发现外渠穿底，需调价或下架 | 价格管理 + 平台运营 + 法务 | 30 分钟内 |\n| **平台违规申诉** | 收到平台违规处罚 | 法务 + 平台运营 | 4 小时内 |",
+    "source_file": "human_review_routing.md",
+    "char_start": 425,
+    "char_end": 719,
+    "file_hash": "956bf6cd7b1ecf38b8a201b225248c33f3309edc5f1e294dc5db93b48ca79c0f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "human_review_routing.md"
+    }
+  },
+  {
+    "chunk_id": "0ed81a80451b4412b268d81436ec1305",
+    "text": "---",
+    "source_file": "human_review_routing.md",
+    "char_start": 721,
+    "char_end": 724,
+    "file_hash": "956bf6cd7b1ecf38b8a201b225248c33f3309edc5f1e294dc5db93b48ca79c0f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "human_review_routing.md"
+    }
+  },
+  {
+    "chunk_id": "84a4d49cffbb4aaf8973387f63220922",
+    "text": "## Agent 在 UI 上的展示规范\n当 Agent 输出 `requires_human=true` 时，前端卡片应同时展示：\n1. **风险点描述** + **风险等级**（high / medium / low）\n2. **建议路由角色**（按上表）\n3. **建议 SLA**\n4. **澄清问题列表**（如果是规则歧义类）\n5. **当前 Agent 的初步判定建议**（供人工 review 参考，不替代决策）",
+    "source_file": "human_review_routing.md",
+    "char_start": 726,
+    "char_end": 941,
+    "file_hash": "956bf6cd7b1ecf38b8a201b225248c33f3309edc5f1e294dc5db93b48ca79c0f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "human_review_routing.md"
+    }
+  },
+  {
+    "chunk_id": "35c083f156214e6e8483b0de0e59fe45",
+    "text": "```\n┌──────────────────────────────────────────────┐\n│ ⚠ 风险点：活动价 198 元 < 近 30 天最低价 188 元 │\n│ 等级：high │\n│ 建议路由：价格管理 + 品类经理 │\n│ SLA：2 小时内反馈 │\n│ Agent 初判：建议调价至 ≥ 188 元 或退出报名 │\n└──────────────────────────────────────────────┘\n```",
+    "source_file": "human_review_routing.md",
+    "char_start": 943,
+    "char_end": 1258,
+    "file_hash": "956bf6cd7b1ecf38b8a201b225248c33f3309edc5f1e294dc5db93b48ca79c0f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "human_review_routing.md"
+    }
+  },
+  {
+    "chunk_id": "064d238bc5884796984ef50f8e630dab",
+    "text": "﻿# 商品资质（Product Certifications）\n> 本文档定义企业X各品类商品在电商平台报名活动时**必须具备的证书与电子件**。Agent 在选品时按本表逐 SKU 核对，缺失任意一项即标记为不合规。\n---",
+    "source_file": "product_certifications.md",
+    "char_start": 0,
+    "char_end": 115,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "3fef8e40e863436b83e61dd4fadbd1e6",
+    "text": "## 1. 品类与必备证书对照表",
+    "source_file": "product_certifications.md",
+    "char_start": 117,
+    "char_end": 133,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "a573bc43ea884e85b4ee3c384e3f2a4f",
+    "text": "| 品类 | 必备证书 | 颁发机构 | 电子件要求 | 平台展示要求 |\n|------|---------|---------|------------|----------------|\n| 足金 / 千足金 / 万足金（999、999.9、999.99） | 1) 产品合格证（厂内）2) CMA 抽检报告（每批次或每季度）3) 钢印 / 印记 | NGTC / CMA 实验室 | PDF 扫描件 + 图片 | 商详页公示证书图片 |\n| 古法金 | 1) 厂内合格证 2) CMA 抽检 3) 工艺特征说明 | CMA / NGTC | PDF + 图片 | 商详页公示 |",
+    "source_file": "product_certifications.md",
+    "char_start": 135,
+    "char_end": 429,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "3d25180b4ecf4af6b8d4e26d76d3a5c7",
+    "text": "厂内合格证 2) CMA 抽检 3) 工艺特征说明 | CMA / NGTC | PDF + 图片 | 商详页公示 |\n| 5G 黄金 / 硬足金 | 1) 厂内合格证 2) CMA 抽检 3) 工艺标注（5G / 硬金） | CMA / NGTC | PDF + 图片 | 商详页公示工艺类型 |\n| 计重金条 / 投资金条 | 1) 国检合格证 2) 出厂证书 3) 编号防伪 | 国检 / 上海黄金交易所 | PDF + 图片 | 商详页公示编号 |\n| K 金（18K / 14K） | 1) 厂内合格证 2) CMA 抽检 3) K 金钢印 | CMA / NGTC | PDF + 图片 | 商详页公示 K 金含量 |",
+    "source_file": "product_certifications.md",
+    "char_start": 369,
+    "char_end": 685,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "5b0e78dfd5014bc6a8bf2217a873fd5d",
+    "text": "2) CMA 抽检 3) K 金钢印 | CMA / NGTC | PDF + 图片 | 商详页公示 K 金含量 |\n| 铂金（Pt950 / Pt990） | 1) 厂内合格证 2) CMA 抽检 3) 钢印 | CMA / NGTC | PDF + 图片 | 商详页公示 |\n| 银饰（925 / 990） | 1) 厂内合格证 2) CMA 抽检 | CMA | PDF + 图片 | 商详页公示 |\n| 钻石（裸钻） | GIA 证书（30 分以上必备）/ IGI 证书 | GIA / IGI | PDF + 图片 + 腰码 | 商详页公示 4C + 腰码 |",
+    "source_file": "product_certifications.md",
+    "char_start": 625,
+    "char_end": 912,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "0b698c65dde54df5967c34a3fc07c898",
+    "text": "以上必备）/ IGI 证书 | GIA / IGI | PDF + 图片 + 腰码 | 商详页公示 4C + 腰码 |\n| 钻石（镶嵌钻饰，主石） | 1) GIA / NGTC / HRD 证书 2) 镶嵌证书 | GIA / NGTC / HRD | PDF + 图片 | 商详页公示 4C |\n| 钻石（碎钻 / 配钻） | 国检质量证书 | NGTC | PDF | 商详页公示总重 / 副石 |\n| 翡翠 | 1) 国检 A 货证书 2) CMA 鉴定证书 | NGTC / CMA | PDF | 商详页公示 A 货标识 |\n| 珍珠（海水 / 淡水） | 1) 国检证书 2) 厂内分级报告 | NGTC | PDF | 商详页公示珍珠类型 + 直径 + 光泽 |",
+    "source_file": "product_certifications.md",
+    "char_start": 852,
+    "char_end": 1192,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "cef956a72c3f406f9c86a98f23fbc277",
+    "text": "水） | 1) 国检证书 2) 厂内分级报告 | NGTC | PDF | 商详页公示珍珠类型 + 直径 + 光泽 |\n| 玉石（和田玉 / 软玉） | 国检证书 + 产地溯源（推荐） | NGTC | PDF | 商详页公示 |\n| 黄金 + 镶嵌组合款 | 黄金 CMA + 主石证书（钻石 GIA / NGTC） | 双证 | PDF | 商详页公示双证 |",
+    "source_file": "product_certifications.md",
+    "char_start": 1132,
+    "char_end": 1314,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "014be371f0b1491990dc789069450a8f",
+    "text": "---",
+    "source_file": "product_certifications.md",
+    "char_start": 1316,
+    "char_end": 1319,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "7384913687d3464b87a4860b56d0b6dd",
+    "text": "## 2. 平台对证书的硬性要求",
+    "source_file": "product_certifications.md",
+    "char_start": 1321,
+    "char_end": 1337,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "bcb12e4a341e4a3d878550695a37105d",
+    "text": "### 2.1 天猫\n- **黄金类**：商详页必须展示\"CMA / CNAS 实验室抽检报告\" 至少 1 份，且报告生成日期距活动日 ≤ 6 个月。\n- **钻石类**：30 分及以上必须有 GIA / NGTC 证书；商详页必须展示腰码或证书图片。\n- **翡翠类**：必须展示 NGTC A 货证书。\n- **超品日 / 百补**：要求\"每个报名 SKU 必须有可在线核验的证书电子件\"。",
+    "source_file": "product_certifications.md",
+    "char_start": 1339,
+    "char_end": 1537,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "3ffabec3d6ec411aa145146f93471cbe",
+    "text": "### 2.2 京东\n- **自营**：京东买手对证书审核更严，要求每个 SKU 至少 1 份国检证书电子件。\n- **POP**：与天猫一致，要求 CMA / NGTC 证书。\n- **京东品质**：贴有\"京东品质\" 标签的商品需通过京东自有质检（额外抽检）。",
+    "source_file": "product_certifications.md",
+    "char_start": 1539,
+    "char_end": 1671,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "bbe12998204549a89e529d6d34945092",
+    "text": "### 2.3 淘宝百亿补贴\n- 与天猫一致，要求 GIA / NGTC / CMA。\n- 全网比价时会附带证书核验。",
+    "source_file": "product_certifications.md",
+    "char_start": 1673,
+    "char_end": 1733,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "7600a508e06a46728deafd164d469be4",
+    "text": "### 2.4 抖音\n- 黄金计重款必须展示\"克重 + 工费 + 实时金价\" 三者拆分。\n- 钻石类要求 30 分以上 GIA 证书 + 抖音商品体验分 ≥ 4.5。\n---",
+    "source_file": "product_certifications.md",
+    "char_start": 1735,
+    "char_end": 1824,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "cc0124bf49754c0dbbef1f6854285fc8",
+    "text": "## 3. 企业X内部证书管理流程",
+    "source_file": "product_certifications.md",
+    "char_start": 1826,
+    "char_end": 1843,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "c08aab24240e4d5fae5717090df764ba",
+    "text": "### 3.1 证书入库流程\n```\n1. 工厂出厂 → 内部 QC 检测 → 出厂合格证\n2. 抽检送检 → CMA / NGTC 实验室 → 证书 PDF + 编号\n3. 证书入\"证书管理系统\"（CMS）→ 与 SKU 绑定\n4. 电商上架时从 CMS 拉取证书电子件 → 商详页展示\n5. 证书有效期满 → 自动触发抽检任务\n```",
+    "source_file": "product_certifications.md",
+    "char_start": 1845,
+    "char_end": 2015,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "185d88a45f1a4ed88e9f684fb6876378",
+    "text": "### 3.2 证书缺失的处理\n| 场景 | 处理动作 |\n|------|---------|\n| 全新 SKU 未送检 | 上架前必须完成抽检；阻塞活动报名 |\n| 证书有效期临期（< 30 天） | 立即送检，避免活动期间过期 |\n| 证书有效期已过 | 下架 SKU，不参与活动 |\n| 证书 PDF 文件丢失 | 联系实验室补发，48 小时内出件 |\n| 跨平台证书要求不一致 | 以最严平台为准（一般是抖音 / 京东自营） |\n---",
+    "source_file": "product_certifications.md",
+    "char_start": 2017,
+    "char_end": 2242,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "ddfc38d9ad244a95b6e093f06f5e0b46",
+    "text": "## 4. 商品资质数据字段（演示用样例 JSON）",
+    "source_file": "product_certifications.md",
+    "char_start": 2244,
+    "char_end": 2270,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "c4113dbec8e9435dab630fbfea9b4ac6",
+    "text": "```json\n{\n\"sku_id\": \"CTF-G18K-NL-001\",\n\"product_name\": \"企业X 18K金 项链 0.50ct\",\n\"category\": \"镶嵌类\",\n\"subcategory\": \"K金项链\",\n\"certificates\": [\n{\n\"type\": \"GIA\",\n\"certificate_no\": \"2400001234\",\n\"issue_date\": \"2025-08-15\",\n\"expiry_date\": null,\n\"file_url\": \"/cms/cert/GIA_2400001234.pdf\"\n},\n{\n\"type\": \"CMA\",\n\"certificate_no\": \"CMA-2025-XXX-001\",",
+    "source_file": "product_certifications.md",
+    "char_start": 2272,
+    "char_end": 2608,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "45635f7206424f4a8f894c248c24d780",
+    "text": "\"\n},\n{\n\"type\": \"CMA\",\n\"certificate_no\": \"CMA-2025-XXX-001\",\n\"issue_date\": \"2025-09-01\",\n\"expiry_date\": \"2026-09-01\",\n\"file_url\": \"/cms/cert/CMA_2025_XXX_001.pdf\"\n}\n],\n\"platform_compliance\": {\n\"tmall\": \"ok\",\n\"jd_pop\": \"ok\",\n\"jd_self\": \"ok\",\n\"taobao_baibu\": \"ok\",\n\"douyin\": \"ok\"\n},\n\"last_audit_date\": \"2025-10-15\"\n}\n```",
+    "source_file": "product_certifications.md",
+    "char_start": 2548,
+    "char_end": 2865,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "a7f509f715ce4a70b7a9a3140d2fa505",
+    "text": "---",
+    "source_file": "product_certifications.md",
+    "char_start": 2981,
+    "char_end": 2984,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "e0e95cd5c58649348a37f5496891c062",
+    "text": "## 5. 常见证书风险点（Agent 输出参考）\n| 风险点 | 触发条件 | 风险等级 |\n|--------|---------|---------|\n| 证书有效期 < 30 天 | 临期 | medium |\n| 证书有效期已过 | 已过期 | high |\n| 30 分以上钻石缺 GIA 证书 | 缺证 | high |\n| 翡翠类缺 A 货证书 | 缺证 | high |\n| 商详页未展示证书图片 | 配置缺失 | medium |\n| 国检批次报告 > 6 个月 | 抽检周期超期 | medium |\n| 全网证书编号不一致 | 多平台数据错配 | high |",
+    "source_file": "product_certifications.md",
+    "char_start": 2986,
+    "char_end": 3279,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "99b869b5b403451bad2f64d455d9a2fc",
+    "text": "---",
+    "source_file": "product_certifications.md",
+    "char_start": 3281,
+    "char_end": 3284,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "83b396167d4a4b22b9b99c7dd9ab8e10",
+    "text": "## 6. Agent 调用样例\n```text\n[输入] SKU: CTF-G18K-NL-001（18K 金项链 0.50ct）\n[活动规则] 天猫超品日要求：每个报名 SKU 必须有 GIA 证书电子件\n[Agent 输出]\n- parsed_rule: \"SKU 必须有 GIA 证书电子件\"\n- confidence: 0.95\n- verification:\n- sku_id: CTF-G18K-NL-001\n- certificates[0].type: \"GIA\"\n- certificates[0].expiry_date: null（GIA 无期限）\n- 结论: ✅ 通过\n- risk_points: []\n```",
+    "source_file": "product_certifications.md",
+    "char_start": 3286,
+    "char_end": 3623,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "ea23609759844d0d80482f7d171963c8",
+    "text": "```text\n[输入] SKU: CTF-FJ-999-005（足金项链 8.2g）\n[活动规则] 京东百亿补贴要求：CMA 抽检报告距活动日 ≤ 6 个月",
+    "source_file": "product_certifications.md",
+    "char_start": 3625,
+    "char_end": 3704,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "23f366a329dc45eebb3fd8f0fabf273f",
+    "text": "[Agent 输出]\n- parsed_rule: \"CMA 抽检报告距活动日 ≤ 6 个月\"\n- confidence: 0.90\n- verification:\n- sku_id: CTF-FJ-999-005\n- certificates[0].type: \"CMA\"\n- issue_date: 2025-05-01\n- 活动日: 2026-01-15\n- 距离: 8.5 个月（> 6 个月）\n- 结论: ❌ 不通过\n- risk_points:\n- description: \"CMA 抽检报告距活动日 8.5 个月，超 6 个月门槛\"\n- severity: high\n- suggestion: \"立即送检，48 小时内补出件\"\n```",
+    "source_file": "product_certifications.md",
+    "char_start": 3706,
+    "char_end": 4069,
+    "file_hash": "3a4b855ac6ed5023446aca0f3907530e66daa9e878232a4988b54574ce43eea7",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "product_certifications.md"
+    }
+  },
+  {
+    "chunk_id": "53e085398e55417e8e2f0d38c5fc9ee8",
+    "text": "﻿# 企业X内部知识库（Chow Tai Fook Internal KB）\n> 本知识库是\"执行辅助 Agent\"理解企业X企业语境的主要上下文。\n> **注意**：本目录中的资质、SKU、供应链、组织架构等数据均为黑客松演示用的**模拟样例**，结构与字段尽可能贴近真实场景，便于 Agent 端到端跑通；正式落地时需要替换为企业X内部权威系统（ERP / OMS / WMS / 中台）抓取的实时数据。",
+    "source_file": "README.md",
+    "char_start": 0,
+    "char_end": 205,
+    "file_hash": "4cb848934af616ce3c851e957249ca839ff98bd28138a9e69f5c76cc6d6fd76f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "7b4af90e853e4f54a32fc7097eadb29d",
+    "text": "## 文件索引",
+    "source_file": "README.md",
+    "char_start": 207,
+    "char_end": 214,
+    "file_hash": "4cb848934af616ce3c851e957249ca839ff98bd28138a9e69f5c76cc6d6fd76f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "e9b46927865a48968a74dcd56f9f1f5e",
+    "text": "| 文件 | 内容 | Agent 调用场景 |\n|------|------|----------------|\n| `company_qualifications.md` | 企业资质、品牌主体、法律牌照、平台店铺账号 | 平台报名前的资质核验 |\n| `product_certifications.md` | 商品类目对应的国检 / GIA / NGTC 等证书要求 | 选品时确认 SKU 是否具备活动门槛要求的证书 |\n| `sku_catalog.md` | SKU 数据库样例（含 30 条多品类样例 SKU + 在售/历史活动字段） | 选品入池、价格盘整、库存承诺、互斥检测 |\n| `supply_chain.",
+    "source_file": "README.md",
+    "char_start": 216,
+    "char_end": 532,
+    "file_hash": "4cb848934af616ce3c851e957249ca839ff98bd28138a9e69f5c76cc6d6fd76f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "904fb8093bf4439da71ea97a86b68fa1",
+    "text": "样例 SKU + 在售/历史活动字段） | 选品入池、价格盘整、库存承诺、互斥检测 |\n| `supply_chain.md` | 工厂代码、补货周期、大促备货策略（已精简，只留 C 方向需要的部分） | 库存承诺核验、补货预案 |\n| `human_review_routing.md` | 不同规则类型 → 人工接管角色的路由表 | `human_review_gate` 节点输出\"需人工确认\"时的路由 |",
+    "source_file": "README.md",
+    "char_start": 472,
+    "char_end": 678,
+    "file_hash": "4cb848934af616ce3c851e957249ca839ff98bd28138a9e69f5c76cc6d6fd76f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "c369b05bf3874a30883642b185821de5",
+    "text": "## 数据使用原则（与赛题对齐）\n1. **以\"内部权威数据\" 为最高优先级**：当活动规则模糊时，Agent 优先用内部知识库回答\"我们是否满足\"，而不是依赖外部猜测。\n2. **数据缺失自动标注 `requires_human=true`**：例如 SKU 缺少国检证书电子件、库存承诺与 WMS 不匹配时，Agent 不擅自判定通过，而是输出\"建议人工确认\"。\n3. **数据敏感度**：本目录中的所有数值（如 SKU 单价、库存量、利润率）均为**模拟值**。生产环境必须通过加密通道访问 ERP / OMS / WMS。",
+    "source_file": "README.md",
+    "char_start": 680,
+    "char_end": 946,
+    "file_hash": "4cb848934af616ce3c851e957249ca839ff98bd28138a9e69f5c76cc6d6fd76f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "09ce3b37d8d4450db36a4932632c99a2",
+    "text": "## 与其他知识库的协作\n- 平台知识库（`../platform/`）告诉 Agent **平台门槛**；\n- 本知识库告诉 Agent **企业当前状态**；\n- 行业知识库（`../jewelry_industry/`）告诉 Agent **品类语义**。\n三者在 `rule_parser` 与 `checklist_builder` 节点中同时注入 prompt context。",
+    "source_file": "README.md",
+    "char_start": 948,
+    "char_end": 1146,
+    "file_hash": "4cb848934af616ce3c851e957249ca839ff98bd28138a9e69f5c76cc6d6fd76f",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "README.md"
+    }
+  },
+  {
+    "chunk_id": "95a7e61950ba40f699a063fe4c0b900b",
+    "text": "﻿# SKU 数据库样例（SKU Catalog）\n> 演示用 SKU 数据，覆盖周大福主要品类。字段结构贴近真实 ERP 输出，可直接驱动 Agent `product_verifier` 节点端到端跑通。\n> 重点字段：`active_campaigns`（当前在售 / 在报活动）+ `campaign_history`（近 365 天活动参与历史）—— 用于赛题示例规则\"已参加品牌日不可重复报名\"的互斥校验。\n---",
+    "source_file": "sku_catalog.md",
+    "char_start": 0,
+    "char_end": 215,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "eb326bda220040bd80bd73c7abc57971",
+    "text": "## 1. 数据字段说明",
+    "source_file": "sku_catalog.md",
+    "char_start": 217,
+    "char_end": 229,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "ebdd7b8c9fb249548114bcd9f664dfc3",
+    "text": "| 字段 | 类型 | 说明 |\n|------|------|------|\n| `sku_id` | string | 周大福内部 SKU 编码 |\n| `product_name` | string | 商品名称 |\n| `brand` | string | 品牌（CTF / T MARK / SOINLOVE / MONOLOGUE / CTF 传承） |\n| `category_l1` | string | 一级类目（黄金、镶嵌、铂金、银饰、玉石、珍珠） |\n| `category_l2` | string | 二级类目（足金、古法金、5G 黄金、K 金、钻石、翡翠、珍珠 等） |",
+    "source_file": "sku_catalog.md",
+    "char_start": 231,
+    "char_end": 531,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "e2adcdbf108d4806bd05827d6a605c89",
+    "text": "category_l2` | string | 二级类目（足金、古法金、5G 黄金、K 金、钻石、翡翠、珍珠 等） |\n| `pricing_model` | string | \"weight\"（计重）/ \"fixed\"（一口价） |\n| `weight_g` | float | 克重（克），仅 weight 模式必填 |\n| `purity` | string | 成色（999 / 999.9 / 999.99 / Au750 / Pt950 等） |\n| `gem_carat` | float \\| null | 主石克拉数（镶嵌类） |\n| `gem_color` | string \\| null | 钻石颜色（D-Z） |",
+    "source_file": "sku_catalog.md",
+    "char_start": 471,
+    "char_end": 791,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "638708b50b024b11ab8becfdaf0d44dd",
+    "text": "| 主石克拉数（镶嵌类） |\n| `gem_color` | string \\| null | 钻石颜色（D-Z） |\n| `gem_clarity` | string \\| null | 钻石净度（FL / IF / VVS1 / VVS2 / VS1 / VS2 / SI1 / SI2 / I1 / I2 / I3） |\n| `gem_cut` | string \\| null | 钻石切工（EX / VG / G / F / P） |\n| `tag_price_rmb` | float | 吊牌价（人民币） |\n| `list_price_rmb` | float | 划线价（人民币）|",
+    "source_file": "sku_catalog.md",
+    "char_start": 731,
+    "char_end": 1032,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "63c61b0d58834f8992cf802552726664",
+    "text": "| float | 吊牌价（人民币） |\n| `list_price_rmb` | float | 划线价（人民币）|\n| `last_14d_min_price` | float | 近 14 天店内最低成交价（京东口径） |\n| `last_30d_min_price` | float | 近 30 天店内最低成交价（天猫口径） |\n| `last_90d_min_price` | float | 近 90 天店内最低成交价（百补口径） |\n| `last_365d_min_price` | float | 近 365 天店内最低成交价（双 11 双重校验口径） |\n| `stock` | int | 当前可用库存 |",
+    "source_file": "sku_catalog.md",
+    "char_start": 972,
+    "char_end": 1288,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "b7128c1d85db48bc9734da32f7c0a574",
+    "text": "| 近 365 天店内最低成交价（双 11 双重校验口径） |\n| `stock` | int | 当前可用库存 |\n| `last_30d_sales` | int | 近 30 天销量 |\n| `last_90d_sales` | int | 近 90 天销量 |\n| `review_rate` | float | 近 30 天好评率 |\n| `return_rate` | float | 近 30 天退货率 |\n| `new_product` | bool | 是否近 90 天上新 |\n| `certificate_ids` | array | 关联证书编号 |\n| `factory_id` | string | 生产工厂代码 |",
+    "source_file": "sku_catalog.md",
+    "char_start": 1228,
+    "char_end": 1552,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "4ed905eb39264efea99f0a0e9d6b3a2f",
+    "text": "_ids` | array | 关联证书编号 |\n| `factory_id` | string | 生产工厂代码 |\n| `lead_time_days` | int | 补货周期 |\n| **`active_campaigns`** | array | **当前正在参与的活动 ID 列表（核心：用于互斥检测）** |\n| **`campaign_history`** | array | **近 365 天活动参与历史（用于\"已参加 X 不可再报\"判定）** |",
+    "source_file": "sku_catalog.md",
+    "char_start": 1492,
+    "char_end": 1726,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "1db93b23ad65498db32efd2afb415715",
+    "text": "### 1.1 活动 ID 命名规则\n格式：`{platform}:{campaign_type}:{year}_{period}`",
+    "source_file": "sku_catalog.md",
+    "char_start": 1728,
+    "char_end": 1795,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "d825ff142c73460fb80e1b6d894c1a67",
+    "text": "| 平台 | campaign_type | 示例 |\n|------|---------------|------|\n| tmall | super_brand_day | `tmall:super_brand_day:2025_q4` |\n| tmall | brand_day | `tmall:brand_day:2025_07` |\n| tmall | category_day | `tmall:category_day:2025_09_gold` |\n| tmall | 618 | `tmall:618:2025` |\n| tmall | double_eleven | `tmall:double_eleven:2025` |",
+    "source_file": "sku_catalog.md",
+    "char_start": 1797,
+    "char_end": 2120,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "43a981fea369492cba434b78bb76e5aa",
+    "text": "5` |\n| tmall | double_eleven | `tmall:double_eleven:2025` |\n| tmall | juhuasuan | `tmall:juhuasuan:2025_q3` |\n| tmall | baiyibutie | `tmall:baiyibutie:rolling` |\n| jd | super_brand_day | `jd:super_brand_day:2025_q4` |\n| jd | baiyibutie | `jd:baiyibutie:rolling` |\n| jd | plus_day | `jd:plus_day:2025_06` |",
+    "source_file": "sku_catalog.md",
+    "char_start": 2060,
+    "char_end": 2366,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "f866459210864a6bbb5c13c04996f086",
+    "text": "ibutie:rolling` |\n| jd | plus_day | `jd:plus_day:2025_06` |\n| douyin | livestream | `douyin:livestream:2025_08_15` |\n| internal | member_day | `internal:member_day:2025_09` |\n| internal | anniversary | `internal:anniversary:2025` |",
+    "source_file": "sku_catalog.md",
+    "char_start": 2306,
+    "char_end": 2537,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "e3915579256e40909136e248329b4844",
+    "text": "---",
+    "source_file": "sku_catalog.md",
+    "char_start": 2539,
+    "char_end": 2542,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "bc01972dd1554b8883d2439454ef5971",
+    "text": "## 2. SKU 样例（30 条多品类，含 active_campaigns + campaign_history）",
+    "source_file": "sku_catalog.md",
+    "char_start": 2544,
+    "char_end": 2603,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "a4fb865f68b5425f8f30f06d2a927ae2",
+    "text": "### 2.1 足金 / 千足金（黄金计重）",
+    "source_file": "sku_catalog.md",
+    "char_start": 2605,
+    "char_end": 2627,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "e21b521a07a34697828da342672b760f",
+    "text": "| sku_id | 名称 | 品牌 | 类目 | 定价 | 克重 | 成色 | 划线 | 14d 最低 | 30d 最低 | 90d 最低 | 365d 最低 | 库存 | 30d 销量 | 90d 销量 | 好评 | 退货 | 新品 | 工厂 | active_campaigns | campaign_history（近 365 天）|\n|--------|------|------|------|------|------|------|------|----------|----------|----------|------------|------|----------|----------|------|------|------|------|----------------",
+    "source_file": "sku_catalog.md",
+    "char_start": 2629,
+    "char_end": 2979,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "29db03cb43fe4cbc913f33883b614eba",
+    "text": "----|----------|------|------|------|------|------------------|------------------------------|\n| CTF-FJ-999-001 | 足金古法金手镯 25g | 传承 | 黄金/古法金 | weight | 25.00 | 999 | 18800 | 18500 | 18200 | 17800 | 16500 | 320 | 52 | 158 | 98.5% | 1.2% | false | F-SZ-001 | [`tmall:618:2025`] | [`tmall:brand_day:2024_09`, `tmall:double_eleven:2024`] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 2919,
+    "char_end": 3254,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "0c46b9e25d294f4594aa301dead92847",
+    "text": "| [`tmall:brand_day:2024_09`, `tmall:double_eleven:2024`] |\n| CTF-FJ-999-002 | 足金 999 福字吊坠 3.5g | CTF | 黄金/足金 | weight | 3.50 | 999 | 2680 | 2620 | 2580 | 2480 | 2350 | 1800 | 342 | 1024 | 97.8% | 2.5% | false | F-SZ-002 | [] | [`tmall:juhuasuan:2025_q2`, `internal:member_day:2025_03`] |\n| CTF-FJ-999-003 | 足金 999.",
+    "source_file": "sku_catalog.md",
+    "char_start": 3194,
+    "char_end": 3509,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "98744f8151ee49fb95d83f4c633845f2",
+    "text": "`internal:member_day:2025_03`] |\n| CTF-FJ-999-003 | 足金 999.9 婚嫁三件套 18g | CTF | 黄金/千足金 | weight | 18.00 | 999.9 | 14000 | 13800 | 13500 | 13200 | 12800 | 280 | 32 | 95 | 98.0% | 1.8% | false | F-SZ-001 | [`tmall:super_brand_day:2025_q4`] | [`tmall:brand_day:2024_12`] |\n| CTF-FJ-999-004 | 足金 999 婴儿手镯 5.5g | CTF | 黄金/足金 | weight | 5.",
+    "source_file": "sku_catalog.md",
+    "char_start": 3449,
+    "char_end": 3782,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "a28df0137fcf4263be52527f6cd778e4",
+    "text": "TF-FJ-999-004 | 足金 999 婴儿手镯 5.5g | CTF | 黄金/足金 | weight | 5.50 | 999 | 4180 | 4150 | 4080 | 3980 | 3850 | 600 | 104 | 312 | 99.0% | 0.5% | false | F-SZ-002 | [] | [`internal:member_day:2025_05`] |\n| CTF-FJ-9999-001 | 万足金 999.99 投资金条 50g | CTF | 黄金/万足金 | weight | 50.00 | 999.99 | — | — | — | — | — | 120 | 15 | 45 | 99.5% | 0.",
+    "source_file": "sku_catalog.md",
+    "char_start": 3722,
+    "char_end": 4048,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "80875bce0b4942f390de22fcd8da0021",
+    "text": "00 | 999.99 | — | — | — | — | — | 120 | 15 | 45 | 99.5% | 0.2% | false | F-SH-003 | [] | [] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 3988,
+    "char_end": 4081,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "a6a1631aa26f49958e5bd681e7fa327c",
+    "text": "### 2.2 5G 黄金 / 硬足金（一口价 / 工艺类）",
+    "source_file": "sku_catalog.md",
+    "char_start": 4083,
+    "char_end": 4113,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "74c11cfc3fd24510b718687bdff07bb7",
+    "text": "| sku_id | 名称 | 品牌 | 类目 | 定价 | 克重 | 成色 | 划线 | 14d 最低 | 30d 最低 | 90d 最低 | 365d 最低 | 库存 | 30d 销量 | 90d 销量 | 好评 | 退货 | 新品 | 工厂 | active_campaigns | campaign_history |\n|--------|------|------|------|------|------|------|------|----------|----------|----------|------------|------|----------|----------|------|------|------|------|------------------|-----",
+    "source_file": "sku_catalog.md",
+    "char_start": 4115,
+    "char_end": 4465,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "d966a5dd3cdc4bb1852b75d706f8d0cb",
+    "text": "-------|------|------|------|------|------------------|------------------|\n| CTF-5G-001 | 5G 黄金小蛮腰耳钉 1.2g | CTF | 黄金/5G | fixed | 1.20 | 999 | 1280 | 1230 | 1180 | 1080 | 980 | 2400 | 617 | 1850 | 98.2% | 1.5% | true | F-SZ-002 | [`tmall:juhuasuan:2025_q3`] | [`tmall:juhuasuan:2025_q2`, `douyin:livestream:2025_05_20`] |\n| CTF-5G-002 | 5G 黄金转运珠手链 2.",
+    "source_file": "sku_catalog.md",
+    "char_start": 4405,
+    "char_end": 4755,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "6bc4dbb32add45ceb51042b46835ac30",
+    "text": "ouyin:livestream:2025_05_20`] |\n| CTF-5G-002 | 5G 黄金转运珠手链 2.8g | CTF | 黄金/5G | fixed | 2.80 | 999 | 2480 | 2420 | 2380 | 2280 | 2180 | 1800 | 307 | 920 | 97.5% | 2.8% | true | F-SZ-002 | [`tmall:618:2025`, `tmall:juhuasuan:2025_q3`] | [`tmall:brand_day:2024_11`] |\n| CTF-HG-001 | 硬足金\"福\"字吊坠 1.5g | CTF | 黄金/硬足金 | fixed | 1.",
+    "source_file": "sku_catalog.md",
+    "char_start": 4695,
+    "char_end": 5017,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "c517a99c6c85412c868235d446fef5ba",
+    "text": "|\n| CTF-HG-001 | 硬足金\"福\"字吊坠 1.5g | CTF | 黄金/硬足金 | fixed | 1.50 | 999 | 1480 | 1430 | 1380 | 1280 | 1180 | 1500 | 260 | 780 | 98.8% | 1.1% | false | F-SZ-002 | [] | [] |\n| CTF-GFJ-001 | 古法金\"传承福\"手镯 22g | 传承 | 黄金/古法金 | fixed | 22.00 | 999 | 22800 | 22500 | 22000 | 21500 | 20800 | 220 | 25 | 75 | 99.1% | 0.",
+    "source_file": "sku_catalog.md",
+    "char_start": 4957,
+    "char_end": 5261,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "25dc9c565cfb4db88b3450a3b7c1fad9",
+    "text": "| 22500 | 22000 | 21500 | 20800 | 220 | 25 | 75 | 99.1% | 0.8% | true | F-SZ-001 | [`tmall:super_brand_day:2025_q4`, `tmall:category_day:2025_09_gold`] | [`internal:anniversary:2024`] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 5201,
+    "char_end": 5386,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "64366bb67aed4a61bd41a21792886ed8",
+    "text": "### 2.3 K 金 / 镶嵌钻饰",
+    "source_file": "sku_catalog.md",
+    "char_start": 5388,
+    "char_end": 5406,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "ddba7f3e88ce497884f5494394e73fab",
+    "text": "| sku_id | 名称 | 品牌 | 类目 | 定价 | 克重 | 成色 | 主石ct | 颜色 | 净度 | 切工 | 划线 | 14d 最低 | 30d 最低 | 90d 最低 | 365d 最低 | 库存 | 30d 销量 | 90d 销量 | 好评 | 退货 | 新品 | 工厂 | active_campaigns | campaign_history |\n|--------|------|------|------|------|------|------|--------|------|------|------|------|----------|----------|----------|------------|------|----------|----------|",
+    "source_file": "sku_catalog.md",
+    "char_start": 5408,
+    "char_end": 5758,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "3108ce0a01bc471f9a2a5488a267787e",
+    "text": "------|----------|------------|------|----------|----------|------|------|------|------|------------------|------------------|\n| CTF-G18K-NL-001 | 18K 金项链 0.50ct | CTF | 镶嵌/K金 | fixed | 6.50 | Au750 | 0.50 | F | VS1 | EX | 27800 | 27400 | 26800 | 26000 | 25500 | 60 | 11 | 32 | 98.0% | 2.0% | false | F-SH-002 | [] | [`jd:super_brand_day:2024_q4`] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 5698,
+    "char_end": 6048,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "55eb8688e184432d9c01822ffc03b92a",
+    "text": "| false | F-SH-002 | [] | [`jd:super_brand_day:2024_q4`] |\n| CTF-G18K-NL-002 | 18K 金项链 0.30ct | CTF | 镶嵌/K金 | fixed | 5.20 | Au750 | 0.30 | G | VS2 | EX | 17800 | 17200 | 16800 | 16000 | 15500 | 80 | 16 | 48 | 97.8% | 1.8% | false | F-SH-002 | [`tmall:super_brand_day:2025_q4`] | [`tmall:category_day:2024_05_diamond`] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 5988,
+    "char_end": 6310,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "1e8eb410196e446ba7707a8cebad8bf5",
+    "text": "nd_day:2025_q4`] | [`tmall:category_day:2024_05_diamond`] |\n| CTF-G18K-RG-001 | 18K 金钻戒 0.20ct | SOINLOVE | 镶嵌/求婚钻戒 | fixed | 3.50 | Au750 | 0.20 | H | SI1 | VG | 9380 | 9100 | 8980 | 8780 | 8580 | 150 | 32 | 96 | 98.2% | 1.5% | true | F-SH-002 | [`jd:super_brand_day:2025_q4`] | [] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 6250,
+    "char_end": 6535,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "d0abd8bfe5fe4a42ab96ef03ef66b12f",
+    "text": "% | true | F-SH-002 | [`jd:super_brand_day:2025_q4`] | [] |\n| CTF-G18K-RG-002 | T MARK 30 分钻戒（3EX 切工） | T MARK | 镶嵌/求婚钻戒 | fixed | 3.80 | Au750 | 0.30 | F | VVS2 | EX | 21800 | 21200 | 20800 | 20200 | 19800 | 80 | 17 | 52 | 99.0% | 1.0% | true | F-SH-002 | [`tmall:brand_day:2025_07`] | [`tmall:double_eleven:2024`] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 6475,
+    "char_end": 6793,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "cd3cafbde9364f3cbe3b3a8bf5223801",
+    "text": "`tmall:brand_day:2025_07`] | [`tmall:double_eleven:2024`] |\n| CTF-PT950-RG-001 | 铂金 Pt950 50 分钻戒 | CTF | 镶嵌/求婚钻戒 | fixed | 4.20 | Pt950 | 0.50 | E | VVS1 | EX | 36800 | 36000 | 35800 | 34800 | 33800 | 40 | 6 | 18 | 98.5% | 1.2% | false | F-SH-002 | [] | [] |\n| CTF-G18K-EAR-001 | 18K 金钻石耳钉 0.10ct（一对） | CTF | 镶嵌/耳饰 | fixed | 1.80 | Au750 | 0.",
+    "source_file": "sku_catalog.md",
+    "char_start": 6733,
+    "char_end": 7075,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "656ed3d23b3e4f528219d8dcd5cfbe1c",
+    "text": "K 金钻石耳钉 0.10ct（一对） | CTF | 镶嵌/耳饰 | fixed | 1.80 | Au750 | 0.10 | G | VS2 | EX | 4680 | 4520 | 4480 | 4280 | 4180 | 320 | 65 | 195 | 98.0% | 1.8% | false | F-SH-002 | [`tmall:juhuasuan:2025_q3`] | [`tmall:juhuasuan:2025_q1`] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 7015,
+    "char_end": 7240,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "c28e7c295fde42ba86d574315af7db24",
+    "text": "### 2.4 翡翠 / 玉石",
+    "source_file": "sku_catalog.md",
+    "char_start": 7242,
+    "char_end": 7257,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "105e04cc65aa4f2589607ed70024d190",
+    "text": "| sku_id | 名称 | 品牌 | 类目 | 定价 | 划线 | 14d 最低 | 30d 最低 | 90d 最低 | 365d 最低 | 库存 | 30d 销量 | 90d 销量 | 好评 | 退货 | 新品 | 工厂 | active_campaigns | campaign_history |\n|--------|------|------|------|------|------|----------|----------|----------|------------|------|----------|----------|------|------|------|------|------------------|------------------|",
+    "source_file": "sku_catalog.md",
+    "char_start": 7259,
+    "char_end": 7600,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "2a2e4f4f33304e7ba0e1c0ab9e75a9cc",
+    "text": "------|------|------|------------------|------------------|\n| CTF-JADE-001 | 翡翠 A 货平安无事牌 | CTF | 玉石/翡翠 | fixed | 17800 | 17500 | 17000 | 16500 | 16000 | 30 | 4 | 12 | 97.0% | 3.5% | false | F-GZ-001 | [] | [] |\n| CTF-JADE-002 | 翡翠 A 货福豆挂坠 | CTF | 玉石/翡翠 | fixed | 5580 | 5450 | 5380 | 5180 | 4980 | 80 | 13 | 38 | 97.5% | 2.",
+    "source_file": "sku_catalog.md",
+    "char_start": 7540,
+    "char_end": 7863,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "b9d5f2d3a84944f0a1935eb5eaa72043",
+    "text": "5580 | 5450 | 5380 | 5180 | 4980 | 80 | 13 | 38 | 97.5% | 2.8% | true | F-GZ-001 | [] | [`tmall:category_day:2025_03_jade`] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 7803,
+    "char_end": 7928,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "7601762573444c48b8d18b48c728e7b0",
+    "text": "### 2.5 珍珠",
+    "source_file": "sku_catalog.md",
+    "char_start": 7930,
+    "char_end": 7940,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "b37806f43f6345f4a3946131b4dc7b81",
+    "text": "| sku_id | 名称 | 品牌 | 类目 | 定价 | 划线 | 14d 最低 | 30d 最低 | 90d 最低 | 365d 最低 | 库存 | 30d 销量 | 90d 销量 | 好评 | 退货 | 新品 | 工厂 | active_campaigns | campaign_history |\n|--------|------|------|------|------|------|----------|----------|----------|------------|------|----------|----------|------|------|------|------|------------------|------------------|",
+    "source_file": "sku_catalog.md",
+    "char_start": 7942,
+    "char_end": 8283,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "ea2158912f5c4e42ba4813d143dc3344",
+    "text": "------|------|------|------------------|------------------|\n| CTF-PEARL-001 | Akoya 海水珍珠项链 7-8mm | MONOLOGUE | 珍珠/海水 | fixed | 6580 | 6380 | 6280 | 6080 | 5880 | 120 | 22 | 65 | 98.0% | 2.0% | false | F-SH-004 | [`tmall:brand_day:2025_07`] | [] |\n| CTF-PEARL-002 | 大溪地黑珍珠吊坠 9-10mm | MONOLOGUE | 珍珠/海水 | fixed | 12000 | 11800 | 11500 | 11200 | 10800 |",
+    "source_file": "sku_catalog.md",
+    "char_start": 8223,
+    "char_end": 8573,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "15b88f88688a4271950480565bf41b22",
+    "text": "UE | 珍珠/海水 | fixed | 12000 | 11800 | 11500 | 11200 | 10800 | 50 | 7 | 22 | 98.5% | 1.5% | true | F-SH-004 | [] | [] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 8513,
+    "char_end": 8630,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "d9cde1f38b6244c0afe082f85eb97b12",
+    "text": "### 2.6 铂金 / 银饰",
+    "source_file": "sku_catalog.md",
+    "char_start": 8632,
+    "char_end": 8647,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "f04be5e3706e432b985b6298f7717569",
+    "text": "| sku_id | 名称 | 品牌 | 类目 | 定价 | 克重 | 成色 | 划线 | 14d 最低 | 30d 最低 | 90d 最低 | 365d 最低 | 库存 | 30d 销量 | 90d 销量 | 好评 | 退货 | 新品 | 工厂 | active_campaigns | campaign_history |\n|--------|------|------|------|------|------|------|------|----------|----------|----------|------------|------|----------|----------|------|------|------|------|------------------|-----",
+    "source_file": "sku_catalog.md",
+    "char_start": 8649,
+    "char_end": 8999,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "4ef5721ef3d647608e850a3c4e0779de",
+    "text": "-------|------|------|------|------|------------------|------------------|\n| CTF-PT-NL-001 | 铂金 Pt950 项链 5.5g | CTF | 铂金/项链 | weight | 5.50 | Pt950 | 5380 | 5300 | 5180 | 4980 | 4780 | 240 | 44 | 132 | 98.2% | 1.8% | false | F-SH-001 | [] | [] |\n| CTF-PT-RG-001 | 铂金 Pt950 素圈对戒 | CTF | 铂金/戒指 | weight | 3.",
+    "source_file": "sku_catalog.md",
+    "char_start": 8939,
+    "char_end": 9244,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "3e195579e10d45168f60e51c983e0298",
+    "text": "| CTF-PT-RG-001 | 铂金 Pt950 素圈对戒 | CTF | 铂金/戒指 | weight | 3.20 | Pt950 | 6480 | 6380 | 6280 | 6080 | 5880 | 180 | 30 | 88 | 98.0% | 2.2% | false | F-SH-001 | [`tmall:category_day:2025_06_wedding`] | [] |\n| CTF-SLV-001 | 925 银转运珠手链 | CTF | 银饰/手链 | fixed | 4.50 | 925 | 480 | 420 | 380 | 350 | 320 | 1500 | 293 | 880 | 97.5% | 3.",
+    "source_file": "sku_catalog.md",
+    "char_start": 9184,
+    "char_end": 9511,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "c8354383ccf44e9db5b33e5804512909",
+    "text": "480 | 420 | 380 | 350 | 320 | 1500 | 293 | 880 | 97.5% | 3.0% | true | F-SZ-003 | [`tmall:juhuasuan:2025_q3`, `douyin:livestream:2025_08_15`] | [] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 9451,
+    "char_end": 9600,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "1f216aa2b9f04c13a26e0edfe7ceafe9",
+    "text": "### 2.7 投资金 / 摆件",
+    "source_file": "sku_catalog.md",
+    "char_start": 9602,
+    "char_end": 9618,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "47804bece2fe4ab0a4236328ed5522a8",
+    "text": "| sku_id | 名称 | 品牌 | 类目 | 定价 | 克重 | 成色 | 库存 | 30d 销量 | 90d 销量 | 好评 | 退货 | 新品 | 工厂 | active_campaigns | campaign_history |\n|--------|------|------|------|------|------|------|------|----------|----------|------|------|------|------|------------------|------------------|\n| CTF-INV-001 | Au999.9 投资金条 100g | CTF | 黄金/投资金 | weight | 100.00 | 999.",
+    "source_file": "sku_catalog.md",
+    "char_start": 9620,
+    "char_end": 9963,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "74004fe3330e46a6a0d763fdfe79407d",
+    "text": "| Au999.9 投资金条 100g | CTF | 黄金/投资金 | weight | 100.00 | 999.9 | 60 | 9 | 28 | 99.5% | 0.1% | false | F-SH-003 | [] | [] |\n| CTF-INV-002 | Au999.9 投资金条 20g | CTF | 黄金/投资金 | weight | 20.00 | 999.9 | 200 | 44 | 132 | 99.5% | 0.1% | false | F-SH-003 | [] | [] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 9903,
+    "char_end": 10160,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "20edd3d4b0cf42a9ac471573f9652c51",
+    "text": "### 2.8 子品牌 / 国潮款（新品集中）",
+    "source_file": "sku_catalog.md",
+    "char_start": 10162,
+    "char_end": 10185,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "b6defc6a131b4d87b907c7585bd2c26a",
+    "text": "| sku_id | 名称 | 品牌 | 类目 | 定价 | 克重 | 成色 | 主石ct | 划线 | 14d 最低 | 30d 最低 | 90d 最低 | 365d 最低 | 库存 | 30d 销量 | 90d 销量 | 好评 | 退货 | 新品 | 工厂 | active_campaigns | campaign_history |\n|--------|------|------|------|------|------|------|--------|------|----------|----------|----------|------------|------|----------|----------|------|------|------|------|--------",
+    "source_file": "sku_catalog.md",
+    "char_start": 10187,
+    "char_end": 10537,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "dea5e15f736d4e65b63c48961ac43974",
+    "text": "-|----------|----------|------|------|------|------|------------------|------------------|\n| CTF-SL-RG-001 | SOINLOVE 双心钻戒 0.20ct | SOINLOVE | 镶嵌/求婚钻戒 | fixed | 3.50 | Au750 | 0.20 | 11800 | 11400 | 11000 | 10500 | 10000 | 200 | 53 | 158 | 98.5% | 1.5% | true | F-SH-002 | [`jd:super_brand_day:2025_q4`] | [] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 10477,
+    "char_end": 10788,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "c4386a06382446f29a23e1bbd2b85131",
+    "text": "% | true | F-SH-002 | [`jd:super_brand_day:2025_q4`] | [] |\n| CTF-ML-NL-001 | MONOLOGUE 月光石锁骨链 | MONOLOGUE | 镶嵌/项链 | fixed | 1.80 | Au750 | — | 2680 | 2580 | 2480 | 2380 | 2280 | 480 | 84 | 252 | 97.8% | 2.5% | true | F-SH-002 | [] | [] |\n| CTF-IP-001 | 国潮\"长安\"金吊坠 | 传承 | 黄金/古法金 | fixed | 4.",
+    "source_file": "sku_catalog.md",
+    "char_start": 10728,
+    "char_end": 11018,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "b5e0a50c3eb74a80a65aa33dbac61154",
+    "text": "] | [] |\n| CTF-IP-001 | 国潮\"长安\"金吊坠 | 传承 | 黄金/古法金 | fixed | 4.50 | 999 | — | 4580 | 4450 | 4380 | 4280 | 4180 | 320 | 63 | 188 | 98.2% | 1.8% | true | F-SZ-001 | [`tmall:super_brand_day:2025_q4`, `tmall:category_day:2025_09_gold`] | [] |",
+    "source_file": "sku_catalog.md",
+    "char_start": 10958,
+    "char_end": 11193,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "169e264555954f00a809e41b16c54202",
+    "text": "---",
+    "source_file": "sku_catalog.md",
+    "char_start": 11195,
+    "char_end": 11198,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "ea2a721e815e47b3801813970aa437c0",
+    "text": "## 3. 互斥检测样例（对应赛题示例规则）",
+    "source_file": "sku_catalog.md",
+    "char_start": 11200,
+    "char_end": 11222,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "f2bb9d15a74046cbbe574ef1711f1713",
+    "text": "### 3.1 赛题示例规则触发场景\n```text\n[活动规则] 天猫 618 大促规则第 4 条：\"已参加'品牌日'活动的商品不可重复报名\"\n[当前活动] tmall:618:2025\n[Agent 行为] 扫描所有报名 618 的 SKU，检查 active_campaigns 和 campaign_history 是否包含 brand_day 或 super_brand_day\n```",
+    "source_file": "sku_catalog.md",
+    "char_start": 11224,
+    "char_end": 11423,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "775a20515030447fb514e6158d4bbdb0",
+    "text": "### 3.2 扫描结果（基于上述 SKU 样例）",
+    "source_file": "sku_catalog.md",
+    "char_start": 11425,
+    "char_end": 11450,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "c112260e2c994644b6681c1815486e11",
+    "text": "| SKU | active_campaigns 含品牌日? | campaign_history 含品牌日? | 判定 |\n|-----|----------------------------|-----------------------------|------|\n| CTF-FJ-999-001 | ✅ 已在 618 | ✅ `tmall:brand_day:2024_09` | ⚠ **历史曾参与品牌日**，需澄清规则是否回溯到去年 |\n| CTF-FJ-999-003 | ✅ 已在超品日 | ✅ `tmall:brand_day:2024_12` | ⚠ 同上 + 当前已在超品日，**双重冲突** |",
+    "source_file": "sku_catalog.md",
+    "char_start": 11452,
+    "char_end": 11764,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "33087dd4cd2547c0abdb4667e6edd691",
+    "text": "日 | ✅ `tmall:brand_day:2024_12` | ⚠ 同上 + 当前已在超品日，**双重冲突** |\n| CTF-G18K-RG-002 | ✅ 当前在品牌日 2025_07 | ✅ 历史在双 11 | ❌ **直接互斥**（当前在品牌日） |\n| CTF-PEARL-001 | ✅ 当前在品牌日 2025_07 | 否 | ❌ **直接互斥** |\n| CTF-FJ-999-002 | 否 | 否 | ✅ 可报 |\n| CTF-IP-001 | ✅ 超品日 + 品类日 | 否 | ⚠ **超品日属于品牌日范畴吗？澄清** |",
+    "source_file": "sku_catalog.md",
+    "char_start": 11704,
+    "char_end": 11979,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "6ef2f71b4bfb4f47b430a1f71189e31f",
+    "text": "### 3.3 Agent 期望输出",
+    "source_file": "sku_catalog.md",
+    "char_start": 11981,
+    "char_end": 11999,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "a730ab40cb89401c9e76e9380776c46a",
+    "text": "```json\n{\n\"exclusion_check_results\": [\n{\"sku_id\": \"CTF-G18K-RG-002\", \"decision\": \"reject\", \"severity\": \"high\", \"reason\": \"当前已在 tmall:brand_day:2025_07，与 tmall:618:2025 互斥\"},\n{\"sku_id\": \"CTF-PEARL-001\", \"decision\": \"reject\", \"severity\": \"high\", \"reason\": \"当前已在 tmall:brand_day:2025_07，与 tmall:618:2025 互斥\"},",
+    "source_file": "sku_catalog.md",
+    "char_start": 12001,
+    "char_end": 12308,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "7adbfb4aca78494cbaf821fae21deb01",
+    "text": "ason\": \"当前已在 tmall:brand_day:2025_07，与 tmall:618:2025 互斥\"},\n{\"sku_id\": \"CTF-IP-001\", \"decision\": \"review\", \"severity\": \"medium\", \"reason\": \"tmall:super_brand_day 是否属于'品牌日'范畴需澄清\"},\n{\"sku_id\": \"CTF-FJ-999-001\", \"decision\": \"review\", \"severity\": \"medium\", \"reason\": \"campaign_history 含品牌日，互斥规则是否回溯到去年需澄清\"},",
+    "source_file": "sku_catalog.md",
+    "char_start": 12248,
+    "char_end": 12552,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "32f7ca9a7323484d896d7bf1bcfb9391",
+    "text": "medium\", \"reason\": \"campaign_history 含品牌日，互斥规则是否回溯到去年需澄清\"},\n{\"sku_id\": \"CTF-FJ-999-002\", \"decision\": \"approve\", \"severity\": \"low\", \"reason\": \"无互斥冲突\"}\n],\n\"clarification_questions\": [\n\"互斥规则中'品牌日'是仅指 brand_day，还是包括 super_brand_day？\",\n\"互斥回溯时窗是仅本期次（当前 active_campaigns），还是包含历史（campaign_history 近 365 天）？\"\n]\n}\n```",
+    "source_file": "sku_catalog.md",
+    "char_start": 12492,
+    "char_end": 12799,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "558d1697b73a4cda859af2772ee3a391",
+    "text": "---",
+    "source_file": "sku_catalog.md",
+    "char_start": 12837,
+    "char_end": 12840,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "eeed6d0093c94f67a7e51bb3b729ca1d",
+    "text": "## 4. 维护说明\n- 字段 `active_campaigns` 和 `campaign_history` 在真实 ERP 中通过订阅平台报名接口同步，黑客松版本静态写死。\n- `campaign_history` 仅保留近 365 天记录，超过自动归档。\n- 同 SKU 同一活动重复出现只计一次。",
+    "source_file": "sku_catalog.md",
+    "char_start": 12842,
+    "char_end": 12996,
+    "file_hash": "ee331259d2067578031a6941fb1cbefcbb526e577c3fb1db3a50e2db96eb3606",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "sku_catalog.md"
+    }
+  },
+  {
+    "chunk_id": "5591d85098004914aa2594448907b3bd",
+    "text": "﻿# 供应链状态（Supply Chain）\n> **聚焦赛题方向 C**：仅保留\"单 SKU 报名活动时需要校验的供应链信息\"——即**库存是否够大促备货 + 补货周期 + 紧急调拨能力**。详细工厂网络（产能、设备、地址）、物流商列表、仓储面积等供应链战略数据已剥离（属于赛题方向 A）。\n---",
+    "source_file": "supply_chain.md",
+    "char_start": 0,
+    "char_end": 152,
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "supply_chain.md"
+    }
+  },
+  {
+    "chunk_id": "d1d3d2ac41ab4535a72d7683649c6c18",
+    "text": "## 1. 工厂代码（与 sku_catalog.md 的 factory_id 字段对应）",
+    "source_file": "supply_chain.md",
+    "char_start": 154,
+    "char_end": 200,
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "supply_chain.md"
+    }
+  },
+  {
+    "chunk_id": "4d6c0f397e3b4764bed41a74b6fee163",
+    "text": "| 工厂代码 | 主营品类 | 补货周期 |\n|----------|---------|---------|\n| F-SZ-001 | 古法金 / 传统款 | 10–15 天 |\n| F-SZ-002 | 5G 黄金 / 硬足金 / 一口价小件 | 5–7 天 |\n| F-SZ-003 | 925 银 / 925 银 + 镶嵌 | 2–4 天 |\n| F-SH-001 | 铂金 Pt950 / Pt990 素金 | 3–5 天 |\n| F-SH-002 | K 金镶嵌 / 求婚钻戒 / 高定 | 14–21 天 |\n| F-SH-003 | 投资金条 / 金币 | 1–3 天 |\n| F-SH-004 | 海水珍珠 / 淡水珍珠 | 15–25 天 |",
+    "source_file": "supply_chain.md",
+    "char_start": 202,
+    "char_end": 534,
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "supply_chain.md"
+    }
+  },
+  {
+    "chunk_id": "9d686e74196647a48a7830bf101912b2",
+    "text": "| 投资金条 / 金币 | 1–3 天 |\n| F-SH-004 | 海水珍珠 / 淡水珍珠 | 15–25 天 |\n| F-GZ-001 | 翡翠 / 和田玉 | 30+ 天 |\n| F-HK-001 | 高定 / 客制 | 45–90 天 |",
+    "source_file": "supply_chain.md",
+    "char_start": 474,
+    "char_end": 598,
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "supply_chain.md"
+    }
+  },
+  {
+    "chunk_id": "28274914cacb44ca954e1e9a39ac7e3e",
+    "text": "> Agent 用法：从 SKU 反查 `factory_id` → 拿到补货周期 → 判断是否满足\"大促 T-N 备货\"。\n---",
+    "source_file": "supply_chain.md",
+    "char_start": 600,
+    "char_end": 667,
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "supply_chain.md"
+    }
+  },
+  {
+    "chunk_id": "d59264e86b664eaa8280e96343fc9924",
+    "text": "## 2. 库存状态分级\n| 状态 | 判定 | Agent 处理 |\n|------|------|-----------|\n| **充足** | 库存 ≥ 日均销量 × 30 天 | 通过 |\n| **正常** | 库存 ≥ 日均销量 × 10 天 | 通过，加监控 |\n| **预警** | 库存 < 日均销量 × 10 天 | 触发补货，`medium` |\n| **紧急** | 库存 < 日均销量 × 3 天 | 立即补货 + 限购，`high` |\n| **缺货** | 库存 = 0 | 立即下架，`high` |\n---",
+    "source_file": "supply_chain.md",
+    "char_start": 669,
+    "char_end": 940,
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "supply_chain.md"
+    }
+  },
+  {
+    "chunk_id": "a27723a17d414c22b1c467548f327236",
+    "text": "## 3. 大促备货策略（赛题示例规则\"库存 ≥ 500 件\"对应）\n| 大促 | 备货起点 | 目标库存 |\n|------|---------|---------|\n| 天猫超品日 | T-30 | 日均销量 × 30 天 |\n| 京东超品日 | T-30 | 日均销量 × 30 天 |\n| 天猫 618 / 双 11 | T-60 | 日均销量 × 60 天 |\n| 百亿补贴常驻 | 滚动 | 日均销量 × 21 天 |\n| 直播专场 | T-15 | 日均销量 × 15 天 |\n> Agent 用法：根据活动类型 + 当前库存 + 补货周期，输出\"是否能在 T-N 完成备货\"的判定。",
+    "source_file": "supply_chain.md",
+    "char_start": 942,
+    "char_end": 1243,
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "supply_chain.md"
+    }
+  },
+  {
+    "chunk_id": "91a35bf9fd9642758f10af6bae29573d",
+    "text": "---",
+    "source_file": "supply_chain.md",
+    "char_start": 1245,
+    "char_end": 1248,
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "supply_chain.md"
+    }
+  },
+  {
+    "chunk_id": "5f76debe8cfe42fb8e32ed526ec80258",
+    "text": "## 4. 库存承诺核验逻辑（Agent 核心算法）\n```text\n输入：\n- SKU.stock（当前可用库存）\n- SKU.factory_id → factory.lead_time_days\n- 活动承诺库存 commit_stock（例：500 件）\n- 距活动日 days_to_event",
+    "source_file": "supply_chain.md",
+    "char_start": 1250,
+    "char_end": 1403,
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "supply_chain.md"
+    }
+  },
+  {
+    "chunk_id": "838bcde103454e888bee8204ab85f871",
+    "text": "判定流程：\n1. 若 stock ≥ commit_stock → ✅ 通过\n2. 若 stock < commit_stock：\ngap = commit_stock - stock\n- 若 gap ≤ 日均销量 × lead_time_days 且 days_to_event ≥ lead_time_days\n→ ⚠ medium（建议立即下补货单）\n- 若 gap > 日均销量 × lead_time_days 或 days_to_event < lead_time_days\n→ ❌ high（建议下调承诺数或下架该 SKU）\n```\n---",
+    "source_file": "supply_chain.md",
+    "char_start": 1405,
+    "char_end": 1702,
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "supply_chain.md"
+    }
+  },
+  {
+    "chunk_id": "7dded7188c94439fb370c097140672c3",
+    "text": "## 5. 供应链相关风险点（Agent 输出参考）\n| 风险点 | 触发场景 | 风险等级 |\n|--------|---------|---------|\n| 库存承诺与实际库存差距过大 | 承诺 500、实际 200 | high |\n| 补货周期长于备货窗口 | 高定 90 天 vs 距大促 30 天 | high |\n| 季节性供应链 | 珍珠类受养殖季节影响 | medium |\n| 跨仓调拨时效 | 主仓缺货，需 3–7 天调拨 | medium |\n| 特殊节假日工厂停工 | 春节、国庆 | medium |",
+    "source_file": "supply_chain.md",
+    "char_start": 1704,
+    "char_end": 1971,
+    "file_hash": "d54acca2c5a02fb261da9d7abe20a12b3267b2943a8224161266a471c14ed4f9",
+    "metadata": {
+      "kb_id": "kb_d308f8e3a392",
+      "source_file": "supply_chain.md"
+    }
+  }
+]
