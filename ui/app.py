@@ -8,7 +8,7 @@ from agent import chat, database
 from agent.llm import model_status
 
 
-st.set_page_config(page_title="执行辅助 Agent", layout="wide")
+st.set_page_config(page_title="Aurelius Agent", layout="wide")
 database.init_db()
 database.seed_sample_catalog()
 
@@ -79,7 +79,7 @@ projects, project_id, conversation_id = ensure_workspace()
 status = model_status()
 
 with st.sidebar:
-    st.title("执行辅助 Agent")
+    st.title("Aurelius Agent")
     st.caption(f"模型：{status.get('model')}")
     st.caption(f"数据库：{database.get_db_path()}")
 

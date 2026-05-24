@@ -18,7 +18,7 @@ export function WelcomePage() {
       </div>
 
       {/* Title */}
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">执行辅助 Agent</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-2">Aurelius Agent</h1>
       <p className="text-gray-500 text-sm mb-10 text-center max-w-md">
         输入活动规则文本，Agent将自动解析规则条件，生成结构化执行检查清单，
         识别潜在风险点，并标注需要人工确认的信息。

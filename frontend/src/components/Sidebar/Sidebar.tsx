@@ -54,7 +54,7 @@ export function Sidebar({
               <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
                 <Bot size={18} className="text-white" />
               </div>
-              <h1 className="text-lg font-semibold text-gray-900">执行辅助Agent</h1>
+              <h1 className="text-lg font-semibold text-gray-900">Aurelius Agent</h1>
             </div>
             <NewTaskButton onTaskStarted={onNavigateToChat} />
           </div>
