@@ -165,6 +165,34 @@ React 前端使用 `/api` 前缀：
 
 ## 开发与验证
 
+## 风控机制
+
+当前版本在模型输出后增加了业务风控审计，尽量不影响 RAG 检索链路：
+
+- 输出合规：拦截“保证升值”“全网最低”“零风险”等绝对承诺或极限表述。
+- 价格一致性：识别回复中的金额，并与被引用 SKU 的商品库价格做一致性校验。
+- 商品风险：对活动互斥、价格保护、库存偏低、好评率偏低、退货率偏高、证书缺失做确定性检查。
+- 动作阻断：如果本轮存在高风险项，并且模型试图执行上架/移除动作，本轮动作会被阻断并要求人工确认。
+- 事件留痕：风控审计结果以 JSONL 形式写入 `data/risk_events/`，该目录已被 `.gitignore` 忽略。
+
+风控结果会进入聊天消息 metadata 的 `risk_control` 字段，并同步转为前端可展示的 `risks` 与 `needs_clarification`。
+
+## TypeScript SDK
+
+独立 SDK 位于：
+
+```text
+sdk/typescript
+```
+
+本地类型检查：
+
+```powershell
+& "D:\AFH_Competition\frontend\node_modules\.bin\tsc.cmd" -p sdk\typescript\tsconfig.json --noEmit
+```
+
+SDK 封装项目、任务历史、SSE 对话流、商品库、知识库、项目汇总等接口；`ChatMetadata.risk_control` 会暴露风控审计结果。
+
 后端测试：
 
 ```powershell

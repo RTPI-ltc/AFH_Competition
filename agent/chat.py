@@ -8,6 +8,7 @@ from typing import Any
 from agent import database
 from agent.llm import call_llm, llm_available, parse_llm_json
 from agent.rag import append_context_to_system, retrieve_safe
+from agent.risk_control import apply_risk_audit, audit_chat_result
 
 
 CHAT_SYSTEM = """你是珠宝电商运营执行助手，所有 chatbox 回复都必须由模型生成。
@@ -358,6 +359,7 @@ def _metadata(
         "confirmation": confirmation,
         "rag_chunks": rag_chunks or [],
         "knowledge_ids": knowledge_ids or [],
+        "risk_control": parsed.get("risk_control") or {},
     }
 
 
@@ -627,6 +629,7 @@ def handle_chat(
             parsed = _parse_model_response(raw)
             if _needs_business_context(message):
                 parsed, _dropped = _validate_and_enrich(parsed)
+                parsed = apply_risk_audit(parsed, audit_chat_result(project_id, message, parsed))
             else:
                 parsed = _sanitize_non_business_response(parsed)
         except Exception as exc:

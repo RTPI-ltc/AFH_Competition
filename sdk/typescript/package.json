@@ -1,0 +1,19 @@
+{
+  "name": "@afh-competition/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for the AFH Competition execution assistant API.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

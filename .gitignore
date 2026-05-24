@@ -8,3 +8,4 @@ venv/
 *.log
 data/*.db
 data/*.db-*
+data/risk_events/
