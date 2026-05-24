@@ -7,6 +7,7 @@ from agent.rag.bm25 import BM25State, build_bm25, search_bm25
 from agent.rag.config import RAG_DISABLED
 from agent.rag.embedder import current_backend, embed_query, is_hash_fallback
 from agent.rag.store import KBStore, kb_store
+from agent.rag.tokenizer import tokenize_query
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +24,7 @@ RRF_FLOOR = 0.012
 # Two chunks from the same source whose char ranges overlap by >= this ratio
 # are merged into one (keep the one with the higher fused score).
 DEDUP_OVERLAP_RATIO = 0.5
+MAX_QUERY_VARIANTS = 3
 
 
 def _normalize_kb_ids(knowledge_ids: Iterable[str]) -> list[str]:
@@ -44,7 +46,10 @@ def _ensure_bm25(store: KBStore, chunks: list[dict]) -> BM25State | None:
     payload = store.load_bm25()
     if payload is not None:
         try:
-            return BM25State.from_dict(payload)
+            state = BM25State.from_dict(payload)
+            if _bm25_matches_chunks(state, chunks):
+                return state
+            logger.info("BM25 state is stale for %s, will rebuild.", store.knowledge_id)
         except Exception as exc:
             logger.warning("BM25 state load failed for %s, will rebuild: %s", store.knowledge_id, exc)
     if not chunks:
@@ -56,6 +61,15 @@ def _ensure_bm25(store: KBStore, chunks: list[dict]) -> BM25State | None:
     except Exception as exc:
         logger.warning("BM25 lazy build failed for %s: %s", store.knowledge_id, exc)
         return None
+
+
+def _bm25_matches_chunks(state: BM25State, chunks: list[dict]) -> bool:
+    if state.total_docs != len(chunks):
+        return False
+    if len(state.chunk_ids) != len(chunks):
+        return False
+    expected = [str(chunk.get("chunk_id") or "") for chunk in chunks]
+    return state.chunk_ids == expected
 
 
 def _dense_candidates(store: KBStore, query_vector: list[float], top_k: int) -> list[tuple[int, float]]:
@@ -76,6 +90,62 @@ def _bm25_candidates(state: BM25State | None, query: str, top_k: int) -> list[tu
     except Exception as exc:
         logger.warning("bm25 search failed: %s", exc)
         return []
+
+
+def _query_variants(query: str) -> list[str]:
+    """Build deterministic retry queries without calling the LLM.
+
+    The original query stays first. A compact token query helps when the user
+    writes long instructions around a few important rule terms, while a SKU
+    focused variant protects exact product lookups.
+    """
+    normalized = " ".join(str(query or "").split())
+    if not normalized:
+        return []
+    variants = [normalized]
+
+    tokens = tokenize_query(normalized)
+    compact_tokens = [
+        token for token in tokens
+        if len(token) > 1 or token.isascii()
+    ][:12]
+    compact = " ".join(compact_tokens)
+    if compact and compact != normalized:
+        variants.append(compact)
+
+    sku_tokens = [token for token in tokens if token.upper().startswith("SKU")]
+    if sku_tokens:
+        variants.append(" ".join(dict.fromkeys(sku_tokens)))
+
+    deduped: list[str] = []
+    seen: set[str] = set()
+    for item in variants:
+        if not item or item in seen:
+            continue
+        seen.add(item)
+        deduped.append(item)
+        if len(deduped) >= MAX_QUERY_VARIANTS:
+            break
+    return deduped
+
+
+def _merge_ranked_candidates(candidate_sets: Iterable[list[tuple[int, float]]], top_k: int) -> list[tuple[int, float]]:
+    best_score: dict[int, float] = {}
+    best_rank: dict[int, int] = {}
+    for candidates in candidate_sets:
+        for rank, (idx, score) in enumerate(candidates):
+            if idx not in best_score or score > best_score[idx]:
+                best_score[idx] = float(score)
+                best_rank[idx] = rank
+    ranked = sorted(best_score.items(), key=lambda item: (item[1], -best_rank.get(item[0], 9999)), reverse=True)
+    return ranked[:top_k]
+
+
+def _bm25_candidates_for_variants(state: BM25State | None, variants: list[str], top_k: int) -> list[tuple[int, float]]:
+    return _merge_ranked_candidates(
+        (_bm25_candidates(state, variant, top_k) for variant in variants),
+        top_k=top_k,
+    )
 
 
 def _fuse_per_kb(
@@ -171,9 +241,17 @@ def retrieve(query: str, knowledge_ids: list[str], top_k: int = GLOBAL_TOP_K) ->
         chunks = store.load_chunks()
         if not chunks:
             continue
-        dense = _dense_candidates(store, query_vector, PER_KB_DENSE_K) if query_vector else []
+        variants = _query_variants(query)
         bm25_state = _ensure_bm25(store, chunks)
-        bm25 = _bm25_candidates(bm25_state, query, PER_KB_BM25_K)
+        bm25 = _bm25_candidates_for_variants(bm25_state, variants, PER_KB_BM25_K)
+        dense_raw = _dense_candidates(store, query_vector, PER_KB_DENSE_K) if query_vector else []
+        if hash_mode:
+            # Hash dense vectors are not semantically trustworthy. They must
+            # not affect ranking because even weak BM25 matches can otherwise
+            # be boosted above the truly relevant sparse hit.
+            dense = []
+        else:
+            dense = dense_raw
         if not dense and not bm25:
             continue
         all_records.extend(_fuse_per_kb(kb_id, chunks, dense, bm25))
@@ -186,12 +264,7 @@ def retrieve(query: str, knowledge_ids: list[str], top_k: int = GLOBAL_TOP_K) ->
         return []
 
     deduped = _dedupe(all_records)
-    # The floor is calibrated for the 2-method RRF setup. When hash mode is
-    # active, dense ranks are noisy but still rank-based contributing, so the
-    # same floor still applies meaningfully. We relax it slightly to avoid
-    # filtering BM25-only hits where dense returned junk.
-    floor = RRF_FLOOR if not hash_mode else 0.0
-    deduped = [r for r in deduped if float(r.get("rrf_score") or 0.0) >= floor]
+    deduped = [r for r in deduped if float(r.get("rrf_score") or 0.0) >= RRF_FLOOR]
     deduped.sort(key=lambda item: float(item.get("rrf_score") or 0.0), reverse=True)
     return deduped[:top_k]
 
