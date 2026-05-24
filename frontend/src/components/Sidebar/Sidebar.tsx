@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { NewTaskButton } from './NewTaskButton';
 import { ProjectList } from './ProjectList';
 import { HistoryList } from './HistoryList';
-import { BookOpen, Upload, ChevronLeft, Bot, Package } from 'lucide-react';
+import { BookOpen, Upload, ChevronLeft, Bot, Package, KeyRound } from 'lucide-react';
 import { useState } from 'react';
 
 interface SidebarProps {
@@ -12,9 +12,11 @@ interface SidebarProps {
   onSummarizeProject: (projectId: string) => void;
   onNavigateToKnowledge: () => void;
   onNavigateToProducts: () => void;
+  onNavigateToApiConfig: () => void;
   onNavigateToChat: () => void;
   isKnowledgePage: boolean;
   isProductPage: boolean;
+  isApiConfigPage: boolean;
 }
 
 export function Sidebar({
@@ -23,9 +25,11 @@ export function Sidebar({
   onSummarizeProject,
   onNavigateToKnowledge,
   onNavigateToProducts,
+  onNavigateToApiConfig,
   onNavigateToChat,
   isKnowledgePage,
   isProductPage,
+  isApiConfigPage,
 }: SidebarProps) {
   const { state, dispatch, loadHistory, loadKnowledge, loadProjects } = useApp();
   const [showHistory, setShowHistory] = useState(true);
@@ -81,7 +85,7 @@ export function Sidebar({
             </div>
 
             {/* Product DB btn */}
-            <div className="px-2">
+            <div className="px-2 space-y-1">
               <button
                 onClick={onNavigateToProducts}
                 className={`flex items-center gap-2 w-full px-3 py-2 text-sm rounded-lg transition-colors ${
@@ -92,6 +96,17 @@ export function Sidebar({
               >
                 <Package size={16} />
                 <span className="flex-1 text-left">商品数据库</span>
+              </button>
+              <button
+                onClick={onNavigateToApiConfig}
+                className={`flex items-center gap-2 w-full px-3 py-2 text-sm rounded-lg transition-colors ${
+                  isApiConfigPage
+                    ? 'bg-violet-50 text-violet-700 font-medium'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                <KeyRound size={16} />
+                <span className="flex-1 text-left">API 配置</span>
               </button>
             </div>
 

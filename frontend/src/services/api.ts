@@ -1,5 +1,5 @@
 /* API service for backend communication */
-import type { HistoryItem, HistoryDetail, KnowledgeItem, ProjectItem, StreamEvent } from '../types';
+import type { HistoryItem, HistoryDetail, KnowledgeItem, LlmApiConfig, ProjectItem, StreamEvent } from '../types';
 
 const BASE = '/api';
 
@@ -107,6 +107,36 @@ export async function renameProject(id: string, name: string): Promise<void> {
 
 export async function renameTask(taskId: string, name: string): Promise<void> {
   return request(`/history/${taskId}/rename?name=${encodeURIComponent(name)}`, { method: 'PUT' });
+}
+
+export async function getLlmApiConfigs(): Promise<LlmApiConfig[]> {
+  return request('/llm/configs');
+}
+
+export async function createLlmApiConfig(config: {
+  name: string;
+  model: string;
+  base_url: string;
+  api_key: string;
+  enabled: boolean;
+  sort_order: number;
+}): Promise<{ success: boolean; config: LlmApiConfig }> {
+  return request('/llm/configs', { method: 'POST', body: JSON.stringify(config) });
+}
+
+export async function updateLlmApiConfig(id: string, config: {
+  name: string;
+  model: string;
+  base_url: string;
+  api_key?: string;
+  enabled: boolean;
+  sort_order: number;
+}): Promise<{ success: boolean; config: LlmApiConfig }> {
+  return request(`/llm/configs/${encodeURIComponent(id)}`, { method: 'PUT', body: JSON.stringify(config) });
+}
+
+export async function deleteLlmApiConfig(id: string): Promise<{ success: boolean }> {
+  return request(`/llm/configs/${encodeURIComponent(id)}`, { method: 'DELETE' });
 }
 
 export async function getProducts(category?: string, search?: string): Promise<{

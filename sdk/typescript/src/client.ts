@@ -5,6 +5,8 @@ import type {
   HistoryDetail,
   HistoryItem,
   KnowledgeItem,
+  LlmApiConfig,
+  LlmApiConfigInput,
   ProductsResult,
   ProjectItem,
   RagChunk,
@@ -47,6 +49,33 @@ export class AFHClient {
 
   llmHealth(options?: RequestOptions): Promise<Record<string, unknown>> {
     return this.request("/llm/health", requestOptions(options));
+  }
+
+  listLlmApiConfigs(options?: RequestOptions): Promise<LlmApiConfig[]> {
+    return this.request("/llm/configs", requestOptions(options));
+  }
+
+  createLlmApiConfig(config: LlmApiConfigInput & { api_key: string }, options?: RequestOptions): Promise<{ success: boolean; config: LlmApiConfig }> {
+    return this.request("/llm/configs", {
+      ...requestOptions(options),
+      method: "POST",
+      body: { ...config },
+    });
+  }
+
+  updateLlmApiConfig(configId: string, config: LlmApiConfigInput, options?: RequestOptions): Promise<{ success: boolean; config: LlmApiConfig }> {
+    return this.request(`/llm/configs/${encodeURIComponent(configId)}`, {
+      ...requestOptions(options),
+      method: "PUT",
+      body: { ...config },
+    });
+  }
+
+  deleteLlmApiConfig(configId: string, options?: RequestOptions): Promise<{ success: boolean }> {
+    return this.request(`/llm/configs/${encodeURIComponent(configId)}`, {
+      ...requestOptions(options),
+      method: "DELETE",
+    });
   }
 
   listProjects(options?: RequestOptions): Promise<ProjectItem[]> {

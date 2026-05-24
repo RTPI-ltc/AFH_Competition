@@ -17,6 +17,29 @@ export interface ProjectItem {
   created_at: string;
 }
 
+export interface LlmApiConfig {
+  id: string;
+  name: string;
+  model: string;
+  base_url: string;
+  enabled: boolean;
+  sort_order: number;
+  last_status: string;
+  last_error: string;
+  api_key_masked: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface LlmApiConfigInput {
+  name: string;
+  model: string;
+  base_url: string;
+  api_key?: string;
+  enabled: boolean;
+  sort_order: number;
+}
+
 export interface CreateTaskResult {
   task_id: string;
   created_at: string;

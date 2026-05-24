@@ -106,6 +106,20 @@ export interface ProjectItem {
   created_at: string;
 }
 
+export interface LlmApiConfig {
+  id: string;
+  name: string;
+  model: string;
+  base_url: string;
+  enabled: boolean;
+  sort_order: number;
+  last_status: string;
+  last_error: string;
+  api_key_masked: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface AppState {
   currentTaskId: string | null;
   currentProjectId: string;

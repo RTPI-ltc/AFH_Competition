@@ -4,12 +4,13 @@ import { Sidebar } from './components/Sidebar/Sidebar';
 import { ChatArea } from './components/Chat/ChatArea';
 import { KnowledgePage } from './components/Knowledge/KnowledgePage';
 import { ProductPage } from './components/Knowledge/ProductPage';
+import { ApiConfigPage } from './components/Knowledge/ApiConfigPage';
 import { KnowledgeModal } from './components/Knowledge/KnowledgeModal';
 import { SummaryModal } from './components/Knowledge/SummaryModal';
 import { AlertTriangle, CheckCircle2, ClipboardList, PackageCheck, PanelLeftOpen, Sparkles, X } from 'lucide-react';
 import { summarizeProject, type SummaryListingItem, type SummarySelection } from './services/api';
 
-type Page = 'chat' | 'knowledge' | 'products';
+type Page = 'chat' | 'knowledge' | 'products' | 'api-config';
 
 function App() {
   const { state, dispatch } = useApp();
@@ -30,9 +31,11 @@ function App() {
         onSummarizeProject={handleSummarizeProject}
         onNavigateToKnowledge={() => setPage(page === 'knowledge' ? 'chat' : 'knowledge')}
         onNavigateToProducts={() => setPage(page === 'products' ? 'chat' : 'products')}
+        onNavigateToApiConfig={() => setPage(page === 'api-config' ? 'chat' : 'api-config')}
         onNavigateToChat={() => setPage('chat')}
         isKnowledgePage={page === 'knowledge'}
         isProductPage={page === 'products'}
+        isApiConfigPage={page === 'api-config'}
       />
 
       <div className="flex-1 flex flex-col min-w-0 relative">
@@ -52,6 +55,8 @@ function App() {
           />
         ) : page === 'products' ? (
           <ProductPage onBack={() => setPage('chat')} />
+        ) : page === 'api-config' ? (
+          <ApiConfigPage onBack={() => setPage('chat')} />
         ) : (
           <ChatArea onOpenKnowledgeModal={() => setIsKnowledgeModalOpen(true)} />
         )}

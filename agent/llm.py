@@ -4,6 +4,8 @@ import json
 import os
 from typing import Any
 
+from agent import database
+
 PROVIDER_DEFAULTS = {
     "deepseek": {
         "base_url": "https://api.deepseek.com",
@@ -29,7 +31,7 @@ def _load_dotenv_if_available() -> None:
 
 
 def llm_available() -> bool:
-    return bool(get_api_key())
+    return bool(_configured_llm_candidates())
 
 
 def get_provider() -> str:
@@ -79,28 +81,58 @@ def get_max_tokens() -> int:
 
 
 def model_status() -> dict[str, str | bool]:
-    available = llm_available()
+    candidates = _configured_llm_candidates()
+    available = bool(candidates)
+    primary = candidates[0] if candidates else {}
     return {
         "llm_available": available,
-        "provider": get_provider() if available else "fallback",
-        "model": get_model() if available else "deterministic-fallback",
-        "base_url": get_base_url() if available else "",
+        "provider": str(primary.get("provider") or get_provider()) if available else "fallback",
+        "model": str(primary.get("model") or get_model()) if available else "deterministic-fallback",
+        "base_url": str(primary.get("base_url") or get_base_url()) if available else "",
+        "config_count": len(candidates),
     }
 
 
-def call_llm(system: str, user: str) -> str:
-    api_key = get_api_key()
-    if not api_key:
-        raise RuntimeError("LLM API key is not configured")
+def _configured_llm_candidates() -> list[dict[str, Any]]:
+    if os.getenv("AFH_DISABLE_LLM") == "1":
+        return []
+    candidates: list[dict[str, Any]] = []
+    try:
+        for item in database.list_llm_api_configs(include_disabled=False, reveal_key=True):
+            if item.get("api_key") and item.get("base_url") and item.get("model"):
+                candidates.append({
+                    "id": item.get("id"),
+                    "name": item.get("name") or "LLM API",
+                    "provider": "database",
+                    "api_key": item["api_key"],
+                    "base_url": item["base_url"],
+                    "model": item["model"],
+                })
+    except Exception:
+        pass
 
+    env_key = get_api_key()
+    if env_key:
+        candidates.append({
+            "id": None,
+            "name": "Environment",
+            "provider": get_provider(),
+            "api_key": env_key,
+            "base_url": get_base_url(),
+            "model": get_model(),
+        })
+    return candidates
+
+
+def _call_llm_with_config(config: dict[str, Any], system: str, user: str) -> str:
     try:
         from openai import OpenAI
     except Exception as exc:
         raise RuntimeError("openai package is not installed") from exc
 
-    client = OpenAI(api_key=api_key, base_url=get_base_url())
+    client = OpenAI(api_key=str(config["api_key"]), base_url=str(config["base_url"]))
     response = client.chat.completions.create(
-        model=get_model(),
+        model=str(config["model"]),
         messages=[
             {"role": "system", "content": system},
             {"role": "user", "content": user},
@@ -110,6 +142,29 @@ def call_llm(system: str, user: str) -> str:
         timeout=get_timeout_seconds(),
     )
     return response.choices[0].message.content or ""
+
+
+def call_llm(system: str, user: str) -> str:
+    candidates = _configured_llm_candidates()
+    if not candidates:
+        raise RuntimeError("LLM API key is not configured")
+
+    errors: list[str] = []
+    for config in candidates:
+        config_id = config.get("id")
+        label = f"{config.get('name')}({config.get('model')})"
+        try:
+            result = _call_llm_with_config(config, system, user)
+            if config_id:
+                database.update_llm_api_config_status(str(config_id), "ok", "")
+            return result
+        except Exception as exc:
+            error = f"{label}: {exc}"
+            errors.append(error)
+            if config_id:
+                database.update_llm_api_config_status(str(config_id), "error", str(exc))
+            continue
+    raise RuntimeError("All configured LLM API keys failed: " + " | ".join(errors))
 
 
 def parse_llm_json(raw_response: str) -> dict[str, Any]:

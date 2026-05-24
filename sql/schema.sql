@@ -145,6 +145,20 @@ CREATE TABLE IF NOT EXISTS knowledge_bases (
     updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS llm_api_configs (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    model TEXT NOT NULL,
+    base_url TEXT NOT NULL,
+    api_key TEXT NOT NULL,
+    enabled INTEGER NOT NULL DEFAULT 1,
+    sort_order INTEGER NOT NULL DEFAULT 100,
+    last_status TEXT NOT NULL DEFAULT 'untested',
+    last_error TEXT NOT NULL DEFAULT '',
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE INDEX IF NOT EXISTS idx_chat_messages_session_id ON chat_messages(session_id);
 CREATE INDEX IF NOT EXISTS idx_rule_runs_session_id ON rule_runs(session_id);
 CREATE INDEX IF NOT EXISTS idx_products_session_id ON products(session_id);
@@ -155,3 +169,4 @@ CREATE INDEX IF NOT EXISTS idx_listing_items_project_id ON listing_items(project
 CREATE INDEX IF NOT EXISTS idx_product_catalog_sku_id ON product_catalog(sku_id);
 CREATE INDEX IF NOT EXISTS idx_product_catalog_name ON product_catalog(product_name);
 CREATE INDEX IF NOT EXISTS idx_product_catalog_category ON product_catalog(category_l1, category_l2);
+CREATE INDEX IF NOT EXISTS idx_llm_api_configs_order ON llm_api_configs(enabled, sort_order, created_at);

@@ -37,5 +37,6 @@ await client.streamChat(
 - 知识库：`listOfficialKnowledge`、`listPersonalKnowledge`、`uploadKnowledge`、`deleteKnowledge`
 - 汇总：`summarizeTask`、`summarizeProject`
 - 健康检查：`health`、`llmHealth`
+- API 配置：`listLlmApiConfigs`、`createLlmApiConfig`、`updateLlmApiConfig`、`deleteLlmApiConfig`
 
 `ChatMetadata.risk_control` 会暴露后端风控审计结果，包括 `findings`、`should_block_actions` 和 `high_count`。

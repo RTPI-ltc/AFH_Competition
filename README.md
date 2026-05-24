@@ -193,6 +193,19 @@ sdk/typescript
 
 SDK 封装项目、任务历史、SSE 对话流、商品库、知识库、项目汇总等接口；`ChatMetadata.risk_control` 会暴露风控审计结果。
 
+## 大模型 API 配置
+
+React 左侧边栏提供与知识库、商品数据库同级的 `API 配置` 页面，可维护多组 OpenAI-compatible 大模型配置：
+
+- 名称
+- 模型名称
+- Base URL
+- API Key
+- 启用状态
+- 调用排序
+
+Chat 调用会优先使用启用的数据库配置，并按排序从小到大尝试；某个配置失败会自动尝试下一组。所有数据库配置都失败后，才会回退到 `.env` 环境变量配置；如果仍不可用，则本轮 chat 返回模型调用失败错误。前端列表只显示 masked key，不回显完整 API Key。
+
 后端测试：
 
 ```powershell

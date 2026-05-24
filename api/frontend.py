@@ -53,6 +53,15 @@ class SaveMessageRequest(BaseModel):
     metadata: dict[str, Any] | None = None
 
 
+class LlmApiConfigRequest(BaseModel):
+    name: str = "LLM API"
+    model: str
+    base_url: str
+    api_key: str | None = None
+    enabled: bool = True
+    sort_order: int = 100
+
+
 def _resolve_project_id(project_id: str | None = None) -> str:
     if project_id and project_id != "default":
         return database.ensure_project(project_id)
@@ -152,6 +161,41 @@ def frontend_llm_health() -> dict[str, Any]:
     except Exception as exc:
         return {**status, "status": "error", "error": str(exc)}
     return {**status, "status": "ok", "reply": reply.strip()[:20]}
+
+
+@router.get("/llm/configs")
+def frontend_llm_configs() -> list[dict[str, Any]]:
+    return database.list_llm_api_configs()
+
+
+@router.post("/llm/configs")
+def frontend_create_llm_config(body: LlmApiConfigRequest) -> dict[str, Any]:
+    try:
+        config_id = database.create_llm_api_config(body.model_dump(exclude_none=True))
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    item = database.get_llm_api_config(config_id)
+    return {"success": True, "config": item}
+
+
+@router.put("/llm/configs/{config_id}")
+def frontend_update_llm_config(config_id: str, body: LlmApiConfigRequest) -> dict[str, Any]:
+    payload = body.model_dump(exclude_none=True)
+    if not body.api_key:
+        payload.pop("api_key", None)
+    try:
+        database.update_llm_api_config(config_id, payload)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="API 配置不存在") from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return {"success": True, "config": database.get_llm_api_config(config_id)}
+
+
+@router.delete("/llm/configs/{config_id}")
+def frontend_delete_llm_config(config_id: str) -> dict[str, bool]:
+    database.delete_llm_api_config(config_id)
+    return {"success": True}
 
 
 @router.get("/projects")

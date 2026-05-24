@@ -44,6 +44,15 @@ def init_db() -> Path:
     return get_db_path()
 
 
+def _mask_secret(value: str) -> str:
+    cleaned = str(value or "")
+    if not cleaned:
+        return ""
+    if len(cleaned) <= 8:
+        return "*" * len(cleaned)
+    return f"{cleaned[:4]}...{cleaned[-4:]}"
+
+
 def _migrate_product_catalog(conn: sqlite3.Connection) -> None:
     columns = {row["name"] for row in conn.execute("PRAGMA table_info(product_catalog)").fetchall()}
     if {"product_code", "name", "category", "sku", "price", "sales_30d", "rating"} & columns:
@@ -225,6 +234,135 @@ def list_projects() -> list[dict[str, Any]]:
             """
         ).fetchall()
     return [dict(row) for row in rows]
+
+
+def list_llm_api_configs(include_disabled: bool = True, reveal_key: bool = False) -> list[dict[str, Any]]:
+    init_db()
+    where = "" if include_disabled else "WHERE enabled = 1"
+    with connect() as conn:
+        rows = conn.execute(
+            f"""
+            SELECT id, name, model, base_url, api_key, enabled, sort_order,
+                   last_status, last_error, created_at, updated_at
+            FROM llm_api_configs
+            {where}
+            ORDER BY sort_order ASC, created_at ASC
+            """
+        ).fetchall()
+    configs: list[dict[str, Any]] = []
+    for row in rows:
+        item = dict(row)
+        item["enabled"] = bool(item.get("enabled"))
+        item["api_key_masked"] = _mask_secret(str(item.get("api_key") or ""))
+        if not reveal_key:
+            item.pop("api_key", None)
+        configs.append(item)
+    return configs
+
+
+def create_llm_api_config(data: dict[str, Any]) -> str:
+    init_db()
+    config_id = str(uuid.uuid4())
+    name = str(data.get("name") or "LLM API").strip()[:80] or "LLM API"
+    model = str(data.get("model") or "qwen-plus").strip()[:120] or "qwen-plus"
+    base_url = str(data.get("base_url") or "").strip().rstrip("/")
+    api_key = str(data.get("api_key") or "").strip()
+    if not base_url:
+        raise ValueError("base_url is required")
+    if not api_key:
+        raise ValueError("api_key is required")
+    enabled = 1 if data.get("enabled", True) else 0
+    sort_order = int(data.get("sort_order") or 100)
+    with connect() as conn:
+        conn.execute(
+            """
+            INSERT INTO llm_api_configs (
+                id, name, model, base_url, api_key, enabled, sort_order
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (config_id, name, model, base_url, api_key, enabled, sort_order),
+        )
+    return config_id
+
+
+def update_llm_api_config(config_id: str, data: dict[str, Any]) -> None:
+    init_db()
+    existing = get_llm_api_config(config_id, reveal_key=True)
+    if not existing:
+        raise KeyError(config_id)
+    merged = dict(existing)
+    for key in ("name", "model", "base_url", "enabled", "sort_order"):
+        if key in data:
+            merged[key] = data[key]
+    if data.get("api_key"):
+        merged["api_key"] = str(data["api_key"]).strip()
+    name = str(merged.get("name") or "LLM API").strip()[:80] or "LLM API"
+    model = str(merged.get("model") or "qwen-plus").strip()[:120] or "qwen-plus"
+    base_url = str(merged.get("base_url") or "").strip().rstrip("/")
+    api_key = str(merged.get("api_key") or "").strip()
+    if not base_url:
+        raise ValueError("base_url is required")
+    if not api_key:
+        raise ValueError("api_key is required")
+    with connect() as conn:
+        conn.execute(
+            """
+            UPDATE llm_api_configs
+            SET name = ?, model = ?, base_url = ?, api_key = ?, enabled = ?,
+                sort_order = ?, updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+            """,
+            (
+                name,
+                model,
+                base_url,
+                api_key,
+                1 if merged.get("enabled", True) else 0,
+                int(merged.get("sort_order") or 100),
+                config_id,
+            ),
+        )
+
+
+def get_llm_api_config(config_id: str, reveal_key: bool = False) -> dict[str, Any] | None:
+    init_db()
+    with connect() as conn:
+        row = conn.execute(
+            """
+            SELECT id, name, model, base_url, api_key, enabled, sort_order,
+                   last_status, last_error, created_at, updated_at
+            FROM llm_api_configs
+            WHERE id = ?
+            """,
+            (config_id,),
+        ).fetchone()
+    if not row:
+        return None
+    item = dict(row)
+    item["enabled"] = bool(item.get("enabled"))
+    item["api_key_masked"] = _mask_secret(str(item.get("api_key") or ""))
+    if not reveal_key:
+        item.pop("api_key", None)
+    return item
+
+
+def delete_llm_api_config(config_id: str) -> None:
+    init_db()
+    with connect() as conn:
+        conn.execute("DELETE FROM llm_api_configs WHERE id = ?", (config_id,))
+
+
+def update_llm_api_config_status(config_id: str, status: str, error: str = "") -> None:
+    init_db()
+    with connect() as conn:
+        conn.execute(
+            """
+            UPDATE llm_api_configs
+            SET last_status = ?, last_error = ?, updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+            """,
+            (status[:40], error[:500], config_id),
+        )
 
 
 def ensure_project(project_id: str | None = None, name: str | None = None) -> str:
