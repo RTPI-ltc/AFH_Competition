@@ -66,6 +66,7 @@ CHAT_SYSTEM = """你是珠宝电商运营执行助手，所有 chatbox 回复都
 CATALOG_CONTEXT_LIMIT = 12
 HISTORY_CONTEXT_LIMIT = 6
 TEXT_FIELD_LIMIT = 500
+CONFIRM_PLAN_TRIGGER = "确认执行上一个上架方案"
 BUSINESS_KEYWORDS = (
     "推荐", "选品", "上架", "商品", "sku", "SKU",
     "清单", "方案", "风险", "检查", "确认", "移除",
@@ -543,6 +544,25 @@ def _rag_summary(chunks: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return summary
 
 
+def _build_task_summary(project_id: str) -> dict[str, Any]:
+    """Snapshot the current listing for a project. Pure read — no writes, no LLM."""
+    items = database.list_listing_items(project_id)
+    by_name = {p["product_name"]: p for p in database.list_catalog_products(limit=2000)}
+    enriched: list[dict[str, Any]] = []
+    for it in items:
+        product = by_name.get(it["product_name"]) or {}
+        enriched.append({
+            "product_name": it["product_name"],
+            "status": it.get("status") or "",
+            "notes": it.get("notes") or "",
+            "sku_id": product.get("sku_id", ""),
+            "category": " / ".join(
+                part for part in [product.get("category_l1"), product.get("category_l2")] if part
+            ),
+        })
+    return {"items": enriched, "total": len(enriched)}
+
+
 def handle_chat(
     project_id: str,
     conversation_id: str,
@@ -561,6 +581,34 @@ def handle_chat(
         message,
         {"event": "chat", "knowledge_ids": kb_ids},
     )
+
+    if message.strip() == CONFIRM_PLAN_TRIGGER:
+        summary = _build_task_summary(project_id)
+        if summary["total"]:
+            reply = f"已为你汇总当前上架清单，共 {summary['total']} 条。"
+        else:
+            reply = "当前上架清单为空，请先让 Agent 推荐选品并加入清单后再确认。"
+        metadata = {
+            "event": "chat_reply",
+            "actions": [],
+            "applied_actions": [],
+            "recommendations": [],
+            "priority_analysis": [],
+            "checklist": [],
+            "risks": [],
+            "needs_clarification": [],
+            "confirmation": {"required": False},
+            "rag_chunks": [],
+            "knowledge_ids": kb_ids,
+            "task_summary": summary,
+        }
+        database.add_conversation_message(conversation_id, "assistant", reply, metadata)
+        return {
+            "reply": reply,
+            **metadata,
+            "messages": database.list_conversation_messages(conversation_id),
+            "listing_items": database.list_listing_items(project_id),
+        }
 
     system_prompt, retrieved_chunks = _build_system_prompt(message, kb_ids)
     rag_summary = _rag_summary(retrieved_chunks)
