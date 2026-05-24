@@ -42,7 +42,7 @@ The API configuration page supports multiple OpenAI-compatible model configurati
 - Backend: FastAPI, Pydantic, LangGraph
 - Storage: SQLite
 - LLM: OpenAI-compatible chat completions
-- Retrieval: sentence-transformers semantic embeddings plus local BM25
+- Retrieval: local BM25 with optional sentence-transformers semantic embeddings
 - Legacy demo UI: Streamlit remains available in `ui/app.py`
 
 ## Quick Start
@@ -87,17 +87,31 @@ DASHSCOPE_API_KEY=your-api-key
 
 If no model is available, deterministic fallback logic keeps the demo usable for local review.
 
-## Semantic Retrieval
+## Retrieval Mode
 
-Deployments install `sentence-transformers` from `requirements.txt` and preload the default embedding model (`BAAI/bge-small-zh-v1.5`) when the FastAPI app starts. RAG no longer silently falls back to hash vectors, so knowledge-base answers use the semantic embedding path instead of bypassing it.
+The current local demo defaults are optimized to boot reliably in lightweight environments. If `sentence-transformers` is missing, RAG can fall back to hash vectors plus BM25 instead of blocking the backend startup.
+
+Local demo defaults:
+
+```text
+AFH_ALLOW_HASH_RAG_FALLBACK=1
+AFH_RAG_PRELOAD=0
+```
+
+For semantic-only deployment, install dependencies from `requirements.txt`, enable preload, and disable hash fallback:
+
+```text
+AFH_ALLOW_HASH_RAG_FALLBACK=0
+AFH_RAG_PRELOAD=1
+```
+
+That mode preloads the default embedding model (`BAAI/bge-small-zh-v1.5`) when FastAPI starts and fails fast if semantic retrieval cannot be initialized.
 
 If existing indexes were built with `hash-fallback`, rebuild them after deployment:
 
 ```powershell
 python scripts/build_rag_index.py --rebuild-all
 ```
-
-For local debugging only, set `AFH_ALLOW_HASH_RAG_FALLBACK=1` to restore the old non-semantic fallback. Production should leave that variable unset.
 
 ## Core API Surface
 
