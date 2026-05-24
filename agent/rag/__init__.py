@@ -9,6 +9,7 @@ from agent.rag.config import (
     get_rag_root,
     knowledge_dir,
 )
+from agent.rag.embedder import get_embedder
 from agent.rag.indexer import build_or_update_index, index_uploaded_bytes
 from agent.rag.prompt_format import append_context_to_system
 from agent.rag.retriever import retrieve_safe
@@ -24,6 +25,7 @@ __all__ = [
     "build_or_update_index",
     "embedding_disabled",
     "get_rag_root",
+    "get_embedder",
     "index_uploaded_bytes",
     "kb_store",
     "knowledge_dir",

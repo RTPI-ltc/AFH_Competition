@@ -81,8 +81,12 @@ def embedding_disabled() -> bool:
     return os.getenv("AFH_DISABLE_RAG_EMBEDDING") == "1"
 
 
+def hash_fallback_allowed() -> bool:
+    return os.getenv("AFH_ALLOW_HASH_RAG_FALLBACK") == "1"
+
+
 RAG_DISABLED = os.getenv("AFH_DISABLE_RAG") == "1"
 
 
 def preload_requested() -> bool:
-    return os.getenv("AFH_RAG_PRELOAD") == "1"
+    return os.getenv("AFH_RAG_PRELOAD", "1") != "0"

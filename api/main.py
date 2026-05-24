@@ -10,6 +10,8 @@ from agent import chat
 from agent import database
 from agent.graph import build_graph
 from agent.llm import model_status
+from agent.rag.config import RAG_DISABLED, preload_requested
+from agent.rag.embedder import get_embedder
 from agent.state import initial_state
 from api.frontend import router as frontend_router
 
@@ -26,6 +28,12 @@ app.include_router(frontend_router)
 graph = build_graph()
 database.init_db()
 database.seed_sample_catalog()
+
+
+@app.on_event("startup")
+def preload_semantic_rag() -> None:
+    if not RAG_DISABLED and preload_requested():
+        get_embedder()
 
 
 class ParseRequest(BaseModel):

@@ -3,6 +3,8 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 
@@ -23,6 +25,7 @@ def _write_chunks(store, chunks):
 
 def test_hash_fallback_dense_noise_cannot_create_standalone_hit(tmp_path, monkeypatch):
     monkeypatch.setenv("AFH_RAG_ROOT", str(tmp_path / "rag"))
+    monkeypatch.setenv("AFH_ALLOW_HASH_RAG_FALLBACK", "1")
 
     from agent.rag import retriever
     from agent.rag.bm25 import build_bm25
@@ -49,6 +52,7 @@ def test_hash_fallback_dense_noise_cannot_create_standalone_hit(tmp_path, monkey
 
 def test_hash_fallback_returns_empty_when_only_dense_has_noise(tmp_path, monkeypatch):
     monkeypatch.setenv("AFH_RAG_ROOT", str(tmp_path / "rag"))
+    monkeypatch.setenv("AFH_ALLOW_HASH_RAG_FALLBACK", "1")
 
     from agent.rag import retriever
     from agent.rag.bm25 import build_bm25
@@ -70,6 +74,7 @@ def test_hash_fallback_returns_empty_when_only_dense_has_noise(tmp_path, monkeyp
 
 def test_stale_bm25_is_rebuilt_before_search(tmp_path, monkeypatch):
     monkeypatch.setenv("AFH_RAG_ROOT", str(tmp_path / "rag"))
+    monkeypatch.setenv("AFH_ALLOW_HASH_RAG_FALLBACK", "1")
 
     from agent.rag import retriever
     from agent.rag.bm25 import build_bm25
@@ -93,3 +98,28 @@ def test_stale_bm25_is_rebuilt_before_search(tmp_path, monkeypatch):
     rebuilt = store.load_bm25()
     assert rebuilt
     assert rebuilt["chunk_ids"] == ["new"]
+
+
+def test_semantic_retrieval_rejects_hash_index(tmp_path, monkeypatch):
+    monkeypatch.setenv("AFH_RAG_ROOT", str(tmp_path / "rag"))
+    monkeypatch.delenv("AFH_ALLOW_HASH_RAG_FALLBACK", raising=False)
+
+    from agent.rag import retriever
+    from agent.rag.embedder import SemanticEmbeddingUnavailable
+    from agent.rag.store import kb_store
+
+    store = kb_store("kb_hash_index")
+    _write_chunks(store, [
+        {"chunk_id": "old", "text": "活动互斥规则：品牌日商品不可重复报名。"},
+    ])
+    store.save_meta({"embedding_backend": "hash-fallback"})
+
+    monkeypatch.setattr(retriever, "is_hash_fallback", lambda: False)
+    monkeypatch.setattr(
+        retriever,
+        "embed_query",
+        lambda _query: ([1.0] * 512, "sentence-transformers:BAAI/bge-small-zh-v1.5"),
+    )
+
+    with pytest.raises(SemanticEmbeddingUnavailable):
+        retriever.retrieve("品牌日能否重复报名", ["kb_hash_index"], top_k=3)

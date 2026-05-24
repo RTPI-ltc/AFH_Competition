@@ -4,8 +4,8 @@ import logging
 from typing import Iterable
 
 from agent.rag.bm25 import BM25State, build_bm25, search_bm25
-from agent.rag.config import RAG_DISABLED
-from agent.rag.embedder import current_backend, embed_query, is_hash_fallback
+from agent.rag.config import RAG_DISABLED, hash_fallback_allowed
+from agent.rag.embedder import HASH_BACKEND, SemanticEmbeddingUnavailable, current_backend, embed_query, is_hash_fallback
 from agent.rag.store import KBStore, kb_store
 from agent.rag.tokenizer import tokenize_query
 
@@ -148,6 +148,15 @@ def _bm25_candidates_for_variants(state: BM25State | None, variants: list[str], 
     )
 
 
+def _index_backend_is_compatible(store: KBStore, query_backend: str) -> bool:
+    if query_backend == HASH_BACKEND:
+        return hash_fallback_allowed()
+    stored_backend = str(store.load_meta().get("embedding_backend") or "")
+    if not stored_backend:
+        return True
+    return stored_backend == query_backend
+
+
 def _fuse_per_kb(
     kb_id: str,
     chunks: list[dict],
@@ -227,13 +236,13 @@ def retrieve(query: str, knowledge_ids: list[str], top_k: int = GLOBAL_TOP_K) ->
     if not ids:
         return []
 
-    # Always run BOTH channels and let RRF fuse them. Hash-backend dense
-    # scores are noisy, but they still encode character bigrams; combined
-    # with BM25 via rank-based fusion they raise recall without dominating
-    # the ranking. The previous policy of skipping dense whenever the model
-    # was on hash fallback caused zero-recall on semantic queries.
+    # Always run semantic dense retrieval plus BM25 and let RRF fuse them.
+    # Hash vectors are allowed only for explicit local debugging, never as an
+    # implicit production bypass of semantic retrieval.
     hash_mode = is_hash_fallback()
-    query_vector, _backend = embed_query(query)
+    if hash_mode and not hash_fallback_allowed():
+        raise SemanticEmbeddingUnavailable("Semantic RAG retrieval is required; hash fallback is disabled.")
+    query_vector, query_backend = embed_query(query)
 
     all_records: list[dict] = []
     for kb_id in ids:
@@ -241,6 +250,13 @@ def retrieve(query: str, knowledge_ids: list[str], top_k: int = GLOBAL_TOP_K) ->
         chunks = store.load_chunks()
         if not chunks:
             continue
+        if not _index_backend_is_compatible(store, query_backend):
+            stored_backend = store.load_meta().get("embedding_backend") or "unknown"
+            raise SemanticEmbeddingUnavailable(
+                f"Knowledge base {kb_id} was indexed with {stored_backend}, "
+                f"but the active semantic backend is {query_backend}. Rebuild the index with "
+                "`python scripts/build_rag_index.py --rebuild-all`."
+            )
         variants = _query_variants(query)
         bm25_state = _ensure_bm25(store, chunks)
         bm25 = _bm25_candidates_for_variants(bm25_state, variants, PER_KB_BM25_K)
@@ -272,6 +288,8 @@ def retrieve(query: str, knowledge_ids: list[str], top_k: int = GLOBAL_TOP_K) ->
 def retrieve_safe(query: str, knowledge_ids: list[str], top_k: int = GLOBAL_TOP_K) -> list[dict]:
     try:
         return retrieve(query, knowledge_ids, top_k=top_k)
+    except SemanticEmbeddingUnavailable:
+        raise
     except Exception as exc:
         logger.warning("RAG 检索失败，降级到无上下文: %s", exc)
         return []

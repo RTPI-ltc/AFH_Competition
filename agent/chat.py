@@ -363,6 +363,69 @@ def _metadata(
     }
 
 
+def _latest_recommendations_from_history(history: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    for item in reversed(history):
+        if item.get("role") not in {"assistant", "agent"}:
+            continue
+        metadata = item.get("metadata") if isinstance(item.get("metadata"), dict) else {}
+        recommendations = metadata.get("recommendations")
+        if isinstance(recommendations, list) and recommendations:
+            return [rec for rec in recommendations if isinstance(rec, dict)]
+    return []
+
+
+def _apply_previous_recommendations(
+    project_id: str,
+    conversation_id: str,
+    history: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    recommendations = _latest_recommendations_from_history(history)
+    if not recommendations:
+        return []
+
+    current_names = {
+        str(item.get("product_name") or "").strip()
+        for item in database.list_listing_items(project_id)
+    }
+    by_sku, by_name = _catalog_lookup_indices()
+    applied: list[dict[str, Any]] = []
+
+    for rec in recommendations:
+        product = _match_catalog(rec, by_sku, by_name)
+        product_name = str((product or rec).get("product_name") or "").strip()
+        if not product_name or product_name in current_names:
+            continue
+        sku_id = (product or rec).get("sku_id") or ""
+        reason = str(rec.get("reason") or rec.get("notes") or "来自上一轮上架方案确认。").strip()
+        details = {
+            "sku_id": sku_id,
+            "source": "confirmed_previous_recommendation",
+        }
+        if product:
+            details.update({
+                "brand": product.get("brand") or "",
+                "category": " / ".join(
+                    part for part in [product.get("category_l1"), product.get("category_l2")] if part
+                ),
+            })
+        item_id = database.add_listing_item(
+            project_id,
+            product_name,
+            details=details,
+            status="拟上架",
+            notes=reason,
+            source_conversation_id=conversation_id,
+        )
+        current_names.add(product_name)
+        applied.append({
+            "type": "add_listing_item",
+            "item_id": item_id,
+            "product_name": product_name,
+            "sku_id": sku_id,
+        })
+    return applied
+
+
 def _sanitize_non_business_response(parsed: dict[str, Any]) -> dict[str, Any]:
     cleaned = dict(parsed)
     for key in ("actions", "recommendations", "priority_analysis", "checklist", "risks", "needs_clarification"):
@@ -585,15 +648,19 @@ def handle_chat(
     )
 
     if message.strip() == CONFIRM_PLAN_TRIGGER:
+        applied_actions = _apply_previous_recommendations(project_id, conversation_id, history)
         summary = _build_task_summary(project_id)
         if summary["total"]:
-            reply = f"已为你汇总当前上架清单，共 {summary['total']} 条。"
+            if applied_actions:
+                reply = f"已确认执行上一个上架方案，并写入 {len(applied_actions)} 个商品。当前上架清单共 {summary['total']} 条。"
+            else:
+                reply = f"已为你汇总当前上架清单，共 {summary['total']} 条。"
         else:
-            reply = "当前上架清单为空，请先让 Agent 推荐选品并加入清单后再确认。"
+            reply = "当前上架清单为空，也没有找到上一轮可执行的推荐方案。请先让 Agent 推荐选品后再确认。"
         metadata = {
             "event": "chat_reply",
             "actions": [],
-            "applied_actions": [],
+            "applied_actions": applied_actions,
             "recommendations": [],
             "priority_analysis": [],
             "checklist": [],

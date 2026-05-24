@@ -11,6 +11,7 @@ from agent.rag.config import (
     DEFAULT_EMBEDDING_DIM,
     DEFAULT_EMBEDDING_MODEL,
     embedding_disabled,
+    hash_fallback_allowed,
     preload_requested,
 )
 
@@ -24,11 +25,12 @@ _BACKEND: str = ""
 _TRIED_LOAD = False
 
 
+class SemanticEmbeddingUnavailable(RuntimeError):
+    """Raised when semantic RAG embeddings are required but unavailable."""
+
+
 def _hash_embedding(text: str, dim: int = DEFAULT_EMBEDDING_DIM) -> list[float]:
-    """Cheap deterministic vector used only as an absolute fallback.
-    These vectors do NOT carry meaningful semantic similarity — they help BM25
-    coexist with the rest of the pipeline without crashing, but the retriever
-    should treat hash-fallback dense scores as untrustworthy."""
+    """Cheap deterministic vector used only for explicit local fallback."""
     vector = [0.0] * dim
     tokens = text.split() if " " in text else [text[i:i + 2] for i in range(0, len(text), 2)]
     if not tokens:
@@ -47,27 +49,36 @@ def _hash_embedding(text: str, dim: int = DEFAULT_EMBEDDING_DIM) -> list[float]:
 def _try_load_model() -> tuple[object | None, str]:
     if embedding_disabled():
         logger.info("RAG embedding disabled by AFH_DISABLE_RAG_EMBEDDING=1")
-        return None, HASH_BACKEND
+        if hash_fallback_allowed():
+            return None, HASH_BACKEND
+        raise SemanticEmbeddingUnavailable(
+            "Semantic RAG embedding is disabled. Unset AFH_DISABLE_RAG_EMBEDDING "
+            "or set AFH_ALLOW_HASH_RAG_FALLBACK=1 for local fallback-only debugging."
+        )
     try:
         from sentence_transformers import SentenceTransformer
     except Exception as exc:
-        logger.warning(
-            "sentence-transformers 未安装，向量检索将退到 hash 兜底（无真语义）。"
-            " 请 `pip install sentence-transformers`。原始错误: %s",
-            exc,
+        message = (
+            "sentence-transformers is required for semantic RAG retrieval. "
+            "Install deployment dependencies with `pip install -r requirements.txt`."
         )
-        return None, HASH_BACKEND
+        if hash_fallback_allowed():
+            logger.warning("%s Falling back to hash vectors because AFH_ALLOW_HASH_RAG_FALLBACK=1. Error: %s", message, exc)
+            return None, HASH_BACKEND
+        raise SemanticEmbeddingUnavailable(message) from exc
     try:
         model = SentenceTransformer(DEFAULT_EMBEDDING_MODEL)
     except Exception as exc:
-        logger.warning(
-            "嵌入模型 %s 加载失败，回退 hash 兜底。检查网络/磁盘/缓存。原始错误: %s",
-            DEFAULT_EMBEDDING_MODEL,
-            exc,
+        message = (
+            f"Semantic embedding model {DEFAULT_EMBEDDING_MODEL} failed to load. "
+            "Check network/model cache during deployment."
         )
-        return None, HASH_BACKEND
+        if hash_fallback_allowed():
+            logger.warning("%s Falling back to hash vectors because AFH_ALLOW_HASH_RAG_FALLBACK=1. Error: %s", message, exc)
+            return None, HASH_BACKEND
+        raise SemanticEmbeddingUnavailable(message) from exc
     backend = f"sentence-transformers:{DEFAULT_EMBEDDING_MODEL}"
-    logger.info("嵌入模型已加载: %s", backend)
+    logger.info("Embedding model loaded: %s", backend)
     return model, backend
 
 
@@ -86,17 +97,14 @@ def get_embedder() -> tuple[object | None, str]:
 def current_backend() -> str:
     if _TRIED_LOAD:
         return _BACKEND
-    if embedding_disabled():
+    if embedding_disabled() and hash_fallback_allowed():
         return HASH_BACKEND
     return "lazy"
 
 
 def is_hash_fallback() -> bool:
-    """Cheap check the retriever uses to decide whether dense scores are
-    semantically meaningful or just a noisy bigram signal."""
     backend = current_backend()
     if backend == "lazy":
-        # Not yet loaded; assume semantic until we try.
         get_embedder()
         backend = current_backend()
     return backend == HASH_BACKEND
@@ -112,29 +120,36 @@ def embed_texts(texts: Sequence[str]) -> tuple[list[list[float]], str]:
         return [], current_backend() or HASH_BACKEND
     model, backend = get_embedder()
     if model is None:
-        return [_hash_embedding(t) for t in texts], backend
+        if hash_fallback_allowed():
+            return [_hash_embedding(t) for t in texts], backend
+        raise SemanticEmbeddingUnavailable("Semantic passage embedding is required; hash fallback is disabled.")
     try:
         raw = model.encode(list(texts), normalize_embeddings=True, show_progress_bar=False)
     except Exception as exc:
-        logger.warning("模型推理失败，回退 hash 兜底: %s", exc)
-        return [_hash_embedding(t) for t in texts], HASH_BACKEND
+        if hash_fallback_allowed():
+            logger.warning("Embedding inference failed; falling back to hash vectors: %s", exc)
+            return [_hash_embedding(t) for t in texts], HASH_BACKEND
+        raise SemanticEmbeddingUnavailable("Semantic embedding inference failed.") from exc
     return [[float(x) for x in vec] for vec in raw], backend
 
 
 def embed_query(text: str) -> tuple[list[float], str]:
-    """Embed a single query. For BGE-zh models, prepend the retrieval
-    instruction so query and passage live on the same manifold."""
+    """Embed a single query with BGE's query instruction when applicable."""
     model, backend = get_embedder()
     if model is None:
-        return _hash_embedding(text), backend
+        if hash_fallback_allowed():
+            return _hash_embedding(text), backend
+        raise SemanticEmbeddingUnavailable("Semantic query embedding is required; hash fallback is disabled.")
     prompt = text
     if _is_bge_model(backend) and text and not text.startswith(BGE_QUERY_PREFIX):
         prompt = BGE_QUERY_PREFIX + text
     try:
         raw = model.encode([prompt], normalize_embeddings=True, show_progress_bar=False)
     except Exception as exc:
-        logger.warning("query 推理失败，回退 hash 兜底: %s", exc)
-        return _hash_embedding(text), HASH_BACKEND
+        if hash_fallback_allowed():
+            logger.warning("Query embedding inference failed; falling back to hash vectors: %s", exc)
+            return _hash_embedding(text), HASH_BACKEND
+        raise SemanticEmbeddingUnavailable("Semantic query embedding inference failed.") from exc
     return [float(x) for x in raw[0]], backend
 
 

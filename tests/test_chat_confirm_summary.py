@@ -98,24 +98,38 @@ def test_confirm_trigger_short_circuits_and_returns_task_summary(
     assert result.get("confirmation") == {"required": False}
 
 
-def test_confirm_trigger_does_not_write_listing_items(
+def test_confirm_trigger_writes_previous_recommendations_once(
     project_and_conv, seeded_catalog, monkeypatch,
 ):
     from agent import chat, database
 
     project_id, conv_id = project_and_conv
-    database.add_listing_item(project_id, "古法金手镯 12g", status="拟上架")
-
-    before = database.list_listing_items(project_id)
+    database.add_conversation_message(
+        conv_id,
+        "assistant",
+        "建议执行这两个商品的上架方案。",
+        {
+            "event": "chat_reply",
+            "recommendations": [
+                {"sku_id": "SKU00001", "product_name": "古法金手镯 12g", "reason": "库存和销量适合主推"},
+                {"sku_id": "SKU00002", "product_name": "钻石求婚戒指 30分", "reason": "客单价高，适合搭配活动"},
+            ],
+            "confirmation": {"required": True},
+        },
+    )
 
     monkeypatch.setattr(chat, "call_llm", lambda *_a, **_kw: pytest.fail("LLM called"))
     monkeypatch.setattr(chat, "llm_available", lambda: True)
 
-    chat.handle_chat(project_id, conv_id, "确认执行上一个上架方案")
-    chat.handle_chat(project_id, conv_id, "确认执行上一个上架方案")
+    first = chat.handle_chat(project_id, conv_id, "确认执行上一个上架方案")
+    second = chat.handle_chat(project_id, conv_id, "确认执行上一个上架方案")
 
     after = database.list_listing_items(project_id)
-    assert len(after) == len(before), "confirm-trigger path must not write listing_items"
+    assert len(after) == 2
+    assert first["task_summary"]["total"] == 2
+    assert len(first["applied_actions"]) == 2
+    assert second["task_summary"]["total"] == 2
+    assert second["applied_actions"] == []
 
 
 def test_confirm_trigger_empty_listing_returns_friendly_reply(
