@@ -1,8 +1,9 @@
 import { User, Bot, Loader2, CheckCircle2, SlidersHorizontal, Sparkles } from 'lucide-react';
-import type { ConfirmationRequest, Message, RagChunk, RecommendationItem } from '../../types';
+import type { ConfirmationRequest, Message, RagChunk, RecommendationItem, TaskSummary } from '../../types';
 import { CheckListCard } from './CheckListCard';
 import { RiskAlert } from './RiskAlert';
 import { RagSourcesCard } from './RagSourcesCard';
+import { TaskSummaryCard } from './TaskSummaryCard';
 import { useApp } from '../../contexts/AppContext';
 
 interface AgentMessageProps {
@@ -40,6 +41,7 @@ export function AgentMessage({ message, isStreaming }: AgentMessageProps) {
   const confirmation = message.metadata?.confirmation as ConfirmationRequest | undefined;
   const ragChunks = message.metadata?.rag_chunks as RagChunk[] | undefined;
   const knowledgeIds = message.metadata?.knowledge_ids as string[] | undefined;
+  const taskSummary = message.metadata?.task_summary as TaskSummary | undefined;
 
   const priorityLabel = {
     high: '高优先级',
@@ -171,6 +173,10 @@ export function AgentMessage({ message, isStreaming }: AgentMessageProps) {
               <CheckCircle2 size={15} className="text-green-600" />
               方案已确认，推荐商品已写入上架清单。
             </div>
+          )}
+
+          {taskSummary && (
+            <TaskSummaryCard summary={taskSummary} />
           )}
 
           {ragChunks && ragChunks.length > 0 && (
