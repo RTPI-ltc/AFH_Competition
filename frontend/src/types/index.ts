@@ -13,6 +13,7 @@ export interface Message {
     confirmation?: ConfirmationRequest;
     rag_chunks?: RagChunk[];
     knowledge_ids?: string[];
+    task_summary?: TaskSummary;
   };
 }
 
@@ -44,6 +45,19 @@ export interface RecommendationItem {
   priority: 'high' | 'medium' | 'low';
   score: number;
   reason: string;
+}
+
+export interface TaskSummaryItem {
+  product_name: string;
+  status: string;
+  notes: string;
+  sku_id: string;
+  category: string;
+}
+
+export interface TaskSummary {
+  items: TaskSummaryItem[];
+  total: number;
 }
 
 export interface ConfirmationRequest {
