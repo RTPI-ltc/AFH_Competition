@@ -3,42 +3,42 @@ import { useEffect } from 'react';
 import { NewTaskButton } from './NewTaskButton';
 import { ProjectList } from './ProjectList';
 import { HistoryList } from './HistoryList';
-import { BookOpen, Upload, ChevronLeft, Bot, Package, KeyRound } from 'lucide-react';
+import { AgentSection } from './AgentSection';
+import { BookOpen, Upload, ChevronLeft, Bot, KeyRound, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 
 interface SidebarProps {
   onOpenKnowledgeModal: () => void;
   onSummarize: (taskId: string) => void;
-  onSummarizeProject: (projectId: string) => void;
   onNavigateToKnowledge: () => void;
-  onNavigateToProducts: () => void;
+  onNavigateToAgents: () => void;
   onNavigateToApiConfig: () => void;
   onNavigateToChat: () => void;
   isKnowledgePage: boolean;
-  isProductPage: boolean;
+  isAgentPage: boolean;
   isApiConfigPage: boolean;
 }
 
 export function Sidebar({
   onOpenKnowledgeModal,
   onSummarize,
-  onSummarizeProject,
   onNavigateToKnowledge,
-  onNavigateToProducts,
+  onNavigateToAgents,
   onNavigateToApiConfig,
   onNavigateToChat,
   isKnowledgePage,
-  isProductPage,
+  isAgentPage,
   isApiConfigPage,
 }: SidebarProps) {
-  const { state, dispatch, loadHistory, loadKnowledge, loadProjects } = useApp();
+  const { state, dispatch, loadHistory, loadKnowledge, loadProjects, loadAgents } = useApp();
   const [showHistory, setShowHistory] = useState(true);
 
   useEffect(() => {
     loadProjects();
     loadHistory();
     loadKnowledge();
-  }, [loadHistory, loadKnowledge, loadProjects]);
+    loadAgents();
+  }, [loadAgents, loadHistory, loadKnowledge, loadProjects]);
 
   return (
     <aside
@@ -54,7 +54,7 @@ export function Sidebar({
               <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
                 <Bot size={18} className="text-white" />
               </div>
-              <h1 className="text-lg font-semibold text-gray-900">Aurelius Agent</h1>
+              <h1 className="text-lg font-semibold text-gray-900">知识库 Agent</h1>
             </div>
             <NewTaskButton onTaskStarted={onNavigateToChat} />
           </div>
@@ -84,18 +84,18 @@ export function Sidebar({
               </button>
             </div>
 
-            {/* Product DB btn */}
+            {/* Agent library + API config */}
             <div className="px-2 space-y-1">
               <button
-                onClick={onNavigateToProducts}
+                onClick={onNavigateToAgents}
                 className={`flex items-center gap-2 w-full px-3 py-2 text-sm rounded-lg transition-colors ${
-                  isProductPage
+                  isAgentPage
                     ? 'bg-blue-50 text-blue-700 font-medium'
                     : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >
-                <Package size={16} />
-                <span className="flex-1 text-left">商品数据库</span>
+                <ShieldCheck size={16} />
+                <span className="flex-1 text-left">Agent 库</span>
               </button>
               <button
                 onClick={onNavigateToApiConfig}
@@ -113,8 +113,12 @@ export function Sidebar({
             {/* Divider */}
             <div className="border-t border-gray-200 mx-3" />
 
+            <AgentSection />
+
+            <div className="border-t border-gray-200 mx-3" />
+
             {/* Project list */}
-            <ProjectList onSummarizeProject={onSummarizeProject} />
+            <ProjectList />
 
             {/* Divider */}
             <div className="border-t border-gray-200 mx-3" />
@@ -132,7 +136,7 @@ export function Sidebar({
                   {state.history.length}
                 </span>
               </button>
-              <HistoryList onSummarize={onSummarize} />
+              {showHistory && <HistoryList onSummarize={onSummarize} />}
             </div>
           </div>
 

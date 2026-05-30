@@ -2,143 +2,115 @@ from __future__ import annotations
 
 import sys
 import uuid
+import json
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 
 def _setup_db(tmp_path, monkeypatch):
-    monkeypatch.setenv("AFH_DB_PATH", str(tmp_path / "risk_control.db"))
+    monkeypatch.setenv("AFH_DB_PATH", str(tmp_path / "rag_citation.db"))
     from agent import database
 
     database.init_db()
-    project_id = database.ensure_project(str(uuid.uuid4()), name="风控测试项目")
-    conversation_id = database.ensure_conversation(project_id, str(uuid.uuid4()), title="风控测试对话")
+    project_id = database.ensure_project(str(uuid.uuid4()), name="引用测试项目")
+    conversation_id = database.ensure_conversation(project_id, str(uuid.uuid4()), title="引用测试对话")
     return database, project_id, conversation_id
 
 
-def _create_risky_product(database):
-    return database.create_catalog_product({
-        "sku_id": "SKU900001",
-        "product_name": "风控测试金镯",
-        "brand": "云璟珠宝",
-        "category_l1": "黄金",
-        "category_l2": "古法金",
-        "pricing_model": "fixed",
-        "tag_price_rmb": 1999,
-        "list_price_rmb": 2199,
-        "last_30d_min_price": 1899,
-        "last_90d_min_price": 1799,
-        "stock": 8,
-        "last_90d_sales": 80,
-        "review_rate": 94.5,
-        "return_rate": 3.6,
-        "certificate_ids": [],
-        "active_campaigns": ["tmall:brand_day"],
-    })
-
-
-def test_risk_control_blocks_high_risk_listing_actions(tmp_path, monkeypatch):
+def test_rag_chunks_are_added_to_prompt_and_metadata(tmp_path, monkeypatch):
     database, project_id, conversation_id = _setup_db(tmp_path, monkeypatch)
-    _create_risky_product(database)
 
     from agent import chat
-    from agent import risk_control
 
-    risk_control.RISK_EVENT_DIR = tmp_path / "risk_events"
+    chunk = {
+        "kb_id": "official_airs_hackathon",
+        "source_file": "AIRS 黑客松赛事知识样例.txt",
+        "text": "参赛团队需要提交项目说明文档、可运行 Demo、演示视频和附件清单。",
+        "score": 0.03,
+        "dense_score": 0.81,
+        "bm25_score": 4.2,
+        "rrf_score": 0.03,
+    }
+    captured: dict[str, str] = {}
 
-    def fake_llm(*_args):
+    def fake_llm(system_prompt: str, user_prompt: str) -> str:
+        captured["system"] = system_prompt
+        captured["user"] = user_prompt
         return """
         {
-          "reply": "建议上架风控测试金镯，保证升值，活动价9999元。",
-          "actions": [
-            {
-              "type": "add_listing_item",
-              "sku_id": "SKU900001",
-              "product_name": "风控测试金镯",
-              "status": "拟上架",
-              "notes": "模型推荐"
-            }
-          ],
-          "recommendations": [
-            {
-              "sku_id": "SKU900001",
-              "product_name": "风控测试金镯",
-              "priority": "high",
-              "score": 95,
-              "reason": "测试"
-            }
-          ],
-          "priority_analysis": [],
-          "checklist": [],
-          "risks": [],
-          "needs_clarification": [],
-          "confirmation": {"required": false}
+          "reply": "需要提交项目说明文档、可运行 Demo、演示视频和附件清单。",
+          "confidence": "high",
+          "evidence_notes": ["依据 AIRS 黑客松赛事知识样例"],
+          "follow_up_questions": []
         }
         """
 
     monkeypatch.setattr(chat, "llm_available", lambda: True)
+    monkeypatch.setattr(chat, "retrieve_with_diagnostics", lambda *_args, **_kwargs: ([chunk], {
+        "retrieval_mode": "hybrid",
+        "retrieval_backend": "sentence-transformers:BAAI/bge-small-zh-v1.5",
+        "gpu_mode": "auto",
+        "semantic_error": None,
+        "retrieval_notices": [],
+    }))
     monkeypatch.setattr(chat, "call_llm", fake_llm)
 
-    result = chat.handle_chat(project_id, conversation_id, "把风控测试金镯加入上架清单")
-
-    assert result["actions"] == []
-    assert result["applied_actions"] == []
-    assert database.list_listing_items(project_id) == []
-    assert result["risk_control"]["should_block_actions"] is True
-    codes = {item["code"] for item in result["risk_control"]["findings"]}
-    assert {"promise_pattern", "price_mismatch", "campaign_conflict", "price_protection"} <= codes
-    assert result["risks"]
-    assert any("风控发现高风险项" in item for item in result["needs_clarification"])
-    assert list((tmp_path / "risk_events").glob("*.jsonl"))
-
-
-def test_risk_control_keeps_medium_risks_without_blocking(tmp_path, monkeypatch):
-    database, project_id, conversation_id = _setup_db(tmp_path, monkeypatch)
-    database.create_catalog_product({
-        "sku_id": "SKU900002",
-        "product_name": "证书待补银链",
-        "brand": "银澈饰品",
-        "category_l1": "银饰",
-        "category_l2": "项链",
-        "pricing_model": "fixed",
-        "tag_price_rmb": 599,
-        "list_price_rmb": 599,
-        "last_30d_min_price": 599,
-        "last_90d_min_price": 599,
-        "stock": 100,
-        "last_90d_sales": 30,
-        "review_rate": 96,
-        "return_rate": 1.5,
-        "certificate_ids": [],
-        "active_campaigns": [],
-    })
-
-    from agent import chat
-    from agent import risk_control
-
-    risk_control.RISK_EVENT_DIR = tmp_path / "risk_events"
-    monkeypatch.setattr(chat, "llm_available", lambda: True)
-    monkeypatch.setattr(
-        chat,
-        "call_llm",
-        lambda *_args: """
-        {
-          "reply": "建议将证书待补银链加入清单，价格599元。",
-          "actions": [{"type": "add_listing_item", "sku_id": "SKU900002", "product_name": "证书待补银链", "status": "待确认"}],
-          "recommendations": [{"sku_id": "SKU900002", "product_name": "证书待补银链", "priority": "medium", "score": 80, "reason": "价格带合适"}],
-          "priority_analysis": [],
-          "checklist": [],
-          "risks": [],
-          "needs_clarification": [],
-          "confirmation": {"required": false}
-        }
-        """,
+    result = chat.handle_chat(
+        project_id,
+        conversation_id,
+        "赛事需要提交哪些材料？",
+        knowledge_ids=["official_airs_hackathon"],
     )
 
-    result = chat.handle_chat(project_id, conversation_id, "把证书待补银链加入上架清单")
+    payload = json.loads(captured["user"])
+    assert "selected_agent" in captured["system"]
+    assert payload["retrieved_chunk_count"] == 1
+    assert payload["retrieved_chunks"][0]["source_file"] == "AIRS 黑客松赛事知识样例.txt"
+    assert payload["retrieved_chunks"][0]["text"].startswith("参赛团队需要提交")
+    assert result["agent_id"] == "hackathon-assistant"
+    assert result["agent_name"]
+    assert result["runtime_backend"] in {"agentscope", "agentscope-compatible-fallback"}
+    assert result["confidence"] == "high"
+    assert result["evidence_notes"] == ["依据 AIRS 黑客松赛事知识样例"]
+    assert result["follow_up_questions"] == []
+    assert result["rag_chunks"][0]["source_file"] == "AIRS 黑客松赛事知识样例.txt"
+    assert result["knowledge_ids"] == ["official_airs_hackathon"]
 
-    assert result["applied_actions"]
-    assert database.list_listing_items(project_id)
-    assert result["risk_control"]["should_block_actions"] is False
-    assert "certificate_missing" in {item["code"] for item in result["risk_control"]["findings"]}
+    messages = database.list_conversation_messages(conversation_id)
+    metadata = messages[-1]["metadata"]
+    assert metadata["agent_id"] == result["agent_id"]
+    assert metadata["agent_name"] == result["agent_name"]
+    assert metadata["runtime_backend"] == result["runtime_backend"]
+    assert metadata["confidence"] == "high"
+    assert metadata["evidence_notes"] == ["依据 AIRS 黑客松赛事知识样例"]
+    assert metadata["follow_up_questions"] == []
+    assert metadata["rag_chunks"][0]["snippet"].startswith("参赛团队需要提交")
+
+
+def test_non_json_model_reply_is_preserved_with_low_confidence_risk(tmp_path, monkeypatch):
+    _database, project_id, conversation_id = _setup_db(tmp_path, monkeypatch)
+
+    from agent import chat
+
+    monkeypatch.setattr(chat, "llm_available", lambda: True)
+    monkeypatch.setattr(chat, "retrieve_with_diagnostics", lambda *_args, **_kwargs: ([], {
+        "retrieval_mode": "no-hit",
+        "retrieval_backend": "bm25-only",
+        "gpu_mode": "auto",
+        "semantic_error": None,
+        "retrieval_notices": [],
+    }))
+    monkeypatch.setattr(chat, "call_llm", lambda *_args: "这是一个纯文本回答。")
+
+    result = chat.handle_chat(project_id, conversation_id, "课程考试范围是什么？")
+
+    assert result["reply"] == "这是一个纯文本回答。"
+    assert result["agent_id"] == "hackathon-assistant"
+    assert result["agent_name"]
+    assert result["runtime_backend"] in {"agentscope", "agentscope-compatible-fallback"}
+    assert result["confidence"] == "low"
+    assert result["evidence_notes"]
+    assert any("知识库" in note for note in result["evidence_notes"])
+    assert result["follow_up_questions"]
+    assert result["rag_chunks"] == []

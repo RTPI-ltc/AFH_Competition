@@ -82,7 +82,44 @@ def embedding_disabled() -> bool:
 
 
 def hash_fallback_allowed() -> bool:
-    return os.getenv("AFH_ALLOW_HASH_RAG_FALLBACK", "1") != "0"
+    return os.getenv("AFH_ALLOW_HASH_RAG_FALLBACK", "0") == "1"
+
+
+def gpu_mode() -> str:
+    raw = os.getenv("AFH_GPU_MODE", "auto").strip().lower()
+    if raw not in {"auto", "off", "required"}:
+        return "auto"
+    return raw
+
+
+def gpu_required() -> bool:
+    return gpu_mode() == "required"
+
+
+def local_embedding_download_allowed() -> bool:
+    return os.getenv("AFH_RAG_ALLOW_MODEL_DOWNLOAD", "0") == "1"
+
+
+def remote_embedding_url() -> str:
+    if gpu_mode() == "off":
+        return ""
+    return os.getenv("AFH_RAG_EMBEDDING_URL", "").strip().rstrip("/")
+
+
+def remote_embedding_timeout() -> float:
+    raw = os.getenv("AFH_RAG_EMBEDDING_TIMEOUT", "8").strip()
+    try:
+        return max(1.0, float(raw))
+    except ValueError:
+        return 8.0
+
+
+def gpu_circuit_breaker_seconds() -> float:
+    raw = os.getenv("AFH_GPU_CIRCUIT_BREAKER_SECONDS", "60").strip()
+    try:
+        return max(1.0, float(raw))
+    except ValueError:
+        return 60.0
 
 
 RAG_DISABLED = os.getenv("AFH_DISABLE_RAG") == "1"

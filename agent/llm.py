@@ -2,6 +2,7 @@
 
 import json
 import os
+from collections.abc import Iterator
 from typing import Any
 
 from agent import database
@@ -144,6 +145,34 @@ def _call_llm_with_config(config: dict[str, Any], system: str, user: str) -> str
     return response.choices[0].message.content or ""
 
 
+def _stream_llm_with_config(config: dict[str, Any], system: str, user: str) -> Iterator[str]:
+    try:
+        from openai import OpenAI
+    except Exception as exc:
+        raise RuntimeError("openai package is not installed") from exc
+
+    client = OpenAI(api_key=str(config["api_key"]), base_url=str(config["base_url"]))
+    response = client.chat.completions.create(
+        model=str(config["model"]),
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ],
+        max_tokens=get_max_tokens(),
+        temperature=0.1,
+        timeout=get_timeout_seconds(),
+        stream=True,
+    )
+    for chunk in response:
+        choices = getattr(chunk, "choices", None) or []
+        if not choices:
+            continue
+        delta = getattr(choices[0], "delta", None)
+        content = getattr(delta, "content", None)
+        if content:
+            yield content
+
+
 def call_llm(system: str, user: str) -> str:
     candidates = _configured_llm_candidates()
     if not candidates:
@@ -163,6 +192,34 @@ def call_llm(system: str, user: str) -> str:
             errors.append(error)
             if config_id:
                 database.update_llm_api_config_status(str(config_id), "error", str(exc))
+            continue
+    raise RuntimeError("All configured LLM API keys failed: " + " | ".join(errors))
+
+
+def stream_llm(system: str, user: str) -> Iterator[str]:
+    candidates = _configured_llm_candidates()
+    if not candidates:
+        raise RuntimeError("LLM API key is not configured")
+
+    errors: list[str] = []
+    for config in candidates:
+        config_id = config.get("id")
+        label = f"{config.get('name')}({config.get('model')})"
+        yielded = False
+        try:
+            for content in _stream_llm_with_config(config, system, user):
+                yielded = True
+                yield content
+            if config_id:
+                database.update_llm_api_config_status(str(config_id), "ok", "")
+            return
+        except Exception as exc:
+            error = f"{label}: {exc}"
+            errors.append(error)
+            if config_id:
+                database.update_llm_api_config_status(str(config_id), "error", str(exc))
+            if yielded:
+                raise RuntimeError(error) from exc
             continue
     raise RuntimeError("All configured LLM API keys failed: " + " | ".join(errors))
 

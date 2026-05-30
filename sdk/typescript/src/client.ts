@@ -191,6 +191,7 @@ export class AFHClient {
         task_id: request.task_id,
         message: request.message,
         knowledge_ids: request.knowledge_ids ?? [],
+        agent_id: request.agent_id,
       }),
       headers: {
         "Content-Type": "application/json",

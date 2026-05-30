@@ -1,12 +1,8 @@
 import { useState } from 'react';
-import { Folder, FolderOpen, Plus, Check, X, Pencil, FileBarChart } from 'lucide-react';
+import { Folder, FolderOpen, Plus, Check, X, Pencil } from 'lucide-react';
 import { useApp } from '../../contexts/AppContext';
 
-interface ProjectListProps {
-  onSummarizeProject: (projectId: string) => void;
-}
-
-export function ProjectList({ onSummarizeProject }: ProjectListProps) {
+export function ProjectList() {
   const { state, switchProject, createNewProject, loadProjects, renameProject } = useApp();
   const [isNew, setIsNew] = useState(false);
   const [newName, setNewName] = useState('');
@@ -99,13 +95,6 @@ export function ProjectList({ onSummarizeProject }: ProjectListProps) {
                 >
                   {proj.name}
                 </span>
-              </button>
-              <button
-                onClick={(e) => { e.stopPropagation(); onSummarizeProject(proj.id); }}
-                className="opacity-0 group-hover:opacity-100 p-0.5 rounded hover:bg-emerald-100 text-gray-400 hover:text-emerald-600 transition-all"
-                title="项目汇总"
-              >
-                <FileBarChart size={11} />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); startRename(proj.id, proj.name); }}

@@ -1,10 +1,10 @@
-import { Bot, FileText, AlertTriangle, HelpCircle, ArrowRight } from 'lucide-react';
+import { Bot, FileText, AlertTriangle, Brain, ArrowRight } from 'lucide-react';
 import { useApp } from '../../contexts/AppContext';
 
 const examples = [
-  '天猫618大促选品规则：参与商品近30天销量≥100件，好评率≥95%，库存≥500件',
-  '京东双11活动：DSR≥4.8分，开店≥90天，近30天销量≥50件',
-  '拼多多百亿补贴：品牌正品授权，全网最低价85折，单SKU库存≥1000件',
+  '请基于已选择知识库，回答这个赛事的提交材料有哪些，并列出需要人工确认的事项。',
+  '请把课程资料里的核心知识点整理成复习提纲，并生成 5 道练习题。',
+  '请检查这份项目申报材料还缺哪些附件、依据来源和风险提示。',
 ];
 
 export function WelcomePage() {
@@ -18,28 +18,28 @@ export function WelcomePage() {
       </div>
 
       {/* Title */}
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">Aurelius Agent</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-2">知识库 Agent</h1>
       <p className="text-gray-500 text-sm mb-10 text-center max-w-md">
-        输入活动规则文本，Agent将自动解析规则条件，生成结构化执行检查清单，
-        识别潜在风险点，并标注需要人工确认的信息。
+        选择一个 Agent 和多个知识库后提问，系统会按 AgentScope 编排检索证据、
+        判断置信度，并保留引用来源供复核。
       </p>
 
       {/* Features */}
       <div className="grid grid-cols-3 gap-4 max-w-xl mb-10">
         <div className="flex flex-col items-center text-center p-4 bg-indigo-50 rounded-2xl">
           <FileText size={24} className="text-indigo-600 mb-2" />
-          <span className="text-xs font-medium text-gray-700">规则解析</span>
-          <span className="text-[10px] text-gray-400 mt-1">自动提取条件</span>
+          <span className="text-xs font-medium text-gray-700">可信问答</span>
+          <span className="text-[10px] text-gray-400 mt-1">引用溯源</span>
         </div>
         <div className="flex flex-col items-center text-center p-4 bg-amber-50 rounded-2xl">
           <AlertTriangle size={24} className="text-amber-600 mb-2" />
-          <span className="text-xs font-medium text-gray-700">风险提示</span>
-          <span className="text-[10px] text-gray-400 mt-1">识别潜在风险</span>
+          <span className="text-xs font-medium text-gray-700">低置信提示</span>
+          <span className="text-[10px] text-gray-400 mt-1">人工复核</span>
         </div>
         <div className="flex flex-col items-center text-center p-4 bg-green-50 rounded-2xl">
-          <HelpCircle size={24} className="text-green-600 mb-2" />
-          <span className="text-xs font-medium text-gray-700">需确认项</span>
-          <span className="text-[10px] text-gray-400 mt-1">标注待补充</span>
+          <Brain size={24} className="text-green-600 mb-2" />
+          <span className="text-xs font-medium text-gray-700">Agent 编排</span>
+          <span className="text-[10px] text-gray-400 mt-1">单 Agent 路由</span>
         </div>
       </div>
 

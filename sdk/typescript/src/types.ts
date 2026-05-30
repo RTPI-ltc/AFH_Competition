@@ -79,6 +79,18 @@ export interface ChatMetadata {
   knowledge_ids?: string[];
   task_summary?: TaskSummary;
   risk_control?: RiskControlMetadata;
+  agent_id?: string;
+  agent_name?: string;
+  runtime_backend?: string;
+  confidence?: "high" | "medium" | "low" | string;
+  evidence_notes?: string[];
+  follow_up_questions?: string[];
+  timings_ms?: Record<string, number>;
+  retrieval_mode?: string;
+  retrieval_backend?: string;
+  gpu_mode?: string;
+  semantic_error?: string;
+  phase?: string;
 }
 
 export interface RiskControlMetadata {
@@ -218,6 +230,7 @@ export interface ChatStreamRequest {
   task_id: string;
   message: string;
   knowledge_ids?: string[];
+  agent_id?: string;
 }
 
 export interface StreamEvent {
@@ -230,6 +243,7 @@ export interface StreamEvent {
     | "priority_analysis"
     | "confirmation"
     | "rag_chunks"
+    | "agent_state"
     | "done";
   content?: string;
   items?: unknown[];

@@ -8,11 +8,13 @@ from typing import Iterable
 
 from agent.rag.bm25 import build_bm25
 from agent.rag.chunker import Chunk, chunk_text
-from agent.rag.embedder import embed_texts
+from agent.rag.config import gpu_required
+from agent.rag.embedder import SemanticEmbeddingUnavailable, embed_texts
 from agent.rag.loaders import iter_files, load_bytes, load_file, supported_extension
 from agent.rag.store import KBStore, hash_bytes, kb_store
 
 logger = logging.getLogger(__name__)
+BM25_ONLY_BACKEND = "bm25-only"
 
 
 @dataclass
@@ -68,7 +70,16 @@ def _rebuild_index(store: KBStore, chunks: list[dict]) -> tuple[str, int]:
         store.write_index([], dim=None)
         store.clear_bm25()
         return "empty", 0
-    vectors, backend = embed_texts(texts)
+    try:
+        vectors, backend = embed_texts(texts)
+    except SemanticEmbeddingUnavailable as exc:
+        if gpu_required():
+            raise
+        logger.warning("Semantic indexing unavailable; building BM25-only index: %s", exc)
+        store.write_index([], dim=None)
+        bm25_state = build_bm25(chunks)
+        store.save_bm25(bm25_state.to_dict())
+        return BM25_ONLY_BACKEND, 0
     if not vectors:
         # Even when dense fails, build BM25 so sparse retrieval still works.
         bm25_state = build_bm25(chunks)

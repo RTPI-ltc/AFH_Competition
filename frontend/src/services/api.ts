@@ -1,5 +1,5 @@
 /* API service for backend communication */
-import type { HistoryItem, HistoryDetail, KnowledgeItem, LlmApiConfig, ProjectItem, StreamEvent } from '../types';
+import type { AgentLibraryItem, HistoryItem, HistoryDetail, KnowledgeItem, LlmApiConfig, ProjectItem, StreamEvent } from '../types';
 
 const BASE = '/api';
 
@@ -44,14 +44,10 @@ export async function saveMessage(taskId: string, role: string, content: string,
 export async function summarizeTask(taskId: string): Promise<{
   title: string;
   overview?: string;
-  rule_points: string[];
-  recommendations: { item: string; reason: string }[];
-  final_selection?: SummarySelection[];
-  selection_reasons?: string[];
-  attention_items?: string[];
-  confirmed_listing?: SummaryListingItem[];
-  checks: { name: string; status: string }[];
-  risks: string[];
+  agents?: string[];
+  evidence_notes: string[];
+  follow_up_questions: string[];
+  rag_sources: { source_file: string; kb_id: string; snippet: string }[];
 }> {
   return request(`/history/${taskId}/summarize`, { method: 'POST' });
 }
@@ -59,37 +55,12 @@ export async function summarizeTask(taskId: string): Promise<{
 export async function summarizeProject(projectId: string): Promise<{
   title: string;
   overview?: string;
-  rule_points: string[];
-  recommendations: { item: string; reason: string }[];
-  final_selection?: SummarySelection[];
-  selection_reasons?: string[];
-  attention_items?: string[];
-  confirmed_listing?: SummaryListingItem[];
-  checks: { name: string; status: string }[];
-  risks: string[];
+  agents?: string[];
+  evidence_notes: string[];
+  follow_up_questions: string[];
+  rag_sources: { source_file: string; kb_id: string; snippet: string }[];
 }> {
   return request(`/projects/${projectId}/summarize`, { method: 'POST' });
-}
-
-export interface SummarySelection {
-  sku_id: string;
-  product_name: string;
-  status: string;
-  category: string;
-  reason: string;
-  key_metrics?: {
-    stock?: number | null;
-    last_90d_sales?: number | null;
-    review_rate?: number | null;
-    return_rate?: number | null;
-  };
-}
-
-export interface SummaryListingItem {
-  sku_id: string;
-  product_name: string;
-  status: string;
-  notes: string;
 }
 
 /* Projects */
@@ -139,35 +110,10 @@ export async function deleteLlmApiConfig(id: string): Promise<{ success: boolean
   return request(`/llm/configs/${encodeURIComponent(id)}`, { method: 'DELETE' });
 }
 
-export async function getProducts(category?: string, search?: string): Promise<{
-  products: SkuProduct[];
-  categories: string[];
-  total: number;
-}> {
-  const params = new URLSearchParams();
-  if (category) params.set('category_l1', category);
-  if (search) params.set('search', search);
-  return request(`/products?${params.toString()}`);
-}
-
-export async function addProduct(product: Record<string, unknown>): Promise<{ success: boolean; product: SkuProduct }> {
-  return request('/products', { method: 'POST', body: JSON.stringify(product) });
-}
-
-export async function deleteProduct(skuId: string): Promise<{ success: boolean }> {
-  return request(`/products/${encodeURIComponent(skuId)}`, { method: 'DELETE' });
-}
-
-export interface SkuProduct {
-  sku_id: string; product_name: string; brand: string;
-  category_l1: string; category_l2: string; pricing_model: string;
-  weight_g: number | null; purity: string | null;
-  gem_carat: number | null; gem_color: string | null; gem_clarity: string | null; gem_cut: string | null;
-  tag_price_rmb: number; list_price_rmb: number | null;
-  last_30d_min_price: number | null; last_90d_min_price: number | null; last_365d_min_price: number | null;
-  stock: number; last_90d_sales: number; review_rate: number; return_rate: number;
-  new_product: boolean; certificate_ids: string[];
-  factory_id: string; lead_time_days: number; active_campaigns: string[];
+/* Agents */
+export async function getAgents(): Promise<AgentLibraryItem[]> {
+  const data = await request<AgentLibraryItem[] | { agents?: AgentLibraryItem[] }>('/agents');
+  return Array.isArray(data) ? data : data.agents ?? [];
 }
 
 /* Knowledge */
@@ -201,6 +147,7 @@ export async function streamChat(
   taskId: string,
   message: string,
   knowledgeIds: string[],
+  agentId: string,
   onEvent: (event: StreamEvent) => void,
   onDone: () => void,
   onError: (err: Error) => void,
@@ -213,6 +160,7 @@ export async function streamChat(
         task_id: taskId,
         message,
         knowledge_ids: knowledgeIds,
+        agent_id: agentId,
       }),
     });
 

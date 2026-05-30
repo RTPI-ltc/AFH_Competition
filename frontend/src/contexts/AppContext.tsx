@@ -1,6 +1,6 @@
 /* Global state management */
 import React, { createContext, useContext, useReducer, useCallback, useRef, type ReactNode } from 'react';
-import type { AppState, Message, HistoryItem, KnowledgeItem, ProjectItem } from '../types';
+import type { AgentLibraryItem, AppState, Message, HistoryItem, KnowledgeItem, ProjectItem } from '../types';
 import * as api from '../services/api';
 
 type Action =
@@ -10,6 +10,8 @@ type Action =
   | { type: 'UPDATE_LAST_AGENT_MESSAGE'; content: string; metadata?: Record<string, unknown> }
   | { type: 'SET_HISTORY'; history: HistoryItem[] }
   | { type: 'SET_KNOWLEDGE'; knowledge: KnowledgeItem[] }
+  | { type: 'SET_AGENTS'; agents: AgentLibraryItem[] }
+  | { type: 'SET_SELECTED_AGENT'; agentId: string }
   | { type: 'TOGGLE_KNOWLEDGE_SELECTION'; id: string }
   | { type: 'SET_LOADING'; loading: boolean }
   | { type: 'SET_STREAMING_TEXT'; text: string }
@@ -29,6 +31,8 @@ const initialState: AppState = {
   projects: [],
   knowledgeList: [],
   selectedKnowledge: [],
+  agentList: [],
+  selectedAgentId: 'hackathon-assistant',
   isLoading: false,
   streamingText: '',
   isSidebarOpen: true,
@@ -59,6 +63,18 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, history: action.history };
     case 'SET_KNOWLEDGE':
       return { ...state, knowledgeList: action.knowledge };
+    case 'SET_AGENTS': {
+      const selectedStillExists = action.agents.some((agent) => agent.id === state.selectedAgentId);
+      return {
+        ...state,
+        agentList: action.agents,
+        selectedAgentId: selectedStillExists
+          ? state.selectedAgentId
+          : action.agents[0]?.id || state.selectedAgentId,
+      };
+    }
+    case 'SET_SELECTED_AGENT':
+      return { ...state, selectedAgentId: action.agentId };
     case 'TOGGLE_KNOWLEDGE_SELECTION': {
       const exists = state.selectedKnowledge.includes(action.id);
       return {
@@ -99,6 +115,7 @@ interface AppContextType {
   startNewTask: () => Promise<void>;
   loadHistory: () => Promise<void>;
   loadKnowledge: () => Promise<void>;
+  loadAgents: () => Promise<void>;
   loadProjects: () => Promise<void>;
   switchProject: (projectId: string) => Promise<void>;
   createNewProject: (name: string) => Promise<void>;
@@ -203,6 +220,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const loadAgents = useCallback(async () => {
+    try {
+      const agents = await api.getAgents();
+      dispatch({ type: 'SET_AGENTS', agents });
+    } catch (err) {
+      console.error('Failed to load agents:', err);
+    }
+  }, []);
+
   const sendMessage = useCallback(
     async (message: string) => {
       // Clear previous errors
@@ -272,62 +298,30 @@ export function AppProvider({ children }: { children: ReactNode }) {
           taskId,
           message,
           state.selectedKnowledge,
+          state.selectedAgentId,
           (event) => {
             if (event.type === 'text' && event.content) {
               streamedText += event.content;
               dispatch({ type: 'UPDATE_LAST_AGENT_MESSAGE', content: streamedText });
-            } else if (event.type === 'checklist' && event.items) {
-              agentMetadata = { ...agentMetadata, checklist: event.items };
-              dispatch({
-                type: 'UPDATE_LAST_AGENT_MESSAGE',
-                content: streamedText,
-                metadata: { checklist: event.items },
-              });
-            } else if (event.type === 'risks' && event.items) {
-              agentMetadata = { ...agentMetadata, risks: event.items };
-              dispatch({
-                type: 'UPDATE_LAST_AGENT_MESSAGE',
-                content: streamedText,
-                metadata: { risks: event.items },
-              });
-            } else if (event.type === 'clarification' && event.items) {
-              agentMetadata = { ...agentMetadata, needs_clarification: event.items };
-              dispatch({
-                type: 'UPDATE_LAST_AGENT_MESSAGE',
-                content: streamedText,
-                metadata: { needs_clarification: event.items },
-              });
-            } else if (event.type === 'recommendations' && event.items) {
-              agentMetadata = { ...agentMetadata, recommendations: event.items };
-              dispatch({
-                type: 'UPDATE_LAST_AGENT_MESSAGE',
-                content: streamedText,
-                metadata: { recommendations: event.items },
-              });
-            } else if (event.type === 'priority_analysis' && event.items) {
-              agentMetadata = { ...agentMetadata, priority_analysis: event.items };
-              dispatch({
-                type: 'UPDATE_LAST_AGENT_MESSAGE',
-                content: streamedText,
-                metadata: { priority_analysis: event.items },
-              });
-            } else if (event.type === 'confirmation' && event.item) {
-              agentMetadata = { ...agentMetadata, confirmation: event.item };
-              dispatch({
-                type: 'UPDATE_LAST_AGENT_MESSAGE',
-                content: streamedText,
-                metadata: { confirmation: event.item },
-              });
             } else if (event.type === 'rag_chunks' && event.items) {
               agentMetadata = {
                 ...agentMetadata,
                 rag_chunks: event.items,
                 knowledge_ids: state.selectedKnowledge,
+                agent_id: state.selectedAgentId,
               };
               dispatch({
                 type: 'UPDATE_LAST_AGENT_MESSAGE',
                 content: streamedText,
-                metadata: { rag_chunks: event.items, knowledge_ids: state.selectedKnowledge },
+                metadata: { rag_chunks: event.items, knowledge_ids: state.selectedKnowledge, agent_id: state.selectedAgentId },
+              });
+            } else if (event.type === 'agent_state' && event.item) {
+              const item = event.item as Record<string, unknown>;
+              agentMetadata = { ...agentMetadata, ...item };
+              dispatch({
+                type: 'UPDATE_LAST_AGENT_MESSAGE',
+                content: streamedText,
+                metadata: item,
               });
             }
           },
@@ -355,7 +349,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         dispatch({ type: 'SET_LOADING', loading: false });
       }
     },
-    [state.currentProjectId, state.currentTaskId, state.history, state.selectedKnowledge, loadHistory],
+    [state.currentProjectId, state.currentTaskId, state.history, state.selectedKnowledge, state.selectedAgentId, loadHistory],
   );
 
   const selectTask = useCallback(async (taskId: string) => {
@@ -423,6 +417,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         startNewTask,
         loadHistory,
         loadKnowledge,
+        loadAgents,
         loadProjects,
         switchProject,
         createNewProject,

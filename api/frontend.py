@@ -8,34 +8,45 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 from agent import chat, database
+from agent.agents import list_agent_specs
 from agent.llm import call_llm, model_status
-from agent.rag import index_uploaded_bytes, kb_store
+from agent.ingestion import ingest_uploaded_bytes
+from agent.rag import kb_store
+from agent.rag.embedder import embedding_runtime_status
+from agent.rag.indexer import index_text
 
 
 router = APIRouter(prefix="/api", tags=["frontend"])
 
 _official_knowledge: dict[str, dict[str, str]] = {
-    "official_tmall618": {
-        "id": "official_tmall618",
-        "name": "天猫618大促选品规则",
+    "official_airs_hackathon": {
+        "id": "official_airs_hackathon",
+        "name": "AIRS 黑客松赛事知识样例",
         "type": "official",
-        "description": "天猫618大促活动选品标准规则模板",
+        "description": "覆盖赛事规则、提交材料、评审标准和常见问题的演示知识库。",
         "content": (
-            "天猫618大促选品规则\n"
-            "1. 参与商品需满足近30天销量、好评率、库存等基础门槛。\n"
-            "2. 活动价不得高于历史最低价，折扣力度需满足平台要求。\n"
-            "3. 同品类报名 SKU 数量需要控制，已参加互斥活动的商品需剔除。"
+            "AIRS 黑客松赛事知识样例\n"
+            "参赛团队需要在截止时间前提交项目说明文档、可运行 Demo、演示视频和附件清单。"
+            "项目说明文档建议包含问题背景、目标用户、核心功能、技术路线、数据来源、风险控制和后续计划。\n"
+            "评审重点包括业务价值、技术实现完整性、可信与安全机制、创新性、演示清晰度和落地可行性。"
+            "若提交材料缺少 Demo 运行说明、依赖安装方式、数据来源说明或人工复核边界，需要标记为高优先级补充项。\n"
+            "常见问题包括：是否允许使用开源组件、是否需要公开完整数据、是否必须提供在线部署地址、"
+            "以及模型回答是否需要引用来源。推荐做法是优先使用开源组件完成可运行闭环，敏感资料只展示授权片段。"
         ),
     },
-    "official_jd1111": {
-        "id": "official_jd1111",
-        "name": "京东双11活动规则",
+    "official_general_course": {
+        "id": "official_general_course",
+        "name": "通识课 AI 助教知识样例",
         "type": "official",
-        "description": "京东双11活动通用规则模板",
+        "description": "覆盖课程资料问答、复习提纲、练习题和资料范围提示的演示知识库。",
         "content": (
-            "京东双11活动规则\n"
-            "1. 商品需满足销量、评价、价格保护和库存要求。\n"
-            "2. 报名后需关注发货时效、库存锁定和活动互斥。"
+            "通识课 AI 助教知识样例\n"
+            "课程资料通常包括课程大纲、讲义、阅读材料、作业要求、考试范围和教师答疑记录。"
+            "AI 助教回答课程问题时，应优先引用课程资料，不应把课程资料之外的推断包装成确定结论。\n"
+            "复习提纲应围绕核心概念、关键案例、重要阅读材料和常见误区组织。练习题可以包含概念解释题、"
+            "材料分析题、对比题和开放讨论题，并给出参考答案或评分要点。\n"
+            "当学生提问超出课程范围，或知识库没有对应资料时，系统应提示证据不足，并建议学生补充章节、"
+            "讲义页码、教师说明或授权阅读材料。教师侧看板应关注高频问题、薄弱知识点、未命中问题和资料更新建议。"
         ),
     },
 }
@@ -45,6 +56,7 @@ class FrontChatRequest(BaseModel):
     task_id: str
     message: str
     knowledge_ids: list[str] = Field(default_factory=list)
+    agent_id: str | None = None
 
 
 class SaveMessageRequest(BaseModel):
@@ -106,42 +118,6 @@ def _history_item(conversation: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _rate_for_frontend(value: Any) -> float:
-    number = float(value or 0)
-    return number / 100 if number > 1 else number
-
-
-def _product_for_frontend(item: dict[str, Any]) -> dict[str, Any]:
-    return {
-        "sku_id": item["sku_id"],
-        "product_name": item["product_name"],
-        "brand": item["brand"],
-        "category_l1": item["category_l1"],
-        "category_l2": item["category_l2"],
-        "pricing_model": item["pricing_model"],
-        "weight_g": item.get("weight_g"),
-        "purity": item.get("purity") or None,
-        "gem_carat": item.get("gem_carat"),
-        "gem_color": item.get("gem_color") or None,
-        "gem_clarity": item.get("gem_clarity") or None,
-        "gem_cut": item.get("gem_cut") or None,
-        "tag_price_rmb": float(item.get("tag_price_rmb") or 0),
-        "list_price_rmb": item.get("list_price_rmb"),
-        "last_30d_min_price": item.get("last_30d_min_price"),
-        "last_90d_min_price": item.get("last_90d_min_price"),
-        "last_365d_min_price": item.get("last_365d_min_price"),
-        "stock": int(item.get("stock") or 0),
-        "last_90d_sales": int(item.get("last_90d_sales") or 0),
-        "review_rate": _rate_for_frontend(item.get("review_rate")),
-        "return_rate": _rate_for_frontend(item.get("return_rate")),
-        "new_product": bool(item.get("new_product")),
-        "certificate_ids": item.get("certificate_ids") or [],
-        "factory_id": item.get("factory_id") or "",
-        "lead_time_days": int(item.get("lead_time_days") or 0),
-        "active_campaigns": item.get("active_campaigns") or [],
-    }
-
-
 def _sse(payload: dict[str, Any]) -> str:
     return f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
 
@@ -149,6 +125,11 @@ def _sse(payload: dict[str, Any]) -> str:
 @router.get("/health")
 def frontend_health() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@router.get("/agents")
+def frontend_agents() -> list[dict[str, Any]]:
+    return list_agent_specs()
 
 
 @router.get("/llm/health")
@@ -161,6 +142,13 @@ def frontend_llm_health() -> dict[str, Any]:
     except Exception as exc:
         return {**status, "status": "error", "error": str(exc)}
     return {**status, "status": "ok", "reply": reply.strip()[:20]}
+
+
+@router.get("/runtime/status")
+def frontend_runtime_status() -> dict[str, Any]:
+    return {
+        "rag": embedding_runtime_status(),
+    }
 
 
 @router.get("/llm/configs")
@@ -296,94 +284,66 @@ def frontend_chat_stream(request: FrontChatRequest) -> StreamingResponse:
 
     def event_stream():
         try:
-            result = chat.handle_chat(
+            for event in chat.stream_chat(
                 row["project_id"],
                 request.task_id,
                 request.message,
                 knowledge_ids=list(request.knowledge_ids or []),
-            )
+                agent_id=request.agent_id,
+            ):
+                yield _sse(event)
         except Exception as exc:
             yield _sse({
                 "type": "text",
                 "content": f"接口处理失败：{exc}。我没有改动当前项目数据，请稍后重试或换一种问法。",
             })
             yield _sse({
-                "type": "risks",
-                "items": [{"description": "本轮请求没有完成，需人工确认是否重试。", "severity": "medium"}],
+                "type": "agent_state",
+                "item": {
+                    "agent_id": request.agent_id or "",
+                    "agent_name": "",
+                    "runtime_backend": "agentscope-compatible-fallback",
+                    "confidence": "low",
+                    "evidence_notes": ["本轮请求没有完成，需要检查后端日志或重试。"],
+                    "follow_up_questions": [],
+                    "retrieval_mode": "failed",
+                    "retrieval_backend": "",
+                    "gpu_mode": "",
+                    "semantic_error": str(exc),
+                },
             })
             yield _sse({"type": "done"})
-            return
-        reply = result.get("reply", "")
-        if reply:
-            yield _sse({"type": "text", "content": reply})
-        actions = result.get("actions") or []
-        if actions:
-            yield _sse({
-                "type": "checklist",
-                "items": [
-                    {
-                        "condition": item.get("product_name") or item.get("type") or "待处理动作",
-                        "priority": "medium",
-                        "detail": item.get("notes") or item.get("status") or "",
-                    }
-                    for item in actions
-                ],
-            })
-        for event_type, key in (
-            ("recommendations", "recommendations"),
-            ("priority_analysis", "priority_analysis"),
-            ("checklist", "checklist"),
-            ("risks", "risks"),
-            ("clarification", "needs_clarification"),
-        ):
-            items = result.get(key) or []
-            if items:
-                yield _sse({"type": event_type, "items": items})
-        confirmation = result.get("confirmation") or {}
-        if confirmation.get("required") or confirmation.get("status"):
-            yield _sse({"type": "confirmation", "item": confirmation})
-        rag_chunks = result.get("rag_chunks") or []
-        if rag_chunks:
-            yield _sse({"type": "rag_chunks", "items": rag_chunks})
-        yield _sse({"type": "done"})
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
 
 
-@router.get("/products")
-def frontend_products(
-    category_l1: str | None = Query(default=None),
-    search: str | None = Query(default=None),
-) -> dict[str, Any]:
-    products = [_product_for_frontend(item) for item in database.list_catalog_products(search or "", limit=1000)]
-    if category_l1:
-        products = [item for item in products if item["category_l1"] == category_l1]
-    all_products = [_product_for_frontend(item) for item in database.list_catalog_products(limit=1000)]
-    categories = sorted({item["category_l1"] for item in all_products if item["category_l1"]})
-    return {"products": products, "categories": categories, "total": len(products)}
-
-
-@router.post("/products")
-def frontend_add_product(product: dict[str, Any]) -> dict[str, Any]:
-    product_id = database.create_catalog_product(product)
-    item = database.get_catalog_product(product_id)
-    return {"success": True, "product": _product_for_frontend(item)}
-
-
-@router.delete("/products/{sku_id}")
-def frontend_delete_product(sku_id: str) -> dict[str, bool]:
-    matched = next(
-        (item for item in database.list_catalog_products(limit=1000) if item["sku_id"] == sku_id),
-        None,
-    )
-    if not matched:
-        raise HTTPException(status_code=404, detail="SKU 不存在")
-    database.delete_catalog_product(matched["id"])
-    return {"success": True}
+def _ensure_official_knowledge_indexed() -> None:
+    for item in _official_knowledge.values():
+        kb_id = item["id"]
+        if not database.get_knowledge_base(kb_id):
+            database.create_knowledge_base(
+                name=item["name"],
+                description=item["description"],
+                kb_type="official",
+                file_type="txt",
+                index_path=str(kb_store(kb_id).directory),
+                knowledge_id=kb_id,
+            )
+        result = index_text(kb_id, f"{item['name']}.txt", item["content"])
+        database.update_knowledge_base_stats(
+            kb_id,
+            file_count=max(result.files_indexed, 1),
+            chunk_count=result.chunks_total,
+            embedding_backend=result.embedding_backend,
+            index_path=str(kb_store(kb_id).directory),
+            name=item["name"],
+            description=item["description"],
+        )
 
 
 @router.get("/knowledge/official")
 def frontend_official_knowledge() -> list[dict[str, str]]:
+    _ensure_official_knowledge_indexed()
     return [
         {key: item[key] for key in ("id", "name", "type", "description")}
         for item in _official_knowledge.values()
@@ -446,7 +406,7 @@ async def frontend_upload_knowledge(request: Request) -> dict[str, Any]:
     database.update_knowledge_base_stats(knowledge_id, index_path=str(store.directory))
 
     try:
-        result = index_uploaded_bytes(knowledge_id, files_payload)
+        result = ingest_uploaded_bytes(knowledge_id, files_payload)
     except Exception as exc:
         store.destroy()
         database.delete_knowledge_base(knowledge_id)
@@ -467,6 +427,10 @@ async def frontend_upload_knowledge(request: Request) -> dict[str, Any]:
         "chunks_added": result.chunks_added,
         "chunks_total": result.chunks_total,
         "embedding_backend": result.embedding_backend,
+        "rag_backend": result.backend,
+        "rag_architecture": result.architecture,
+        "content_types": list(result.content_types),
+        "raganything_available": result.raganything_available,
         "errors": result.errors,
     }
 
@@ -493,11 +457,6 @@ def _detect_file_type(files: list[tuple[str, bytes]]) -> str:
 def _project_name(project_id: str) -> str:
     project = next((item for item in database.list_projects() if item["id"] == project_id), None)
     return project["name"] if project else "当前项目"
-
-
-def _catalog_by_name() -> dict[str, dict[str, Any]]:
-    products = database.list_catalog_products(limit=1000)
-    return {item["product_name"]: item for item in products}
 
 
 def _normalize_text_item(value: Any) -> str:
@@ -534,56 +493,6 @@ def _collect_metadata(messages: list[dict[str, Any]], key: str) -> list[Any]:
     return collected
 
 
-def _recommendation_reason_map(messages: list[dict[str, Any]]) -> dict[str, str]:
-    reasons: dict[str, str] = {}
-    for item in _collect_metadata(messages, "recommendations"):
-        if not isinstance(item, dict):
-            continue
-        reason = str(item.get("reason") or "").strip()
-        if not reason:
-            continue
-        for key in (item.get("product_name"), item.get("sku_id")):
-            if key:
-                reasons[str(key)] = reason
-    return reasons
-
-
-def _product_reason(product: dict[str, Any] | None, fallback: str = "") -> str:
-    if fallback:
-        return fallback
-    if not product:
-        return "已进入当前项目上架清单，建议按清单状态继续确认。"
-    parts = [
-        f"近90天销量 {int(product.get('last_90d_sales') or 0)}",
-        f"库存 {int(product.get('stock') or 0)}",
-        f"好评率 {float(product.get('review_rate') or 0):.1f}%",
-        f"退货率 {float(product.get('return_rate') or 0):.1f}%",
-    ]
-    if product.get("new_product"):
-        parts.append("新品可承接活动流量")
-    return "，".join(parts)
-
-
-def _attention_for_product(product: dict[str, Any] | None) -> list[str]:
-    if not product:
-        return ["清单商品未匹配到商品库详情，需人工核对 SKU、价格、库存和资质。"]
-    notes: list[str] = []
-    campaigns = product.get("active_campaigns") or []
-    if campaigns:
-        notes.append(f"{product['product_name']} 已有关联活动 {', '.join(campaigns)}，需确认活动互斥规则。")
-    list_price = float(product.get("list_price_rmb") or 0)
-    last_90d_min_price = float(product.get("last_90d_min_price") or 0)
-    if list_price and last_90d_min_price and list_price > last_90d_min_price:
-        notes.append(f"{product['product_name']} 当前价高于近90天最低价，报名价需重新确认价格保护。")
-    if int(product.get("stock") or 0) < 100:
-        notes.append(f"{product['product_name']} 库存偏低，确认后需锁库存或降低活动预期。")
-    if float(product.get("return_rate") or 0) >= 3:
-        notes.append(f"{product['product_name']} 退货率偏高，需复核详情页描述和售后风险。")
-    if not product.get("certificate_ids"):
-        notes.append(f"{product['product_name']} 缺少证书编号，需补齐质检或材质证明。")
-    return notes
-
-
 def _summary_from_messages(
     messages: list[dict[str, Any]],
     project_id: str | None = None,
@@ -591,94 +500,33 @@ def _summary_from_messages(
 ) -> dict[str, Any]:
     user_messages = [item["content"] for item in messages if item["role"] == "user"]
     summary_title = title or (user_messages[-1][:30] if user_messages else "暂无对话")
-    listing_items = database.list_listing_items(project_id) if project_id else []
-    catalog = _catalog_by_name()
-    reason_map = _recommendation_reason_map(messages)
-    recommendations_from_messages = [
-        item for item in _collect_metadata(messages, "recommendations")
+    _ = project_id
+    assistant_messages = [item for item in messages if item["role"] in {"assistant", "agent"}]
+    evidence_notes = _unique_text([_normalize_text_item(item) for item in _collect_metadata(messages, "evidence_notes")])
+    follow_up_questions = _unique_text([_normalize_text_item(item) for item in _collect_metadata(messages, "follow_up_questions")])
+    rag_sources = _collect_metadata(messages, "rag_chunks")
+    agents = _unique_text([
+        str((message.get("metadata") or {}).get("agent_name") or "").strip()
+        for message in assistant_messages
+        if (message.get("metadata") or {}).get("agent_name")
+    ])
+    source_preview = [
+        {
+            "source_file": str(item.get("source_file") or ""),
+            "kb_id": str(item.get("kb_id") or ""),
+            "snippet": str(item.get("snippet") or ""),
+        }
+        for item in rag_sources
         if isinstance(item, dict)
-    ]
+    ][:8]
 
-    final_selection: list[dict[str, Any]] = []
-    for item in listing_items:
-        product = catalog.get(item["product_name"])
-        reason = _product_reason(
-            product,
-            item.get("notes") or reason_map.get(item["product_name"]) or (reason_map.get(product["sku_id"]) if product else ""),
-        )
-        final_selection.append({
-            "sku_id": product.get("sku_id", "") if product else "",
-            "product_name": item["product_name"],
-            "status": item.get("status", ""),
-            "category": " / ".join(part for part in [product.get("category_l1"), product.get("category_l2")] if part) if product else "",
-            "reason": reason,
-            "key_metrics": {
-                "stock": product.get("stock") if product else None,
-                "last_90d_sales": product.get("last_90d_sales") if product else None,
-                "review_rate": product.get("review_rate") if product else None,
-                "return_rate": product.get("return_rate") if product else None,
-            },
-        })
-
-    if not final_selection:
-        for item in recommendations_from_messages[:5]:
-            final_selection.append({
-                "sku_id": item.get("sku_id", ""),
-                "product_name": item.get("product_name") or item.get("item") or "未命名推荐",
-                "status": "待确认",
-                "category": "",
-                "reason": item.get("reason") or "来自对话推荐，尚未确认进入上架清单。",
-                "key_metrics": {},
-            })
-
-    attention_items = []
-    for item in final_selection:
-        product = catalog.get(item["product_name"])
-        attention_items.extend(_attention_for_product(product))
-    attention_items.extend(_normalize_text_item(item) for item in _collect_metadata(messages, "needs_clarification"))
-    attention_items.extend(_normalize_text_item(item) for item in _collect_metadata(messages, "risks"))
-
-    checks = [
-        {"name": _normalize_text_item(item), "status": "待确认"}
-        for item in _collect_metadata(messages, "checklist")
-        if _normalize_text_item(item)
-    ]
-    if listing_items:
-        checks.insert(0, {"name": "确认后的上架清单", "status": f"已记录 {len(listing_items)} 个商品"})
-    if not checks and messages:
-        checks.append({"name": "对话记录", "status": "已保存"})
-
-    recommendations = [
-        {"item": item["product_name"], "reason": item["reason"]}
-        for item in final_selection
-    ]
-    rule_points = _unique_text([
-        *_normalize_priority_items(_collect_metadata(messages, "priority_analysis")),
-        "最终选品需同时复核库存、历史最低价、活动互斥和资质证书。",
-    ] if final_selection else [_normalize_text_item(item) for item in _collect_metadata(messages, "priority_analysis")])
-    risks = _unique_text([_normalize_text_item(item) for item in _collect_metadata(messages, "risks")])
     return {
         "title": summary_title,
-        "overview": (
-            f"已形成 {len(final_selection)} 个最终选品，确认清单中有 {len(listing_items)} 个商品。"
-            if final_selection else "暂无可汇总的最终选品。"
-        ),
-        "rule_points": rule_points,
-        "recommendations": recommendations,
-        "final_selection": final_selection,
-        "selection_reasons": [item["reason"] for item in final_selection],
-        "attention_items": _unique_text(attention_items),
-        "confirmed_listing": [
-            {
-                "product_name": item["product_name"],
-                "status": item.get("status", ""),
-                "notes": item.get("notes", ""),
-                "sku_id": catalog.get(item["product_name"], {}).get("sku_id", ""),
-            }
-            for item in listing_items
-        ],
-        "checks": checks[:10],
-        "risks": risks,
+        "overview": f"共沉淀 {len(user_messages)} 个用户问题，{len(assistant_messages)} 条 Agent 回复，{len(rag_sources)} 条引用片段。",
+        "agents": agents,
+        "evidence_notes": evidence_notes,
+        "follow_up_questions": follow_up_questions,
+        "rag_sources": source_preview,
     }
 
 

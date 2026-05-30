@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import logging
+from dataclasses import dataclass, field
 from typing import Iterable
 
 from agent.rag.bm25 import BM25State, build_bm25, search_bm25
-from agent.rag.config import RAG_DISABLED, hash_fallback_allowed
-from agent.rag.embedder import HASH_BACKEND, SemanticEmbeddingUnavailable, current_backend, embed_query, is_hash_fallback
+from agent.rag.config import RAG_DISABLED, gpu_mode, gpu_required, hash_fallback_allowed
+from agent.rag.embedder import HASH_BACKEND, SemanticEmbeddingUnavailable, current_backend, embed_query
 from agent.rag.store import KBStore, kb_store
 from agent.rag.tokenizer import tokenize_query
 
@@ -25,6 +26,29 @@ RRF_FLOOR = 0.012
 # are merged into one (keep the one with the higher fused score).
 DEDUP_OVERLAP_RATIO = 0.5
 MAX_QUERY_VARIANTS = 3
+BM25_ONLY_BACKEND = "bm25-only"
+
+
+@dataclass
+class RetrievalDiagnostics:
+    mode: str = "none"
+    backend: str = ""
+    gpu_mode: str = "auto"
+    semantic_error: str | None = None
+    notices: list[str] = field(default_factory=list)
+
+    def to_dict(self) -> dict:
+        return {
+            "retrieval_mode": self.mode,
+            "retrieval_backend": self.backend,
+            "gpu_mode": self.gpu_mode,
+            "semantic_error": self.semantic_error,
+            "retrieval_notices": list(self.notices),
+        }
+
+
+def is_hash_fallback() -> bool:
+    return current_backend() == HASH_BACKEND
 
 
 def _normalize_kb_ids(knowledge_ids: Iterable[str]) -> list[str]:
@@ -149,11 +173,15 @@ def _bm25_candidates_for_variants(state: BM25State | None, variants: list[str], 
 
 
 def _index_backend_is_compatible(store: KBStore, query_backend: str) -> bool:
+    if not query_backend or query_backend == BM25_ONLY_BACKEND:
+        return False
     if query_backend == HASH_BACKEND:
         return hash_fallback_allowed()
     stored_backend = str(store.load_meta().get("embedding_backend") or "")
     if not stored_backend:
         return True
+    if stored_backend in {BM25_ONLY_BACKEND, "empty"}:
+        return False
     return stored_backend == query_backend
 
 
@@ -227,40 +255,71 @@ def _dedupe(records: list[dict]) -> list[dict]:
     return kept
 
 
-def retrieve(query: str, knowledge_ids: list[str], top_k: int = GLOBAL_TOP_K) -> list[dict]:
+def _query_embedding(query: str) -> tuple[list[float], str, str | None]:
+    try:
+        vector, backend = embed_query(query)
+        return vector, backend, None
+    except SemanticEmbeddingUnavailable as exc:
+        if gpu_required():
+            raise
+        return [], BM25_ONLY_BACKEND, str(exc)
+
+
+def retrieve_with_diagnostics(
+    query: str,
+    knowledge_ids: list[str],
+    top_k: int = GLOBAL_TOP_K,
+) -> tuple[list[dict], dict]:
+    diagnostics = RetrievalDiagnostics(gpu_mode=gpu_mode())
     if RAG_DISABLED:
-        return []
+        diagnostics.mode = "disabled"
+        diagnostics.backend = "disabled"
+        diagnostics.notices.append("RAG is disabled.")
+        return [], diagnostics.to_dict()
     if not query or not query.strip():
-        return []
+        diagnostics.mode = "empty-query"
+        diagnostics.backend = current_backend()
+        return [], diagnostics.to_dict()
     ids = _normalize_kb_ids(knowledge_ids)
     if not ids:
-        return []
+        diagnostics.mode = "no-knowledge-selected"
+        diagnostics.backend = current_backend()
+        return [], diagnostics.to_dict()
 
-    # Always run semantic dense retrieval plus BM25 and let RRF fuse them.
-    # Hash vectors are allowed only for explicit local debugging, never as an
-    # implicit production bypass of semantic retrieval.
-    hash_mode = is_hash_fallback()
+    query_vector, query_backend, semantic_error = _query_embedding(query)
+    diagnostics.backend = query_backend
+    diagnostics.semantic_error = semantic_error
+    if semantic_error:
+        diagnostics.notices.append("语义检索不可用，已降级到本地 BM25 检索。")
+
+    hash_mode = query_backend == HASH_BACKEND
     if hash_mode and not hash_fallback_allowed():
         raise SemanticEmbeddingUnavailable("Semantic RAG retrieval is required; hash fallback is disabled.")
-    query_vector, query_backend = embed_query(query)
 
     all_records: list[dict] = []
+    used_dense = False
+    used_bm25 = False
     for kb_id in ids:
         store = kb_store(kb_id)
         chunks = store.load_chunks()
         if not chunks:
             continue
-        if not _index_backend_is_compatible(store, query_backend):
+        dense_compatible = bool(query_vector) and _index_backend_is_compatible(store, query_backend)
+        if query_vector and not dense_compatible:
             stored_backend = store.load_meta().get("embedding_backend") or "unknown"
-            raise SemanticEmbeddingUnavailable(
+            message = (
                 f"Knowledge base {kb_id} was indexed with {stored_backend}, "
-                f"but the active semantic backend is {query_backend}. Rebuild the index with "
-                "`python scripts/build_rag_index.py --rebuild-all`."
+                f"but the active semantic backend is {query_backend}; dense retrieval was skipped for this KB."
             )
+            if gpu_required():
+                raise SemanticEmbeddingUnavailable(
+                    f"{message} Rebuild the index with `python scripts/build_rag_index.py --rebuild-all`."
+                )
+            diagnostics.notices.append(message)
         variants = _query_variants(query)
         bm25_state = _ensure_bm25(store, chunks)
         bm25 = _bm25_candidates_for_variants(bm25_state, variants, PER_KB_BM25_K)
-        dense_raw = _dense_candidates(store, query_vector, PER_KB_DENSE_K) if query_vector else []
+        dense_raw = _dense_candidates(store, query_vector, PER_KB_DENSE_K) if dense_compatible else []
         if hash_mode:
             # Hash dense vectors are not semantically trustworthy. They must
             # not affect ranking because even weak BM25 matches can otherwise
@@ -268,26 +327,50 @@ def retrieve(query: str, knowledge_ids: list[str], top_k: int = GLOBAL_TOP_K) ->
             dense = []
         else:
             dense = dense_raw
+        used_dense = used_dense or bool(dense)
+        used_bm25 = used_bm25 or bool(bm25)
         if not dense and not bm25:
             continue
-        all_records.extend(_fuse_per_kb(kb_id, chunks, dense, bm25))
+        records = _fuse_per_kb(kb_id, chunks, dense, bm25)
+        all_records.extend(records)
 
     if not all_records:
         logger.info(
             "RAG retrieval returned no hits (backend=%s, kbs=%s, query_len=%d).",
             current_backend(), ids, len(query),
         )
-        return []
+        diagnostics.mode = "no-hit"
+        return [], diagnostics.to_dict()
 
     deduped = _dedupe(all_records)
     deduped = [r for r in deduped if float(r.get("rrf_score") or 0.0) >= RRF_FLOOR]
     deduped.sort(key=lambda item: float(item.get("rrf_score") or 0.0), reverse=True)
-    return deduped[:top_k]
+    if used_dense and used_bm25:
+        diagnostics.mode = "hybrid"
+    elif used_dense:
+        diagnostics.mode = "dense"
+    elif used_bm25:
+        diagnostics.mode = "bm25-only"
+    else:
+        diagnostics.mode = "no-hit"
+    for record in deduped:
+        record["retrieval_mode"] = diagnostics.mode
+        record["retrieval_backend"] = diagnostics.backend
+        record["gpu_mode"] = diagnostics.gpu_mode
+        if diagnostics.semantic_error:
+            record["semantic_error"] = diagnostics.semantic_error
+    return deduped[:top_k], diagnostics.to_dict()
+
+
+def retrieve(query: str, knowledge_ids: list[str], top_k: int = GLOBAL_TOP_K) -> list[dict]:
+    records, _diagnostics = retrieve_with_diagnostics(query, knowledge_ids, top_k=top_k)
+    return records
 
 
 def retrieve_safe(query: str, knowledge_ids: list[str], top_k: int = GLOBAL_TOP_K) -> list[dict]:
     try:
-        return retrieve(query, knowledge_ids, top_k=top_k)
+        records, _diagnostics = retrieve_with_diagnostics(query, knowledge_ids, top_k=top_k)
+        return records
     except SemanticEmbeddingUnavailable:
         raise
     except Exception as exc:

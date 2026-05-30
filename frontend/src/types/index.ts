@@ -5,15 +5,19 @@ export interface Message {
   content: string;
   timestamp: string;
   metadata?: {
-    checklist?: CheckListItem[];
-    risks?: RiskItem[];
-    needs_clarification?: string[];
-    recommendations?: RecommendationItem[];
-    priority_analysis?: string[];
-    confirmation?: ConfirmationRequest;
     rag_chunks?: RagChunk[];
     knowledge_ids?: string[];
-    task_summary?: TaskSummary;
+    agent_id?: string;
+    agent_name?: string;
+    runtime_backend?: string;
+    confidence?: 'high' | 'medium' | 'low' | string;
+    evidence_notes?: string[];
+    follow_up_questions?: string[];
+    timings_ms?: Record<string, number>;
+    retrieval_mode?: string;
+    retrieval_backend?: string;
+    gpu_mode?: string;
+    semantic_error?: string;
   };
 }
 
@@ -25,48 +29,6 @@ export interface RagChunk {
   bm25_score?: number | null;
   rrf_score?: number | null;
   snippet: string;
-}
-
-export interface CheckListItem {
-  condition: string;
-  priority: 'high' | 'medium' | 'low';
-  detail?: string;
-  checked?: boolean;
-}
-
-export interface RiskItem {
-  description: string;
-  severity: 'high' | 'medium';
-}
-
-export interface RecommendationItem {
-  sku_id: string;
-  product_name: string;
-  priority: 'high' | 'medium' | 'low';
-  score: number;
-  reason: string;
-}
-
-export interface TaskSummaryItem {
-  product_name: string;
-  status: string;
-  notes: string;
-  sku_id: string;
-  category: string;
-}
-
-export interface TaskSummary {
-  items: TaskSummaryItem[];
-  total: number;
-}
-
-export interface ConfirmationRequest {
-  required?: boolean;
-  status?: 'confirmed' | 'cancelled' | string;
-  question?: string;
-  confirm_label?: string;
-  revise_label?: string;
-  recommended_skus?: string[];
 }
 
 export interface HistoryItem {
@@ -93,11 +55,27 @@ export interface KnowledgeItem {
   file_type?: string;
 }
 
+export interface AgentSpec {
+  id: string;
+  name: string;
+  scenario: string;
+  description: string;
+  capabilities: string[];
+  suggested_knowledge: string[];
+  tools: string[];
+  output_modes: string[];
+  risk_controls: string[];
+  orchestration_goal?: string;
+  response_style?: string;
+}
+
+export type AgentLibraryItem = AgentSpec;
+
 export interface StreamEvent {
-  type: 'text' | 'checklist' | 'risks' | 'clarification' | 'recommendations' | 'priority_analysis' | 'confirmation' | 'rag_chunks' | 'done';
+  type: 'text' | 'rag_chunks' | 'agent_state' | 'done';
   content?: string;
-  items?: CheckListItem[] | RiskItem[] | RecommendationItem[] | RagChunk[] | string[];
-  item?: ConfirmationRequest;
+  items?: RagChunk[];
+  item?: Record<string, unknown>;
 }
 
 export interface ProjectItem {
@@ -128,6 +106,8 @@ export interface AppState {
   projects: ProjectItem[];
   knowledgeList: KnowledgeItem[];
   selectedKnowledge: string[];
+  agentList: AgentLibraryItem[];
+  selectedAgentId: string;
   isLoading: boolean;
   streamingText: string;
   isSidebarOpen: boolean;

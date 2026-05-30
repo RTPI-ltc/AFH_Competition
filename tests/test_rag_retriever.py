@@ -33,8 +33,8 @@ def test_hash_fallback_dense_noise_cannot_create_standalone_hit(tmp_path, monkey
 
     store = kb_store("kb_hash_noise")
     _write_chunks(store, [
-        {"chunk_id": "noise", "text": "钻石戒指保养和日常清洁说明。"},
-        {"chunk_id": "target", "text": "平台活动互斥规则：已参加品牌日的商品不可重复报名。"},
+        {"chunk_id": "noise", "text": "课程阅读材料的排版和字体说明。"},
+        {"chunk_id": "target", "text": "赛事提交规则：团队必须提交项目说明文档、可运行 Demo 和演示视频。"},
     ])
     chunks = store.load_chunks()
     store.save_bm25(build_bm25(chunks).to_dict())
@@ -43,7 +43,7 @@ def test_hash_fallback_dense_noise_cannot_create_standalone_hit(tmp_path, monkey
     monkeypatch.setattr(retriever, "embed_query", lambda _query: ([1.0], "hash-fallback"))
     monkeypatch.setattr(retriever, "_dense_candidates", lambda *_args, **_kwargs: [(0, 0.99)])
 
-    hits = retriever.retrieve("品牌日商品能不能重复报名", ["kb_hash_noise"], top_k=3)
+    hits = retriever.retrieve("赛事需要提交哪些材料", ["kb_hash_noise"], top_k=3)
 
     assert hits
     assert hits[0]["chunk_id"] == "target"
@@ -60,7 +60,7 @@ def test_hash_fallback_returns_empty_when_only_dense_has_noise(tmp_path, monkeyp
 
     store = kb_store("kb_dense_only")
     _write_chunks(store, [
-        {"chunk_id": "noise", "text": "珍珠项链佩戴说明。"},
+        {"chunk_id": "noise", "text": "校园咖啡馆营业时间和座位预约说明。"},
     ])
     chunks = store.load_chunks()
     store.save_bm25(build_bm25(chunks).to_dict())
@@ -69,7 +69,7 @@ def test_hash_fallback_returns_empty_when_only_dense_has_noise(tmp_path, monkeyp
     monkeypatch.setattr(retriever, "embed_query", lambda _query: ([1.0], "hash-fallback"))
     monkeypatch.setattr(retriever, "_dense_candidates", lambda *_args, **_kwargs: [(0, 0.99)])
 
-    assert retriever.retrieve("品牌日重复报名", ["kb_dense_only"], top_k=3) == []
+    assert retriever.retrieve("赛事提交材料", ["kb_dense_only"], top_k=3) == []
 
 
 def test_stale_bm25_is_rebuilt_before_search(tmp_path, monkeypatch):
@@ -81,17 +81,17 @@ def test_stale_bm25_is_rebuilt_before_search(tmp_path, monkeypatch):
     from agent.rag.store import kb_store
 
     store = kb_store("kb_stale")
-    stale_chunks = [{"chunk_id": "old", "text": "旧内容 品牌日", "source_file": "old.md", "char_start": 0, "char_end": 6, "file_hash": "x", "metadata": {}}]
+    stale_chunks = [{"chunk_id": "old", "text": "旧内容 课程", "source_file": "old.md", "char_start": 0, "char_end": 6, "file_hash": "x", "metadata": {}}]
     store.save_bm25(build_bm25(stale_chunks).to_dict())
     _write_chunks(store, [
-        {"chunk_id": "new", "text": "新规则：活动价不得高于近30天最低价。"},
+        {"chunk_id": "new", "text": "新规则：课程复习提纲应覆盖核心概念、关键案例和常见误区。"},
     ])
 
     monkeypatch.setattr(retriever, "is_hash_fallback", lambda: True)
     monkeypatch.setattr(retriever, "embed_query", lambda _query: ([1.0], "hash-fallback"))
     monkeypatch.setattr(retriever, "_dense_candidates", lambda *_args, **_kwargs: [])
 
-    hits = retriever.retrieve("活动价 高于 近30天最低价", ["kb_stale"], top_k=3)
+    hits = retriever.retrieve("课程复习提纲 核心概念 常见误区", ["kb_stale"], top_k=3)
 
     assert hits
     assert hits[0]["chunk_id"] == "new"
@@ -102,6 +102,7 @@ def test_stale_bm25_is_rebuilt_before_search(tmp_path, monkeypatch):
 
 def test_semantic_retrieval_rejects_hash_index(tmp_path, monkeypatch):
     monkeypatch.setenv("AFH_RAG_ROOT", str(tmp_path / "rag"))
+    monkeypatch.setenv("AFH_GPU_MODE", "required")
     monkeypatch.delenv("AFH_ALLOW_HASH_RAG_FALLBACK", raising=False)
 
     from agent.rag import retriever
@@ -110,7 +111,7 @@ def test_semantic_retrieval_rejects_hash_index(tmp_path, monkeypatch):
 
     store = kb_store("kb_hash_index")
     _write_chunks(store, [
-        {"chunk_id": "old", "text": "活动互斥规则：品牌日商品不可重复报名。"},
+        {"chunk_id": "old", "text": "课程资料范围外的问题需要提示证据不足。"},
     ])
     store.save_meta({"embedding_backend": "hash-fallback"})
 
@@ -122,4 +123,4 @@ def test_semantic_retrieval_rejects_hash_index(tmp_path, monkeypatch):
     )
 
     with pytest.raises(SemanticEmbeddingUnavailable):
-        retriever.retrieve("品牌日能否重复报名", ["kb_hash_index"], top_k=3)
+        retriever.retrieve("课程范围外问题如何处理", ["kb_hash_index"], top_k=3)

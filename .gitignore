@@ -8,4 +8,6 @@ venv/
 *.log
 data/*.db
 data/*.db-*
+data/hf_cache/
+data/rag_index/
 data/risk_events/

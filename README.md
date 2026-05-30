@@ -1,65 +1,44 @@
-# Aurelius Agent
+# Knowledge Base Agent
 
-Aurelius Agent is an execution assistant for e-commerce campaign operations. It turns campaign rules, SKU data, knowledge bases, and project conversations into a clear operating workspace for selection, verification, risk review, and final listing decisions.
+Knowledge Base Agent is a runnable MVP for a trustworthy, task-oriented knowledge service platform. It turns scattered documents, course materials, event rules, and project files into searchable knowledge bases with cited answers, review prompts, and reusable Agent workflows.
 
-The product is built for merchants and operations teams who need to move quickly without losing control of pricing rules, inventory constraints, campaign conflicts, or compliance checks.
+The current product keeps three primary modules:
 
-## What It Does
+- Knowledge Base: upload text and files, build local RAG indexes, select sources for retrieval.
+- Agent Library: start scenario agents for hackathon support, course tutoring, project application checks, enterprise knowledge, and evidence review.
+- API Configuration: manage OpenAI-compatible model providers and fail over by priority.
 
-- Chat with an assistant around the current project and campaign context.
-- Maintain projects, tasks, conversation history, and final listing candidates.
-- Import official and personal knowledge bases for retrieval-augmented answers.
-- Manage a local SKU catalog with price, stock, sales, return rate, certification, and campaign metadata.
-- Review product recommendations with checklist items, risks, and human confirmation prompts.
-- Configure multiple OpenAI-compatible LLM providers and fail over automatically by priority.
-- Keep deterministic fallback behavior available when no model key is configured.
+## MVP Focus
 
-## Product Highlights
+The MVP is designed around two landing scenarios:
 
-### Operations Workspace
+- AIRS hackathon knowledge assistant: rules Q&A, task background explanation, submission material checks, judging criteria explanation, FAQ reuse, and organizer-side question analysis.
+- General course AI teaching assistant: course Q&A, concept explanation, practice question generation, revision guidance, out-of-scope warnings, and teacher-side weak-point analysis.
 
-Aurelius Agent gives each campaign a working surface for rules, conversations, SKU decisions, and historical summaries. Operators can start a task, ask questions, confirm candidate products, and keep the listing plan visible across the project.
+## Core Flow
 
-### Knowledge-Backed Chat
-
-The assistant can use official campaign rules and user-uploaded knowledge bases. Uploaded text, documents, spreadsheets, presentations, images, audio, and video metadata are indexed or preserved so the product can support richer retrieval workflows.
-
-### SKU Verification
-
-The SKU catalog stores structured product information including price history, stock, 90-day sales, review rate, return rate, active campaigns, certificates, factories, and lead times. This lets the assistant ground recommendations in operational facts instead of free-form guesses.
-
-### Risk Control
-
-The system checks for absolute marketing claims, price inconsistencies, risky product conditions, missing certificates, campaign conflicts, and high-risk actions. When a decision needs review, the UI surfaces it instead of hiding the uncertainty.
-
-### API Key Failover
-
-The API configuration page supports multiple OpenAI-compatible model configurations. Chat calls try enabled configs in ascending sort order, record status, and automatically continue to the next available config when one fails.
+```text
+Upload sources -> multimodal parse -> RAG-Anything retrieval -> Agent answer/task output -> citations -> low-confidence or human-review prompts
+```
 
 ## Tech Stack
 
 - Frontend: React 19, TypeScript, Vite, Tailwind CSS, lucide-react
-- Backend: FastAPI, Pydantic, LangGraph
+- Backend: FastAPI, Pydantic, AgentScope-oriented Agent runtime
 - Storage: SQLite
+- Retrieval: RAG-Anything-oriented multimodal RAG with local BM25/embedding fallback
 - LLM: OpenAI-compatible chat completions
-- Retrieval: local BM25 with optional sentence-transformers semantic embeddings
-- Legacy demo UI: Streamlit remains available in `ui/app.py`
 
 ## Quick Start
 
-### Backend
+Backend:
 
 ```powershell
 pip install -r requirements.txt
 uvicorn api.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-Backend endpoints:
-
-- Health: http://127.0.0.1:8000/api/health
-- API docs: http://127.0.0.1:8000/docs
-
-### Frontend
+Frontend:
 
 ```powershell
 cd frontend
@@ -69,68 +48,58 @@ npm run dev -- --host 127.0.0.1 --port 5173
 
 Open the React app at http://127.0.0.1:5173.
 
-## Model Configuration
-
-You can configure model access in either place:
-
-- In the React app, open `API 配置` and add one or more OpenAI-compatible providers.
-- Or create `.env` from `.env.example` and set provider environment variables.
-
-Aliyun DashScope Qwen example:
-
-```text
-LLM_PROVIDER=aliyun
-LLM_MODEL=qwen-plus
-LLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
-DASHSCOPE_API_KEY=your-api-key
-```
-
-If no model is available, deterministic fallback logic keeps the demo usable for local review.
-
 ## Retrieval Mode
 
-The current local demo defaults are optimized to boot reliably in lightweight environments. If `sentence-transformers` is missing, RAG can fall back to hash vectors plus BM25 instead of blocking the backend startup.
+The architecture targets RAG-Anything for multimodal document parsing and retrieval. The local demo always keeps a BM25 text index, so the MVP can answer with local retrieval even when the GPU host is unavailable.
 
-Local demo defaults:
+GPU routing is controlled by `AFH_GPU_MODE`:
 
 ```text
-AFH_ALLOW_HASH_RAG_FALLBACK=1
+AFH_GPU_MODE=auto      # prefer GPU semantic embedding, fall back to local BM25
+AFH_GPU_MODE=off       # never call GPU; build/query BM25-only local indexes
+AFH_GPU_MODE=required  # fail loudly if GPU semantic embedding is unavailable
+```
+
+Useful defaults for local MVP work:
+
+```text
+AFH_GPU_MODE=auto
+AFH_ALLOW_HASH_RAG_FALLBACK=0
 AFH_RAG_PRELOAD=0
 ```
 
-For semantic-only deployment, install dependencies from `requirements.txt`, enable preload, and disable hash fallback:
+By default the app will not download embedding models inside a live chat request. That avoids a long first-response delay if HuggingFace is slow or blocked. To explicitly allow a one-time local model download, set:
 
 ```text
-AFH_ALLOW_HASH_RAG_FALLBACK=0
-AFH_RAG_PRELOAD=1
+AFH_RAG_ALLOW_MODEL_DOWNLOAD=1
 ```
 
-That mode preloads the default embedding model (`BAAI/bge-small-zh-v1.5`) when FastAPI starts and fails fast if semantic retrieval cannot be initialized.
+For a no-sudo GPU host, run the user-space embedding worker on the remote machine and point the local RAG stack to it:
 
-If existing indexes were built with `hash-fallback`, rebuild them after deployment:
+```bash
+bash scripts/start_gpu_embedding_worker.sh
+```
+
+```text
+AFH_RAG_EMBEDDING_URL=http://127.0.0.1:8010/embed
+AFH_RAG_EMBEDDING_TIMEOUT=8
+AFH_GPU_CIRCUIT_BREAKER_SECONDS=60
+AFH_ALLOW_HASH_RAG_FALLBACK=0
+```
+
+When the worker is on another host, use an SSH tunnel or a private network route rather than exposing the worker publicly. If the worker cannot be reached in `auto` mode, the circuit breaker opens briefly and retrieval falls back to local BM25; `required` mode is the only mode that treats this as a hard failure.
+
+Runtime status is available at:
+
+```text
+GET /api/runtime/status
+```
+
+Rebuild indexes after changing embedding backend:
 
 ```powershell
 python scripts/build_rag_index.py --rebuild-all
 ```
-
-## Core API Surface
-
-The React frontend uses the `/api` prefix:
-
-- `GET /api/projects`
-- `POST /api/projects?name=...`
-- `POST /api/task/new?project_id=...`
-- `GET /api/history?project_id=...`
-- `POST /api/chat/stream`
-- `GET /api/products`
-- `POST /api/products`
-- `GET /api/knowledge/official`
-- `GET /api/knowledge/personal`
-- `POST /api/knowledge/upload`
-- `GET /api/llm/configs`
-- `POST /api/llm/configs`
-- `PUT /api/llm/configs/{config_id}`
-- `DELETE /api/llm/configs/{config_id}`
 
 ## Validation
 
@@ -150,7 +119,7 @@ npm run build
 ## Repository Layout
 
 ```text
-agent/       Agent logic, LLM adapter, RAG, risk control, and LangGraph nodes
+agent/       Agent logic, LLM adapter, RAG, and AgentScope-oriented runtime
 api/         FastAPI backend and React-compatible API routes
 frontend/    React application
 sdk/         TypeScript SDK
@@ -159,9 +128,3 @@ tests/       Backend tests
 ui/          Legacy Streamlit UI
 data/        Local indexes and ignored runtime data
 ```
-
-## Notes
-
-- `.env`, local databases, logs, caches, `node_modules`, and frontend build output are ignored.
-- Runtime data is stored locally under `data/` by default.
-- The product is designed as a runnable local demo for campaign execution assistance, with clear paths to production hardening around authentication, deployment, observability, and managed storage.
